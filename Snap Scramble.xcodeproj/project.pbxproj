@@ -1,0 +1,837 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6A112AAD1B5DFB0D0035A75C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AAC1B5DFB0D0035A75C /* main.m */; };
+		6A112AB01B5DFB0D0035A75C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */; };
+		6A112AB61B5DFB0D0035A75C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A112AB41B5DFB0D0035A75C /* Main.storyboard */; };
+		6A112ABB1B5DFB0D0035A75C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */; };
+		6A112AC71B5DFB0D0035A75C /* Snap_ScrambleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AC61B5DFB0D0035A75C /* Snap_ScrambleTests.m */; };
+		6A112AD81B5E02450035A75C /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AD71B5E02450035A75C /* SignupViewController.m */; };
+		6A112ADB1B5E02570035A75C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112ADA1B5E02570035A75C /* HomeViewController.m */; };
+		6A112ADE1B5E02640035A75C /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112ADD1B5E02640035A75C /* ChallengeViewController.m */; };
+		6A112AE11B5E026E0035A75C /* CreatePuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE01B5E026E0035A75C /* CreatePuzzleViewController.m */; };
+		6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE31B5E02780035A75C /* PreviewPuzzleViewController.m */; };
+		6A112AE71B5E02870035A75C /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE61B5E02870035A75C /* GameViewController.m */; };
+		6A15C9211B675FB800DD46E3 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A15C9201B675FB800DD46E3 /* GameOverViewController.m */; };
+		6A4EAF4392F92044A05101DC /* Pods_Snap_Scramble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15078B1E8CC671A35F71F15B /* Pods_Snap_Scramble.framework */; };
+		6A62D55E1B5E1C9400AC638E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */; };
+		6AB4F4A71C6058190082EF42 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6AB4F4701C6058190082EF42 /* .gitignore */; };
+		6AB4F4A81C6058190082EF42 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6AB4F4711C6058190082EF42 /* LICENSE */; };
+		6AB4F4A91C6058190082EF42 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4721C6058190082EF42 /* README.md */; };
+		6AB4F4AA1C6058190082EF42 /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4741C6058190082EF42 /* AsyncButton.swift */; };
+		6AB4F4AB1C6058190082EF42 /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4751C6058190082EF42 /* AsyncImageView.swift */; };
+		6AB4F4AC1C6058190082EF42 /* AutoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4761C6058190082EF42 /* AutoTextView.swift */; };
+		6AB4F4AD1C6058190082EF42 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4771C6058190082EF42 /* BlurView.swift */; };
+		6AB4F4AE1C6058190082EF42 /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4781C6058190082EF42 /* DesignableButton.swift */; };
+		6AB4F4AF1C6058190082EF42 /* DesignableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4791C6058190082EF42 /* DesignableImageView.swift */; };
+		6AB4F4B01C6058190082EF42 /* DesignableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F47A1C6058190082EF42 /* DesignableLabel.swift */; };
+		6AB4F4B11C6058190082EF42 /* DesignableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F47B1C6058190082EF42 /* DesignableTabBarController.swift */; };
+		6AB4F4B21C6058190082EF42 /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F47C1C6058190082EF42 /* DesignableTextField.swift */; };
+		6AB4F4B31C6058190082EF42 /* DesignableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F47D1C6058190082EF42 /* DesignableTextView.swift */; };
+		6AB4F4B41C6058190082EF42 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F47E1C6058190082EF42 /* DesignableView.swift */; };
+		6AB4F4B51C6058190082EF42 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F47F1C6058190082EF42 /* ImageLoader.swift */; };
+		6AB4F4B61C6058190082EF42 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AB4F4801C6058190082EF42 /* Info.plist */; };
+		6AB4F4B71C6058190082EF42 /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4811C6058190082EF42 /* KeyboardLayoutConstraint.swift */; };
+		6AB4F4B81C6058190082EF42 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4821C6058190082EF42 /* LoadingView.swift */; };
+		6AB4F4B91C6058190082EF42 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AB4F4831C6058190082EF42 /* LoadingView.xib */; };
+		6AB4F4BA1C6058190082EF42 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4841C6058190082EF42 /* Misc.swift */; };
+		6AB4F4BB1C6058190082EF42 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4851C6058190082EF42 /* SoundPlayer.swift */; };
+		6AB4F4BC1C6058190082EF42 /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4871C6058190082EF42 /* Spring.swift */; };
+		6AB4F4BD1C6058190082EF42 /* SpringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4881C6058190082EF42 /* SpringAnimation.swift */; };
+		6AB4F4BE1C6058190082EF42 /* SpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4891C6058190082EF42 /* SpringButton.swift */; };
+		6AB4F4BF1C6058190082EF42 /* SpringImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F48A1C6058190082EF42 /* SpringImageView.swift */; };
+		6AB4F4C01C6058190082EF42 /* SpringLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F48B1C6058190082EF42 /* SpringLabel.swift */; };
+		6AB4F4C11C6058190082EF42 /* SpringTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F48C1C6058190082EF42 /* SpringTextField.swift */; };
+		6AB4F4C21C6058190082EF42 /* SpringTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F48D1C6058190082EF42 /* SpringTextView.swift */; };
+		6AB4F4C31C6058190082EF42 /* SpringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F48E1C6058190082EF42 /* SpringView.swift */; };
+		6AB4F4C41C6058190082EF42 /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F48F1C6058190082EF42 /* TransitionManager.swift */; };
+		6AB4F4C51C6058190082EF42 /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4901C6058190082EF42 /* TransitionZoom.swift */; };
+		6AB4F4C61C6058190082EF42 /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4F4911C6058190082EF42 /* UnwindSegue.swift */; };
+		6AB4F4C71C6058190082EF42 /* Spring.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6AB4F4921C6058190082EF42 /* Spring.podspec */; };
+		6AB628941C8ACE6200D68261 /* StartPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB628931C8ACE6100D68261 /* StartPuzzleViewController.m */; };
+		6AB628981C8B8A5000D68261 /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB628971C8B8A5000D68261 /* FriendsTableViewController.m */; };
+		6AB6289B1C8BA32700D68261 /* UserSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB6289A1C8BA32600D68261 /* UserSelectionViewController.m */; };
+		6AB6289E1C8C1E5900D68261 /* EditFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB6289D1C8C1E5900D68261 /* EditFriendsTableViewController.m */; };
+		6ABA8D031C5764FE00810DE6 /* SnapScrambleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ABA8D021C5764FE00810DE6 /* SnapScrambleTableViewCell.xib */; };
+		6AC8890C1B602ABF007DBCAB /* SnapScrambleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC8890B1B602ABF007DBCAB /* SnapScrambleTableViewCell.m */; };
+		6AD28CB71B5E06F900BCD802 /* TargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD28CB61B5E06F900BCD802 /* TargetView.m */; };
+		6AD28CBA1B5E071D00BCD802 /* PieceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD28CB91B5E071D00BCD802 /* PieceView.m */; };
+		6AD28CBC1B5E07B800BCD802 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CBB1B5E07B800BCD802 /* ExternalAccessory.framework */; };
+		6AD28CBE1B5E07BF00BCD802 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CBD1B5E07BF00BCD802 /* SystemConfiguration.framework */; };
+		6AD28CC01B5E07C500BCD802 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CBF1B5E07C500BCD802 /* StoreKit.framework */; };
+		6AD28CC21B5E07C900BCD802 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC11B5E07C900BCD802 /* Security.framework */; };
+		6AD28CC41B5E07DB00BCD802 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC31B5E07DB00BCD802 /* QuartzCore.framework */; };
+		6AD28CC61B5E07DF00BCD802 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC51B5E07DF00BCD802 /* MobileCoreServices.framework */; };
+		6AD28CC81B5E07E300BCD802 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC71B5E07E300BCD802 /* libz.dylib */; };
+		6AD28CCA1B5E07E800BCD802 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC91B5E07E800BCD802 /* CoreLocation.framework */; };
+		6AD28CCC1B5E07EC00BCD802 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CCB1B5E07EC00BCD802 /* CFNetwork.framework */; };
+		6AD28CCE1B5E07F000BCD802 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CCD1B5E07F000BCD802 /* AudioToolbox.framework */; };
+		6AD28CD01B5E07FC00BCD802 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CCF1B5E07FC00BCD802 /* Foundation.framework */; };
+		6AD28CD21B5E080000BCD802 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CD11B5E080000BCD802 /* CoreGraphics.framework */; };
+		6AD28CD41B5E080500BCD802 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CD31B5E080500BCD802 /* UIKit.framework */; };
+		6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AD28CE21B5E092E00BCD802 /* Images.xcassets */; };
+		6AD633911B71EB4C0038A4EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD633901B71EB4C0038A4EB /* Reachability.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6A112AC11B5DFB0D0035A75C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A112A9F1B5DFB0D0035A75C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A112AA61B5DFB0D0035A75C;
+			remoteInfo = "Snap Scramble";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		15078B1E8CC671A35F71F15B /* Pods_Snap_Scramble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snap_Scramble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65B52C5D9DED91F904F5677D /* Pods-Snap Scramble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.release.xcconfig"; sourceTree = "<group>"; };
+		6A112AA71B5DFB0D0035A75C /* Snap Scramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snap Scramble.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A112AAB1B5DFB0D0035A75C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A112AAC1B5DFB0D0035A75C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6A112AAE1B5DFB0D0035A75C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6A112AB51B5DFB0D0035A75C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6A112ABA1B5DFB0D0035A75C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		6A112AC01B5DFB0D0035A75C /* Snap ScrambleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snap ScrambleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A112AC51B5DFB0D0035A75C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A112AC61B5DFB0D0035A75C /* Snap_ScrambleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snap_ScrambleTests.m; sourceTree = "<group>"; };
+		6A112AD61B5E02450035A75C /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		6A112AD71B5E02450035A75C /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
+		6A112AD91B5E02570035A75C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		6A112ADA1B5E02570035A75C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		6A112ADC1B5E02640035A75C /* ChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeViewController.h; sourceTree = "<group>"; };
+		6A112ADD1B5E02640035A75C /* ChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeViewController.m; sourceTree = "<group>"; };
+		6A112ADF1B5E026E0035A75C /* CreatePuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePuzzleViewController.h; sourceTree = "<group>"; };
+		6A112AE01B5E026E0035A75C /* CreatePuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePuzzleViewController.m; sourceTree = "<group>"; };
+		6A112AE21B5E02780035A75C /* PreviewPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewPuzzleViewController.h; sourceTree = "<group>"; };
+		6A112AE31B5E02780035A75C /* PreviewPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewPuzzleViewController.m; sourceTree = "<group>"; };
+		6A112AE51B5E02870035A75C /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		6A112AE61B5E02870035A75C /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		6A15C91F1B675FB800DD46E3 /* GameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewController.h; sourceTree = "<group>"; };
+		6A15C9201B675FB800DD46E3 /* GameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewController.m; sourceTree = "<group>"; };
+		6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		6AB4F4701C6058190082EF42 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6AB4F4711C6058190082EF42 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6AB4F4721C6058190082EF42 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		6AB4F4741C6058190082EF42 /* AsyncButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
+		6AB4F4751C6058190082EF42 /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
+		6AB4F4761C6058190082EF42 /* AutoTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoTextView.swift; sourceTree = "<group>"; };
+		6AB4F4771C6058190082EF42 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		6AB4F4781C6058190082EF42 /* DesignableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableButton.swift; sourceTree = "<group>"; };
+		6AB4F4791C6058190082EF42 /* DesignableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableImageView.swift; sourceTree = "<group>"; };
+		6AB4F47A1C6058190082EF42 /* DesignableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableLabel.swift; sourceTree = "<group>"; };
+		6AB4F47B1C6058190082EF42 /* DesignableTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableTabBarController.swift; sourceTree = "<group>"; };
+		6AB4F47C1C6058190082EF42 /* DesignableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableTextField.swift; sourceTree = "<group>"; };
+		6AB4F47D1C6058190082EF42 /* DesignableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableTextView.swift; sourceTree = "<group>"; };
+		6AB4F47E1C6058190082EF42 /* DesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		6AB4F47F1C6058190082EF42 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		6AB4F4801C6058190082EF42 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6AB4F4811C6058190082EF42 /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
+		6AB4F4821C6058190082EF42 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		6AB4F4831C6058190082EF42 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
+		6AB4F4841C6058190082EF42 /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
+		6AB4F4851C6058190082EF42 /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		6AB4F4861C6058190082EF42 /* Spring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spring.h; sourceTree = "<group>"; };
+		6AB4F4871C6058190082EF42 /* Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spring.swift; sourceTree = "<group>"; };
+		6AB4F4881C6058190082EF42 /* SpringAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringAnimation.swift; sourceTree = "<group>"; };
+		6AB4F4891C6058190082EF42 /* SpringButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringButton.swift; sourceTree = "<group>"; };
+		6AB4F48A1C6058190082EF42 /* SpringImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringImageView.swift; sourceTree = "<group>"; };
+		6AB4F48B1C6058190082EF42 /* SpringLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringLabel.swift; sourceTree = "<group>"; };
+		6AB4F48C1C6058190082EF42 /* SpringTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringTextField.swift; sourceTree = "<group>"; };
+		6AB4F48D1C6058190082EF42 /* SpringTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringTextView.swift; sourceTree = "<group>"; };
+		6AB4F48E1C6058190082EF42 /* SpringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringView.swift; sourceTree = "<group>"; };
+		6AB4F48F1C6058190082EF42 /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
+		6AB4F4901C6058190082EF42 /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionZoom.swift; sourceTree = "<group>"; };
+		6AB4F4911C6058190082EF42 /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
+		6AB4F4921C6058190082EF42 /* Spring.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Spring.podspec; sourceTree = "<group>"; };
+		6AB628921C8ACE6100D68261 /* StartPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPuzzleViewController.h; sourceTree = "<group>"; };
+		6AB628931C8ACE6100D68261 /* StartPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPuzzleViewController.m; sourceTree = "<group>"; };
+		6AB628961C8B8A5000D68261 /* FriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTableViewController.h; sourceTree = "<group>"; };
+		6AB628971C8B8A5000D68261 /* FriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableViewController.m; sourceTree = "<group>"; };
+		6AB628991C8BA32600D68261 /* UserSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectionViewController.h; sourceTree = "<group>"; };
+		6AB6289A1C8BA32600D68261 /* UserSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionViewController.m; sourceTree = "<group>"; };
+		6AB6289C1C8C1E5900D68261 /* EditFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditFriendsTableViewController.h; sourceTree = "<group>"; };
+		6AB6289D1C8C1E5900D68261 /* EditFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditFriendsTableViewController.m; sourceTree = "<group>"; };
+		6ABA8D021C5764FE00810DE6 /* SnapScrambleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SnapScrambleTableViewCell.xib; path = ../SnapScrambleTableViewCell.xib; sourceTree = "<group>"; };
+		6AC8890A1B602ABF007DBCAB /* SnapScrambleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnapScrambleTableViewCell.h; sourceTree = "<group>"; };
+		6AC8890B1B602ABF007DBCAB /* SnapScrambleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnapScrambleTableViewCell.m; sourceTree = "<group>"; };
+		6AD28CB51B5E06F900BCD802 /* TargetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TargetView.h; path = "Snap Scramble/TargetView.h"; sourceTree = "<group>"; };
+		6AD28CB61B5E06F900BCD802 /* TargetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TargetView.m; path = "Snap Scramble/TargetView.m"; sourceTree = "<group>"; };
+		6AD28CB81B5E071D00BCD802 /* PieceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieceView.h; path = "Snap Scramble/PieceView.h"; sourceTree = "<group>"; };
+		6AD28CB91B5E071D00BCD802 /* PieceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieceView.m; path = "Snap Scramble/PieceView.m"; sourceTree = "<group>"; };
+		6AD28CBB1B5E07B800BCD802 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		6AD28CBD1B5E07BF00BCD802 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6AD28CBF1B5E07C500BCD802 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		6AD28CC11B5E07C900BCD802 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		6AD28CC31B5E07DB00BCD802 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6AD28CC51B5E07DF00BCD802 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		6AD28CC71B5E07E300BCD802 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		6AD28CC91B5E07E800BCD802 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		6AD28CCB1B5E07EC00BCD802 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		6AD28CCD1B5E07F000BCD802 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		6AD28CCF1B5E07FC00BCD802 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6AD28CD11B5E080000BCD802 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6AD28CD31B5E080500BCD802 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6AD28CE21B5E092E00BCD802 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
+		6AD6338F1B71EB4C0038A4EB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		6AD633901B71EB4C0038A4EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6A112AA41B5DFB0D0035A75C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A62D55E1B5E1C9400AC638E /* libsqlite3.dylib in Frameworks */,
+				6AD28CD41B5E080500BCD802 /* UIKit.framework in Frameworks */,
+				6AD28CD21B5E080000BCD802 /* CoreGraphics.framework in Frameworks */,
+				6AD28CD01B5E07FC00BCD802 /* Foundation.framework in Frameworks */,
+				6AD28CCE1B5E07F000BCD802 /* AudioToolbox.framework in Frameworks */,
+				6AD28CCC1B5E07EC00BCD802 /* CFNetwork.framework in Frameworks */,
+				6AD28CCA1B5E07E800BCD802 /* CoreLocation.framework in Frameworks */,
+				6AD28CC81B5E07E300BCD802 /* libz.dylib in Frameworks */,
+				6AD28CC61B5E07DF00BCD802 /* MobileCoreServices.framework in Frameworks */,
+				6AD28CC41B5E07DB00BCD802 /* QuartzCore.framework in Frameworks */,
+				6AD28CC21B5E07C900BCD802 /* Security.framework in Frameworks */,
+				6AD28CC01B5E07C500BCD802 /* StoreKit.framework in Frameworks */,
+				6AD28CBE1B5E07BF00BCD802 /* SystemConfiguration.framework in Frameworks */,
+				6AD28CBC1B5E07B800BCD802 /* ExternalAccessory.framework in Frameworks */,
+				6A4EAF4392F92044A05101DC /* Pods_Snap_Scramble.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A112ABD1B5DFB0D0035A75C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		356A6A5311EA84A0A43B3312 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */,
+				65B52C5D9DED91F904F5677D /* Pods-Snap Scramble.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6A112A9E1B5DFB0D0035A75C = {
+			isa = PBXGroup;
+			children = (
+				6AB4F46F1C6058190082EF42 /* Spring-master */,
+				6AD28CB41B5E06A600BCD802 /* View */,
+				6A112AA91B5DFB0D0035A75C /* Controllers */,
+				6A112AC31B5DFB0D0035A75C /* Snap ScrambleTests */,
+				6A112AA81B5DFB0D0035A75C /* Products */,
+				6AD28CD51B5E081200BCD802 /* Frameworks */,
+				356A6A5311EA84A0A43B3312 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		6A112AA81B5DFB0D0035A75C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6A112AA71B5DFB0D0035A75C /* Snap Scramble.app */,
+				6A112AC01B5DFB0D0035A75C /* Snap ScrambleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6A112AA91B5DFB0D0035A75C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6A112AAE1B5DFB0D0035A75C /* AppDelegate.h */,
+				6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */,
+				6A112AD61B5E02450035A75C /* SignupViewController.h */,
+				6A112AD71B5E02450035A75C /* SignupViewController.m */,
+				6A112AD91B5E02570035A75C /* HomeViewController.h */,
+				6A112ADA1B5E02570035A75C /* HomeViewController.m */,
+				6A112AB41B5DFB0D0035A75C /* Main.storyboard */,
+				6ABA8D021C5764FE00810DE6 /* SnapScrambleTableViewCell.xib */,
+				6AC8890A1B602ABF007DBCAB /* SnapScrambleTableViewCell.h */,
+				6AC8890B1B602ABF007DBCAB /* SnapScrambleTableViewCell.m */,
+				6A112ADC1B5E02640035A75C /* ChallengeViewController.h */,
+				6A112ADD1B5E02640035A75C /* ChallengeViewController.m */,
+				6AB628991C8BA32600D68261 /* UserSelectionViewController.h */,
+				6AB6289A1C8BA32600D68261 /* UserSelectionViewController.m */,
+				6AB628961C8B8A5000D68261 /* FriendsTableViewController.h */,
+				6AB628971C8B8A5000D68261 /* FriendsTableViewController.m */,
+				6AB6289C1C8C1E5900D68261 /* EditFriendsTableViewController.h */,
+				6AB6289D1C8C1E5900D68261 /* EditFriendsTableViewController.m */,
+				6A112ADF1B5E026E0035A75C /* CreatePuzzleViewController.h */,
+				6A112AE01B5E026E0035A75C /* CreatePuzzleViewController.m */,
+				6A112AE21B5E02780035A75C /* PreviewPuzzleViewController.h */,
+				6A112AE31B5E02780035A75C /* PreviewPuzzleViewController.m */,
+				6AB628921C8ACE6100D68261 /* StartPuzzleViewController.h */,
+				6AB628931C8ACE6100D68261 /* StartPuzzleViewController.m */,
+				6A112AE51B5E02870035A75C /* GameViewController.h */,
+				6A112AE61B5E02870035A75C /* GameViewController.m */,
+				6A15C91F1B675FB800DD46E3 /* GameOverViewController.h */,
+				6A15C9201B675FB800DD46E3 /* GameOverViewController.m */,
+				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
+				6AD28CE21B5E092E00BCD802 /* Images.xcassets */,
+				6A112AAA1B5DFB0D0035A75C /* Supporting Files */,
+			);
+			name = Controllers;
+			path = "Snap Scramble";
+			sourceTree = "<group>";
+		};
+		6A112AAA1B5DFB0D0035A75C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6A112AAB1B5DFB0D0035A75C /* Info.plist */,
+				6A112AAC1B5DFB0D0035A75C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6A112AC31B5DFB0D0035A75C /* Snap ScrambleTests */ = {
+			isa = PBXGroup;
+			children = (
+				6A112AC61B5DFB0D0035A75C /* Snap_ScrambleTests.m */,
+				6A112AC41B5DFB0D0035A75C /* Supporting Files */,
+			);
+			path = "Snap ScrambleTests";
+			sourceTree = "<group>";
+		};
+		6A112AC41B5DFB0D0035A75C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6A112AC51B5DFB0D0035A75C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6AB4F46F1C6058190082EF42 /* Spring-master */ = {
+			isa = PBXGroup;
+			children = (
+				6AB4F4701C6058190082EF42 /* .gitignore */,
+				6AB4F4711C6058190082EF42 /* LICENSE */,
+				6AB4F4721C6058190082EF42 /* README.md */,
+				6AB4F4731C6058190082EF42 /* Spring */,
+				6AB4F4921C6058190082EF42 /* Spring.podspec */,
+			);
+			path = "Spring-master";
+			sourceTree = "<group>";
+		};
+		6AB4F4731C6058190082EF42 /* Spring */ = {
+			isa = PBXGroup;
+			children = (
+				6AB4F4741C6058190082EF42 /* AsyncButton.swift */,
+				6AB4F4751C6058190082EF42 /* AsyncImageView.swift */,
+				6AB4F4761C6058190082EF42 /* AutoTextView.swift */,
+				6AB4F4771C6058190082EF42 /* BlurView.swift */,
+				6AB4F4781C6058190082EF42 /* DesignableButton.swift */,
+				6AB4F4791C6058190082EF42 /* DesignableImageView.swift */,
+				6AB4F47A1C6058190082EF42 /* DesignableLabel.swift */,
+				6AB4F47B1C6058190082EF42 /* DesignableTabBarController.swift */,
+				6AB4F47C1C6058190082EF42 /* DesignableTextField.swift */,
+				6AB4F47D1C6058190082EF42 /* DesignableTextView.swift */,
+				6AB4F47E1C6058190082EF42 /* DesignableView.swift */,
+				6AB4F47F1C6058190082EF42 /* ImageLoader.swift */,
+				6AB4F4801C6058190082EF42 /* Info.plist */,
+				6AB4F4811C6058190082EF42 /* KeyboardLayoutConstraint.swift */,
+				6AB4F4821C6058190082EF42 /* LoadingView.swift */,
+				6AB4F4831C6058190082EF42 /* LoadingView.xib */,
+				6AB4F4841C6058190082EF42 /* Misc.swift */,
+				6AB4F4851C6058190082EF42 /* SoundPlayer.swift */,
+				6AB4F4861C6058190082EF42 /* Spring.h */,
+				6AB4F4871C6058190082EF42 /* Spring.swift */,
+				6AB4F4881C6058190082EF42 /* SpringAnimation.swift */,
+				6AB4F4891C6058190082EF42 /* SpringButton.swift */,
+				6AB4F48A1C6058190082EF42 /* SpringImageView.swift */,
+				6AB4F48B1C6058190082EF42 /* SpringLabel.swift */,
+				6AB4F48C1C6058190082EF42 /* SpringTextField.swift */,
+				6AB4F48D1C6058190082EF42 /* SpringTextView.swift */,
+				6AB4F48E1C6058190082EF42 /* SpringView.swift */,
+				6AB4F48F1C6058190082EF42 /* TransitionManager.swift */,
+				6AB4F4901C6058190082EF42 /* TransitionZoom.swift */,
+				6AB4F4911C6058190082EF42 /* UnwindSegue.swift */,
+			);
+			path = Spring;
+			sourceTree = "<group>";
+		};
+		6AD28CB41B5E06A600BCD802 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6AD6338F1B71EB4C0038A4EB /* Reachability.h */,
+				6AD633901B71EB4C0038A4EB /* Reachability.m */,
+				6AD28CB51B5E06F900BCD802 /* TargetView.h */,
+				6AD28CB61B5E06F900BCD802 /* TargetView.m */,
+				6AD28CB81B5E071D00BCD802 /* PieceView.h */,
+				6AD28CB91B5E071D00BCD802 /* PieceView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		6AD28CD51B5E081200BCD802 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */,
+				6AD28CD31B5E080500BCD802 /* UIKit.framework */,
+				6AD28CD11B5E080000BCD802 /* CoreGraphics.framework */,
+				6AD28CCF1B5E07FC00BCD802 /* Foundation.framework */,
+				6AD28CCD1B5E07F000BCD802 /* AudioToolbox.framework */,
+				6AD28CCB1B5E07EC00BCD802 /* CFNetwork.framework */,
+				6AD28CC91B5E07E800BCD802 /* CoreLocation.framework */,
+				6AD28CC71B5E07E300BCD802 /* libz.dylib */,
+				6AD28CC51B5E07DF00BCD802 /* MobileCoreServices.framework */,
+				6AD28CC31B5E07DB00BCD802 /* QuartzCore.framework */,
+				6AD28CC11B5E07C900BCD802 /* Security.framework */,
+				6AD28CBF1B5E07C500BCD802 /* StoreKit.framework */,
+				6AD28CBD1B5E07BF00BCD802 /* SystemConfiguration.framework */,
+				6AD28CBB1B5E07B800BCD802 /* ExternalAccessory.framework */,
+				15078B1E8CC671A35F71F15B /* Pods_Snap_Scramble.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6A112AA61B5DFB0D0035A75C /* Snap Scramble */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A112ACA1B5DFB0D0035A75C /* Build configuration list for PBXNativeTarget "Snap Scramble" */;
+			buildPhases = (
+				453C901027DF41F11D6A7EBA /* Check Pods Manifest.lock */,
+				6A112AA31B5DFB0D0035A75C /* Sources */,
+				6A112AA41B5DFB0D0035A75C /* Frameworks */,
+				6A112AA51B5DFB0D0035A75C /* Resources */,
+				19C5A2312F5DA7A785AD5212 /* Embed Pods Frameworks */,
+				A93EFBE4716EF23AC6BE2A3B /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Snap Scramble";
+			productName = "Snap Scramble";
+			productReference = 6A112AA71B5DFB0D0035A75C /* Snap Scramble.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6A112ABF1B5DFB0D0035A75C /* Snap ScrambleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A112ACD1B5DFB0D0035A75C /* Build configuration list for PBXNativeTarget "Snap ScrambleTests" */;
+			buildPhases = (
+				6A112ABC1B5DFB0D0035A75C /* Sources */,
+				6A112ABD1B5DFB0D0035A75C /* Frameworks */,
+				6A112ABE1B5DFB0D0035A75C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A112AC21B5DFB0D0035A75C /* PBXTargetDependency */,
+			);
+			name = "Snap ScrambleTests";
+			productName = "Snap ScrambleTests";
+			productReference = 6A112AC01B5DFB0D0035A75C /* Snap ScrambleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6A112A9F1B5DFB0D0035A75C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Tim Gorer";
+				TargetAttributes = {
+					6A112AA61B5DFB0D0035A75C = {
+						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 67D5VP8GSS;
+					};
+					6A112ABF1B5DFB0D0035A75C = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
+			};
+			buildConfigurationList = 6A112AA21B5DFB0D0035A75C /* Build configuration list for PBXProject "Snap Scramble" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6A112A9E1B5DFB0D0035A75C;
+			productRefGroup = 6A112AA81B5DFB0D0035A75C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6A112AA61B5DFB0D0035A75C /* Snap Scramble */,
+				6A112ABF1B5DFB0D0035A75C /* Snap ScrambleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6A112AA51B5DFB0D0035A75C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6AB4F4A81C6058190082EF42 /* LICENSE in Resources */,
+				6AB4F4B91C6058190082EF42 /* LoadingView.xib in Resources */,
+				6AB4F4A71C6058190082EF42 /* .gitignore in Resources */,
+				6A112AB61B5DFB0D0035A75C /* Main.storyboard in Resources */,
+				6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */,
+				6ABA8D031C5764FE00810DE6 /* SnapScrambleTableViewCell.xib in Resources */,
+				6A112ABB1B5DFB0D0035A75C /* LaunchScreen.xib in Resources */,
+				6AB4F4C71C6058190082EF42 /* Spring.podspec in Resources */,
+				6AB4F4B61C6058190082EF42 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A112ABE1B5DFB0D0035A75C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		19C5A2312F5DA7A785AD5212 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		453C901027DF41F11D6A7EBA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A93EFBE4716EF23AC6BE2A3B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6A112AA31B5DFB0D0035A75C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6AB4F4BB1C6058190082EF42 /* SoundPlayer.swift in Sources */,
+				6A15C9211B675FB800DD46E3 /* GameOverViewController.m in Sources */,
+				6AB4F4BF1C6058190082EF42 /* SpringImageView.swift in Sources */,
+				6A112ADE1B5E02640035A75C /* ChallengeViewController.m in Sources */,
+				6A112AE11B5E026E0035A75C /* CreatePuzzleViewController.m in Sources */,
+				6AB4F4BA1C6058190082EF42 /* Misc.swift in Sources */,
+				6AB4F4AE1C6058190082EF42 /* DesignableButton.swift in Sources */,
+				6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */,
+				6AB4F4B51C6058190082EF42 /* ImageLoader.swift in Sources */,
+				6AD28CB71B5E06F900BCD802 /* TargetView.m in Sources */,
+				6A112AE71B5E02870035A75C /* GameViewController.m in Sources */,
+				6AB628981C8B8A5000D68261 /* FriendsTableViewController.m in Sources */,
+				6AB6289B1C8BA32700D68261 /* UserSelectionViewController.m in Sources */,
+				6AB4F4AA1C6058190082EF42 /* AsyncButton.swift in Sources */,
+				6AB4F4C61C6058190082EF42 /* UnwindSegue.swift in Sources */,
+				6A112AB01B5DFB0D0035A75C /* AppDelegate.m in Sources */,
+				6A112AD81B5E02450035A75C /* SignupViewController.m in Sources */,
+				6AB4F4B01C6058190082EF42 /* DesignableLabel.swift in Sources */,
+				6AB4F4C51C6058190082EF42 /* TransitionZoom.swift in Sources */,
+				6AB4F4C01C6058190082EF42 /* SpringLabel.swift in Sources */,
+				6AB4F4C41C6058190082EF42 /* TransitionManager.swift in Sources */,
+				6A112ADB1B5E02570035A75C /* HomeViewController.m in Sources */,
+				6A112AAD1B5DFB0D0035A75C /* main.m in Sources */,
+				6AB4F4AF1C6058190082EF42 /* DesignableImageView.swift in Sources */,
+				6AB4F4BD1C6058190082EF42 /* SpringAnimation.swift in Sources */,
+				6AB4F4B11C6058190082EF42 /* DesignableTabBarController.swift in Sources */,
+				6AB4F4B41C6058190082EF42 /* DesignableView.swift in Sources */,
+				6AB4F4AC1C6058190082EF42 /* AutoTextView.swift in Sources */,
+				6AB4F4B31C6058190082EF42 /* DesignableTextView.swift in Sources */,
+				6AC8890C1B602ABF007DBCAB /* SnapScrambleTableViewCell.m in Sources */,
+				6AB4F4AB1C6058190082EF42 /* AsyncImageView.swift in Sources */,
+				6AB4F4B21C6058190082EF42 /* DesignableTextField.swift in Sources */,
+				6AB4F4C21C6058190082EF42 /* SpringTextView.swift in Sources */,
+				6AB4F4A91C6058190082EF42 /* README.md in Sources */,
+				6AB4F4C11C6058190082EF42 /* SpringTextField.swift in Sources */,
+				6AB4F4BC1C6058190082EF42 /* Spring.swift in Sources */,
+				6AB4F4AD1C6058190082EF42 /* BlurView.swift in Sources */,
+				6AB4F4B81C6058190082EF42 /* LoadingView.swift in Sources */,
+				6AB4F4BE1C6058190082EF42 /* SpringButton.swift in Sources */,
+				6AB4F4B71C6058190082EF42 /* KeyboardLayoutConstraint.swift in Sources */,
+				6AD28CBA1B5E071D00BCD802 /* PieceView.m in Sources */,
+				6AB6289E1C8C1E5900D68261 /* EditFriendsTableViewController.m in Sources */,
+				6AB628941C8ACE6200D68261 /* StartPuzzleViewController.m in Sources */,
+				6AD633911B71EB4C0038A4EB /* Reachability.m in Sources */,
+				6AB4F4C31C6058190082EF42 /* SpringView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A112ABC1B5DFB0D0035A75C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A112AC71B5DFB0D0035A75C /* Snap_ScrambleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6A112AC21B5DFB0D0035A75C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A112AA61B5DFB0D0035A75C /* Snap Scramble */;
+			targetProxy = 6A112AC11B5DFB0D0035A75C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6A112AB41B5DFB0D0035A75C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A112AB51B5DFB0D0035A75C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A112ABA1B5DFB0D0035A75C /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6A112AC81B5DFB0D0035A75C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6A112AC91B5DFB0D0035A75C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6A112ACB1B5DFB0D0035A75C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "Snap Scramble/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScramble;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6A112ACC1B5DFB0D0035A75C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65B52C5D9DED91F904F5677D /* Pods-Snap Scramble.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "Snap Scramble/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScramble;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		6A112ACE1B5DFB0D0035A75C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Snap ScrambleTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6A112ACF1B5DFB0D0035A75C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Snap ScrambleTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6A112AA21B5DFB0D0035A75C /* Build configuration list for PBXProject "Snap Scramble" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A112AC81B5DFB0D0035A75C /* Debug */,
+				6A112AC91B5DFB0D0035A75C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A112ACA1B5DFB0D0035A75C /* Build configuration list for PBXNativeTarget "Snap Scramble" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A112ACB1B5DFB0D0035A75C /* Debug */,
+				6A112ACC1B5DFB0D0035A75C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A112ACD1B5DFB0D0035A75C /* Build configuration list for PBXNativeTarget "Snap ScrambleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A112ACE1B5DFB0D0035A75C /* Debug */,
+				6A112ACF1B5DFB0D0035A75C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6A112A9F1B5DFB0D0035A75C /* Project object */;
+}

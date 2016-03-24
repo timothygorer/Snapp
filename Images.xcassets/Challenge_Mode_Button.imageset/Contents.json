@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x",
+      "filename" : "Challenge_Mode_Button.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "Challenge_Mode_Button@2x.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "Challenge_Mode_Button@3x.pdf"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
