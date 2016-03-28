@@ -18,6 +18,7 @@
 		6A112AE11B5E026E0035A75C /* CreatePuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE01B5E026E0035A75C /* CreatePuzzleViewController.m */; };
 		6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE31B5E02780035A75C /* PreviewPuzzleViewController.m */; };
 		6A112AE71B5E02870035A75C /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE61B5E02870035A75C /* GameViewController.m */; };
+		6A12D3621CA8D62500848EB4 /* PauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A12D3611CA8D62500848EB4 /* PauseViewController.m */; };
 		6A15C9211B675FB800DD46E3 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A15C9201B675FB800DD46E3 /* GameOverViewController.m */; };
 		6A4EAF4392F92044A05101DC /* Pods_Snap_Scramble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15078B1E8CC671A35F71F15B /* Pods_Snap_Scramble.framework */; };
 		6A62D55E1B5E1C9400AC638E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */; };
@@ -114,6 +115,8 @@
 		6A112AE31B5E02780035A75C /* PreviewPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewPuzzleViewController.m; sourceTree = "<group>"; };
 		6A112AE51B5E02870035A75C /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		6A112AE61B5E02870035A75C /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		6A12D3601CA8D62500848EB4 /* PauseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewController.h; sourceTree = "<group>"; };
+		6A12D3611CA8D62500848EB4 /* PauseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewController.m; sourceTree = "<group>"; };
 		6A15C91F1B675FB800DD46E3 /* GameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewController.h; sourceTree = "<group>"; };
 		6A15C9201B675FB800DD46E3 /* GameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewController.m; sourceTree = "<group>"; };
 		6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -280,6 +283,8 @@
 				6A112AE61B5E02870035A75C /* GameViewController.m */,
 				6A15C91F1B675FB800DD46E3 /* GameOverViewController.h */,
 				6A15C9201B675FB800DD46E3 /* GameOverViewController.m */,
+				6A12D3601CA8D62500848EB4 /* PauseViewController.h */,
+				6A12D3611CA8D62500848EB4 /* PauseViewController.m */,
 				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
 				6AD28CE21B5E092E00BCD802 /* Images.xcassets */,
 				6A112AAA1B5DFB0D0035A75C /* Supporting Files */,
@@ -602,6 +607,7 @@
 				6AB628941C8ACE6200D68261 /* StartPuzzleViewController.m in Sources */,
 				6AD633911B71EB4C0038A4EB /* Reachability.m in Sources */,
 				6AB4F4C31C6058190082EF42 /* SpringView.swift in Sources */,
+				6A12D3621CA8D62500848EB4 /* PauseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

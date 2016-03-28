@@ -3,14 +3,20 @@ PODS:
   - KVNProgress (2.2.4)
   - Parse (1.12.0):
     - Bolts/Tasks (~> 1.5)
+  - RMActionController (1.0.5)
+  - RMPickerViewController (2.0.3):
+    - RMActionController (~> 1.0.5)
 
 DEPENDENCIES:
   - KVNProgress
   - Parse
+  - RMPickerViewController (~> 2.0.3)
 
 SPEC CHECKSUMS:
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   KVNProgress: 541edcea5a1fef592aceac8d791a410d38cb499d
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  RMActionController: b83653e7452ed51492094d65dc82151c36443c03
+  RMPickerViewController: f774dbdfddfe819bbaf211d5719deebcbf1a55ed
 
 COCOAPODS: 0.39.0

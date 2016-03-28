@@ -13,6 +13,7 @@
 @interface SnapScrambleTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *opponentIcon;
+@property (strong, nonatomic) IBOutlet UILabel *statusLabel;
 
 
 

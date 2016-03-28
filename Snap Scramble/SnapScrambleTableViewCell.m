@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.statusLabel = [[UILabel alloc] init];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

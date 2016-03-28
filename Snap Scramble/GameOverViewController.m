@@ -43,7 +43,6 @@
 
 - (IBAction)doneButtonDidPress:(id)sender {
     self.scoreView.animation = @"fall";
-    
     self.scoreView.delay = 5.0;
     [self.scoreView animate];
     

@@ -21,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //UINib *cellNib = [UINib nibWithNibName:@"SnapScrambleTableViewCell" bundle:[NSBundle mainBundle]];
+    //[self.currentGamesTable registerNib:cellNib forCellReuseIdentifier:@"Cell"];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
@@ -224,18 +226,30 @@
 } */
 
 
-- (SnapScrambleTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SnapScrambleTableViewCell* cell;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // cell.dismissButton.hidden = true; // hide the dismiss button until game over
 
     
-    if(!cell)
+
+    NSLog(@"what......");
+    SnapScrambleTableViewCell *cell = (SnapScrambleTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    if(cell == nil)
     {
-        NSLog(@"what......");
-        [tableView registerNib:[UINib nibWithNibName:@"SnapScrambleTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:@"Cell" owner:self options:nil];
+        cell = [nibArray objectAtIndex:0];
     }
+    
+
+    
+    
+    cell.statusLabel.text = @"Reply now";
+    //[cell addSubview:cell.statusLabel];
+    //[cell bringSubviewToFront:cell.statusLabel];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    
+    
     
     UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
     cell.textLabel.font = myFont;
@@ -243,7 +257,7 @@
     if (indexPath.section == 0) {
         PFObject *aCurrentGame = [self.currentGames objectAtIndex:indexPath.row];
         
-        if ([[aCurrentGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) {
+        if ([[aCurrentGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) { // if user is the receiver
             NSString *senderName = [aCurrentGame objectForKey:@"senderName"];
             cell.textLabel.text = [NSString stringWithFormat:@"Your turn vs. %@", senderName];
             //cell.userInteractionEnabled = true;
@@ -254,7 +268,7 @@
         NSLog(@"sec 1");
         PFObject *aCurrentPendingGame = [self.currentPendingGames objectAtIndex:indexPath.row];
         
-        if ([[aCurrentPendingGame objectForKey:@"senderName"]  isEqualToString:[PFUser currentUser].username]) {
+        if ([[aCurrentPendingGame objectForKey:@"senderName"]  isEqualToString:[PFUser currentUser].username]) { // if user is the sender
             NSString *opponentName = [aCurrentPendingGame objectForKey:@"receiverName"];
             cell.textLabel.text = [NSString stringWithFormat:@"%@'s turn vs. You", opponentName];
             //cell.userInteractionEnabled = false;
@@ -307,9 +321,7 @@
         else {
             NSLog(@"pressed sec 1");
             self.selectedGame = [self.currentPendingGames objectAtIndex:indexPath.row];
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [self performSegueWithIdentifier:@"gameOver" sender: self]; //????
-            });
+            [self performSegueWithIdentifier:@"gameOver" sender: self]; //????
         }
     }
 }

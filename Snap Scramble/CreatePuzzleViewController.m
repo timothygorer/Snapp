@@ -20,13 +20,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setHidden:false];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setHidden:false];
     self.currentUser = [PFUser currentUser];
     NSLog(@"Opponent: %@", [self.opponent objectForKey:@"username"]);
     //self.usernameDisplay.text = [NSString stringWithFormat:@"      Opponent: %@", [self.opponent objectForKey:@"username"]]; // nothing happens, change

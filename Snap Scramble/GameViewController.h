@@ -11,6 +11,7 @@
 #import "PieceView.h"
 #import <Parse/Parse.h>
 #import "GameOverViewController.h"
+#import "Snap_Scramble-Swift.h"
 
 @interface GameViewController : UIViewController
 
@@ -27,11 +28,12 @@
 @property (nonatomic, strong) UISegmentedControl *puzzleSizeControl;
 @property (nonatomic)BOOL solvedPuzzle;
 @property (nonatomic)BOOL puzzleCreated;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (nonatomic, strong) UIImageView* imageView;
+@property (strong, nonatomic) IBOutlet SpringView *imageView;
+@property (weak, nonatomic) IBOutlet UIButton* replyButton;
+@property (weak, nonatomic) IBOutlet UIButton* replyLaterButton;
+@property (nonatomic, strong) NSString *puzzleSize;
 
 
-- (IBAction)backButtonDidPress:(id)sender;
 -(void)createTargetViewInRect: (CGRect)targetRect WithImage: (UIImage*)image
                           num: (NSInteger)pieceNum sideLenX: (CGFloat)sideLengthX sideLenY: (CGFloat)sideLengthY;
 -(void)createPieceViewInRect: (CGRect)pieceRect WithImage: (UIImage*)image

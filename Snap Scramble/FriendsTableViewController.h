@@ -14,7 +14,6 @@
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) PFRelation *friendsRelation;
 @property (nonatomic, strong) PFUser *currentUserPFObject;
-@property (nonatomic, strong) NSArray *currentUser;
 @property (nonatomic, strong) NSArray *friends;
 
 

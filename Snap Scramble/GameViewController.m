@@ -9,6 +9,7 @@
 #import "GameViewController.h"
 #import "GameOverViewController.h"
 #import "ChallengeViewController.h"
+#import "CreatePuzzleViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 
 
@@ -24,16 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.imageView = [UIImageView new];
-    self.imageView.clipsToBounds = YES;
-    self.imageView.layer.cornerRadius = 5.0f;
+    self.replyButton.hidden = YES;
+    self.replyLaterButton.hidden = YES;
+    [self.replyButton addTarget:self action:@selector(replyLaterButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.replyLaterButton addTarget:self action:@selector(replyLaterButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.imageView.image = self.puzzleImage; // preview image
-    
-    // create the image view frame and center it, then add to subview
-    self.imageView.frame = CGRectMake(0, 0, self.puzzleImage.size.width, self.puzzleImage.size.height);
-    [self.imageView setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2)];
-    [self.view addSubview:self.imageView];
+    [self createGame]; // this creates the game
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -56,11 +53,6 @@
     // Do any additional setup after loading the view, typically from a nib.
     [self.navigationController.navigationBar setHidden:true];
     
-    // count label creation
-    self.countLabel = [UILabel new];
-    self.countLabel.frame = CGRectMake(80.0, 475, 160.0, 40.0);
-    [self.view addSubview:self.countLabel];
-    
     // preview button creation and preview view creation
     UIButton *showPreviewButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [showPreviewButton addTarget:self action:@selector(showPreview) forControlEvents:UIControlEventTouchUpInside];
@@ -70,83 +62,51 @@
     self.previewView = [UIImageView new];
     self.previewView.frame = CGRectMake(50, 100, 250.0, 250.0);
     
-    // back button stuff
-    self.backButton.adjustsImageWhenHighlighted = NO;
+
+    
     
     // timer creation and start
     self.timerLabel = [UILabel new];
     self.timerLabel.frame = CGRectMake(190, 20, 160.0, 40.0);
     [self.view addSubview:self.timerLabel];
     [self setTimer];
-    
-    // puzzle size control button creation
-    NSArray *itemArray = [NSArray arrayWithObjects: @"3 x 3", @"4 x 4", @"5 x 5", @"6 x 6", @"7 x 7", nil];
-    self.puzzleSizeControl = [[UISegmentedControl alloc] initWithItems:itemArray];
-    // self.puzzleSizeControl.frame = CGRectMake(35, 520, 250, 20); 5S
-    
-    // these two lines of code place the size control module so that it fits all screen sizes
-    self.puzzleSizeControl.frame = CGRectMake(0, 0, self.view.frame.size.width - 40, 20);
-     [self.puzzleSizeControl setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - 40)];
-    
-    [self.puzzleSizeControl addTarget:self action:@selector(setPuzzleSize) forControlEvents:UIControlEventValueChanged]; // this is what happens when the user chooses the puzzle size he/she wants
-    [self.view addSubview:self.puzzleSizeControl];
 }
 
 
-- (void)setPuzzleSize {
-    NSInteger size;
-    if (self.puzzleSizeControl.selectedSegmentIndex == 0) {
+- (void)createGame {
+    NSInteger size = 0;
+    
+    self.puzzleSize = [self.createdGame objectForKey:@"puzzleSize"]; // get the puzzle size
+    NSLog(@"retrieved puzzle size: %@", self.puzzleSize);
+    
+    if ([self.puzzleSize isEqualToString:@"3 x 3"]) {
         size = 9;
-        if (!self.puzzleCreated) {
-            [self createPuzzleWithGridSize:size];
-        }
-        else {
-            [self deletePuzzle];
-            [self createPuzzleWithGridSize:size];
-            
-        }
     }
-    else if (self.puzzleSizeControl.selectedSegmentIndex == 1) {
+    
+    else if ([self.puzzleSize isEqualToString:@"4 x 4"]) {
         size = 16;
-        if (!self.puzzleCreated) {
-            [self createPuzzleWithGridSize:size];
-        }
-        else {
-            [self deletePuzzle];
-            [self createPuzzleWithGridSize:size];
-        }
     }
-    else if (self.puzzleSizeControl.selectedSegmentIndex == 2) {
+
+    else if ([self.puzzleSize isEqualToString:@"5 x 5"]) {
         size = 25;
-        if (!self.puzzleCreated) {
-            [self createPuzzleWithGridSize:size];
-        }
-        else {
-            [self deletePuzzle];
-            [self createPuzzleWithGridSize:size];
-        }
     }
-    else if (self.puzzleSizeControl.selectedSegmentIndex == 3) {
+    
+    else if ([self.puzzleSize isEqualToString:@"6 x 6"]) {
         size = 36;
-        if (!self.puzzleCreated) {
-            [self createPuzzleWithGridSize:size];
-        }
-        else {
-            [self deletePuzzle];
-            [self createPuzzleWithGridSize:size];
-        }
     }
-    else if (self.puzzleSizeControl.selectedSegmentIndex == 4) {
+    
+    else if ([self.puzzleSize isEqualToString:@"7 x 7"]) {
         size = 49;
-        if (!self.puzzleCreated) {
-            [self createPuzzleWithGridSize:size];
-        }
-        else {
-            [self deletePuzzle];
-            [self createPuzzleWithGridSize:size];
-        }
     }
-    // self.puzzleSizeControl.userInteractionEnabled = false;
+    
+    if (!self.puzzleCreated) {
+        [self createPuzzleWithGridSize:size];
+    }
+    
+    else {
+        [self deletePuzzle];
+        [self createPuzzleWithGridSize:size];
+    }
 }
 
 - (void)createPuzzleWithGridSize:(NSInteger)size {
@@ -164,12 +124,12 @@
         CGRect targetRect; // *** does this really have to be a CGRect? fix?
         
         // this is the place of the very first target view.
-        targetRect = CGRectMake((self.view.frame.size.width - self.puzzleImage.size.width) / 2, (self.view.frame.size.height - self.puzzleImage.size.height) / 2, 200, 200); // this code makes it so that the puzzle is actually set up centered on all screen sizes.
+        targetRect = CGRectMake(0, 0, 200, 200); // this code makes it so that the puzzle is actually set up centered on all screen sizes.
         // create the actual puzzle itself which is just many target views.
         [self createTargetViewInRect:targetRect WithImage:nil num:pieceNum sideLenX:sideLengthX sideLenY:sideLengthY];
         
         // this is the place of the very first piece view.
-        CGRect pieceRect = CGRectMake((self.view.frame.size.width - self.puzzleImage.size.width) / 2, (self.view.frame.size.height - self.puzzleImage.size.height), 200, 200); // I don't think the 200 does anything. fix.
+        CGRect pieceRect = CGRectMake(0, 0, 200, 200); // I don't think the 200 does anything. fix.
         [self createPieceViewInRect:pieceRect WithImage:self.puzzleImage num:pieceNum sideLenX:sideLengthX sideLenY:sideLengthY];
     }
     
@@ -177,7 +137,6 @@
         NSLog(@"No image selected.");
     }
 }
-
 
 // create a target view
 -(void)createTargetViewInRect:(CGRect)targetRect WithImage:(UIImage *)image num:(NSInteger)pieceNum sideLenX:(CGFloat)sideLengthX sideLenY:(CGFloat)sideLengthY {
@@ -196,6 +155,20 @@
             [self.targets addObject:target];
             count++;
             x = x + sideLengthX;
+            
+            if (j == (col - 1) && i == 0) { // if the last column of the first row is being created, put a pause button there
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                 [button addTarget:self
+                           action:@selector(pauseButtonDidPress:)
+                 forControlEvents:UIControlEventTouchUpInside];
+                [button setTitle:@"Pause" forState:UIControlStateNormal];
+                UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
+                button.titleLabel.font = myFont;
+                button.frame = CGRectMake(0, 0, 60.0, 21.0);
+                button.center = target.center;
+                button.adjustsImageWhenHighlighted = YES;
+                [self.view addSubview:button];
+            }
         }
         y = y + sideLengthY;
     }
@@ -215,26 +188,27 @@
     CGFloat y = pieceRect.origin.y;
     NSInteger col = sqrt(pieceNum); // calculate the column number
     NSInteger row = sqrt(pieceNum); // calculate the row number
-    // CGFloat space = 0;
     for (int i = 0; i < row; i++) {
         x = pieceRect.origin.x; // restart each new row (start leftmost)
         for (int j = 0; j < col; j++) {
-            if (count < pieceNum) {
-                // PieceView* piece = [[PieceView alloc]initWithFrame:CGRectMake(20, 475, sideLength+20, sideLength+20)];
-                PieceView* piece = [[PieceView alloc]initWithFrame:CGRectMake(x, y, sideLengthX, sideLengthY)];
-                piece.dragDelegate = self;
-                int randomIndex = arc4random()%([idArray count]);
-                piece.pieceId = [idArray[randomIndex] intValue];
-                piece.image = images[piece.pieceId];
-                [idArray removeObjectAtIndex:randomIndex]; // remove the index after using
-                [self.view addSubview:piece];
-                [self.pieces addObject:piece];
-                count++;
-                x = x + sideLengthX;
-            }
+            PieceView* piece = [[PieceView alloc]initWithFrame:CGRectMake(x, y, sideLengthX, sideLengthY)];
+            piece.dragDelegate = self;
+            int randomIndex = arc4random()%([idArray count]);
+            piece.pieceId = [idArray[randomIndex] intValue];
+            piece.image = images[piece.pieceId];
+            [idArray removeObjectAtIndex:randomIndex]; // remove the index after using so the random is not reused
+            [self.view addSubview:piece];
+            [self.pieces addObject:piece];
+            x = x + sideLengthX;
         }
         y = y + sideLengthY;
     }
+}
+
+#pragma mark - pause button method
+
+- (IBAction)pauseButtonDidPress:(id)sender {
+    [self performSegueWithIdentifier:@"pauseMenu" sender: self];
 }
 
 #pragma mark - Timer methods
@@ -273,8 +247,29 @@
                 }
             }];
         }
-        [self performSegueWithIdentifier:@"gameOver" sender:self];
+        
+        self.replyButton.hidden = NO;
+        self.replyLaterButton.hidden = NO;
+        [self.view bringSubviewToFront:self.replyButton];
+        [self.view bringSubviewToFront:self.replyLaterButton];
     }
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
+{
+    CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
+    CGFloat width = image.size.width * scale;
+    CGFloat height = image.size.height * scale;
+    CGRect imageRect = CGRectMake((size.width - width)/2.0f,
+                                  (size.height - height)/2.0f,
+                                  width,
+                                  height);
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
+    [image drawInRect:imageRect];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 #pragma mark - Navigation
@@ -318,8 +313,26 @@
     return _pieces;
 }
 
-- (IBAction)backButtonDidPress:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+- (IBAction)replyLaterButtonDidPress:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (IBAction)replyButtonDidPress:(id)sender {
+    //This for loop iterates through all the view controllers in navigation stack.
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        NSLog(@"why");
+        //This if condition checks whether the viewController's class is a CreatePuzzleViewController
+        // if true that means its the FriendsViewController (which has been pushed at some point)
+        if ([viewController isKindOfClass:[CreatePuzzleViewController class]] ) {
+            
+            // Here viewController is a reference of UIViewController base class of CreatePuzzleViewController
+            // but viewController holds CreatePuzzleViewController  object so we can type cast it here
+            CreatePuzzleViewController *createPuzzleViewController = (CreatePuzzleViewController *)viewController;
+            createPuzzleViewController.createdGame = self.createdGame;
+            [self.navigationController popToViewController:createPuzzleViewController animated:YES];
+            break;
+        }
+    }
 }
 
 - (void)deletePuzzle {
@@ -415,8 +428,13 @@
 
     // check if all the pieces are matched. count would be equal to the number of pieces in this case.
     if (count == self.pieceNum) {
-        for(PieceView* pv in self.pieces) pv.userInteractionEnabled = NO;
-        for(TargetView* tv in self.targets) tv.hidden = YES;
+        for(PieceView* pv in self.pieces) {
+            pv.userInteractionEnabled = NO;
+        }
+
+        for(TargetView* tv in self.targets) {
+            tv.hidden = YES;
+        }
         self.solvedPuzzle = true;
         NSLog(@"Solved!");
     }
