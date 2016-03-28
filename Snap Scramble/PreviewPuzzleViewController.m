@@ -27,6 +27,14 @@
     self.imageView = [UIImageView new];
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.cornerRadius = 5.0f;
+
+    self.backButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.backButton.titleLabel.minimumScaleFactor = 0.5;
+    self.selectPuzzleSizeButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.selectPuzzleSizeButton.titleLabel.minimumScaleFactor = 0.5;
+    self.sendButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.sendButton.titleLabel.minimumScaleFactor = 0.5;
+
     self.currentUser = [PFUser currentUser];
     
     if (self.image) { // if the image was just created by the player (sender) and is saved in memory

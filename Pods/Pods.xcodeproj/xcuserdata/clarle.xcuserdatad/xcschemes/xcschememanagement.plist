@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>KVNProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Parse.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Snap Scramble.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RMActionController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RMPickerViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>06E4DF7B33A2464BD6742B108E20F346</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>358DB9721F4D723FBDB1CA24622DD135</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>41E09398B5BD08CC716FA19E66245ECE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8982A362A7093C844A76A3B43E78B303</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA0640C5BABD70774ABD770683AFD0BA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ECA00FDF0DB89567815BEC2F2DBAFDEE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
