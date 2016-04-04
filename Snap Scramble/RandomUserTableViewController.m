@@ -106,7 +106,7 @@
     [self stopRandomUserSearch];
     self.opponent = [self.randomUserArray objectAtIndex:indexPath.row]; // this was the random user selected
 
-    // delegate allows us to transfer data back to previous view controller.
+    // delegate allows us to transfer user's data back to previous view controller for creating puzzle game
     [self.delegate receiveRandomUserData:self.opponent];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

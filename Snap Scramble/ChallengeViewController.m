@@ -25,8 +25,6 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
     [self.currentGamesTable addSubview:self.refreshControl];
-    [self.headerView addSubview:self.findARandomOpponent];
-    [self.headerView addSubview:self.logout];
     [self.headerView addSubview:self.usernameLabel];
     
     self.currentGamesTable.tableHeaderView = self.headerView;
@@ -57,7 +55,7 @@
     }
     
     else {
-        [self performSegueWithIdentifier:@"showSignup" sender:self];
+        [self performSegueWithIdentifier:@"showLogin" sender:self];
     }
 }
 
@@ -71,64 +69,6 @@
 }
 
 - (IBAction)selectUserFromOptions:(id)sender {
-    /* NSLog(@"NAHHH");
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Search for a user." message:@"Enter the person's username." preferredStyle:UIAlertControllerStyleAlert];
-    [alert addTextFieldWithConfigurationHandler:nil];
-    
-    [alert addAction: [UIAlertAction actionWithTitle:@"Search" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        UITextField *textField = alert.textFields[0];
-        NSString *username = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSLog(@"text was %@", textField.text);
-        
-        NSString *comparisonUsername = [[PFUser currentUser].username stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-        
-        
-        if ([username isEqualToString:comparisonUsername]) {
-            NSLog(@"Still nope because you're trying to play yourself fam.");
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"You cannot play a game with yourself." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alertView show];
-            // [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-
-        else if (networkStatus == NotReachable) {
-            NSLog(@"There IS NO internet connection");
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
-        
-        else {
-            PFQuery *query = [PFUser query];
-            [query whereKey:@"username" equalTo:username];
-            PFUser *opponent = (PFUser *)[query getFirstObject];
-            NSLog(@"Searched for opponent: %@", opponent);
-            
-            
-            if (opponent) {
-                NSLog(@"yup");
-                self.opponent = opponent;
-                [self performSegueWithIdentifier:@"createPuzzle" sender:self];
-            }
-            
-            else {
-                NSLog(@"nope");
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"This user does not exist." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alertView show];
-                // [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-        }
-    }]];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        NSLog(@"Cancel pressed");
-    }]];
-    
-    alert.popoverPresentationController.sourceView = self.view;
-    
-    [self presentViewController:alert animated:YES
-                     completion:nil]; */
     [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
 }
 
@@ -290,10 +230,10 @@
                 self.opponent = [self.selectedGame objectForKey:@"sender"];
                 NSLog(@"OK1.");
                 if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // if the receiver (you) played
-                    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + play it + send it
+                    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it
                 }
                 
-                else if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) { // if receiver (you) didn't back, play yet
+                else if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) { // if receiver (you) didn't play yet
                     [self performSegueWithIdentifier:@"startPuzzleScreen" sender:self];
                 }
             }
@@ -310,16 +250,16 @@
         else {
             NSLog(@"pressed sec 1");
             self.selectedGame = [self.currentPendingGames objectAtIndex:indexPath.row];
-            [self performSegueWithIdentifier:@"gameOver" sender: self]; //????
         }
     }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"startPuzzleScreen"]) {
-         PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
-         previewPuzzleViewController.createdGame = self.selectedGame;
-         previewPuzzleViewController.opponent = self.opponent; //
+         StartPuzzleViewController *startPuzzleViewController = (StartPuzzleViewController *)segue.destinationViewController;
+        startPuzzleViewController.delegate = self;
+         startPuzzleViewController.createdGame = self.selectedGame;
+         startPuzzleViewController.opponent = self.opponent; //
          NSLog(@"opponent, 1st segue %@:", self.opponent);
          NSLog(@"OPENED THIS PUZZLE, 1st segue: %@", self.selectedGame);
      }
@@ -329,7 +269,7 @@
         NSLog(@"opponent %@:", self.opponent);
         createPuzzleViewController.opponent = self.opponent;
         
-        if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played
+        if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played.
             createPuzzleViewController.createdGame = self.selectedGame;
             NSLog(@"opponent, 2nd segue, %@:", self.opponent);
             NSLog(@"receiver didn't send back");
@@ -343,6 +283,16 @@
             NSLog(@"created THIS PUZZLE first game, 2nd segue %@", self.selectedGame);
         }
     }
+}
+
+
+#pragma mark - delegate methods
+
+- (void)receiveReplyGameData:(PFObject *)selectedGame andOpponent:(PFUser *)opponent {
+    self.opponent = opponent;
+    self.selectedGame = selectedGame;
+    NSLog(@"delegate success. replying... opponent: %@    game: %@", self.opponent, self.selectedGame);
+    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it
 }
 
  /* - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

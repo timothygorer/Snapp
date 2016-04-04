@@ -27,7 +27,7 @@
     [super viewDidLoad];
     self.replyButton.hidden = YES;
     self.replyLaterButton.hidden = YES;
-    // [self.replyButton addTarget:self action:@selector(replyButtonDidPress:) forControlEvents:UIControlEventTouchUpInside]; // not working
+    [self.replyButton addTarget:self action:@selector(replyButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.replyLaterButton addTarget:self action:@selector(replyLaterButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     
     [self createGame]; // this creates the game
@@ -53,6 +53,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     [self.navigationController.navigationBar setHidden:true];
 }
+
+#pragma  mark - puzzle game methods
 
 - (void)createGame {
     NSInteger size = 0;
@@ -206,6 +208,12 @@
                 if (CGRectContainsPoint(currentTargetView.frame, piece.center)) {
                     piece.targetView = currentTargetView;
                     piece.targetView.filled = YES;
+                    if (piece.pieceId == piece.targetView.targetId) { // check if piece is matched to its target
+                        piece.isMatched = true; // if matched at beginning, set it to true
+                    }
+                    else{
+                        piece.isMatched = false; // if it's not matched at beginning, set it to false
+                    }
                 }
             }
             [self.view addSubview:piece];
@@ -215,13 +223,6 @@
         y = y + sideLengthY;
     }
 }
-
-#pragma mark - pause button method
-
-- (IBAction)pauseButtonDidPress:(id)sender {
-    [self performSegueWithIdentifier:@"pauseMenu" sender: self];
-}
-
 
 - (BOOL)gameOver {
     int count = 0;
@@ -275,59 +276,6 @@
             }
         }];
     }
-}
-
-- (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
-{
-    CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
-    CGFloat width = image.size.width * scale;
-    CGFloat height = image.size.height * scale;
-    CGRect imageRect = CGRectMake((size.width - width)/2.0f,
-                                  (size.height - height)/2.0f,
-                                  width,
-                                  height);
-    
-    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
-    [image drawInRect:imageRect];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"gameOver"]) {
-        GameOverViewController *gameOverViewController = (GameOverViewController *)segue.destinationViewController;
-        gameOverViewController.pieceNum = self.pieceNum;
-    }
-}
-
-// instantiation
--(NSMutableArray*)targets{
-    if (!_targets) {
-        _targets = [[NSMutableArray alloc] init];
-    }
-    return _targets;
-}
-
--(NSMutableArray*)pieces{
-    if (!_pieces) {
-        _pieces = [[NSMutableArray alloc]init];
-    }
-    return _pieces;
-}
-
-- (IBAction)replyLaterButtonDidPress:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
-- (IBAction)replyButtonDidPress:(id)sender {
-    NSString * storyboardName = @"Main";
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"test"];
-    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)deletePuzzle {
@@ -413,46 +361,70 @@
     } else{
         pieceView.isMatched = false; // if it's not matched, set it to false
     }
-
+    
     if ([self gameOver]) {
         [self updateGame];
     }
 }
 
-// animation: place piece at target
--(void)placePiece:(PieceView*)pieceView atTarget:(TargetView*)targetView{
-    [UIView animateWithDuration:1.00 delay:0.00 options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         pieceView.center = targetView.center;
-                         pieceView.transform = CGAffineTransformIdentity;
-                     }
-                     completion:^(BOOL finished){
-                     }];
-}
-
-- (void)GameOverViewControllerDidPressDone:(GameOverViewController *)controller
+- (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
-    UINavigationController *nav = (UINavigationController *)self.presentingViewController;
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-        //This for loop iterates through all the view controllers in navigation stack.
-        for (UIViewController* viewController in nav.viewControllers) {
-            NSLog(@"why");
-            //This if condition checks whether the viewController's class is a CreatePuzzleViewController
-            // if true that means its the FriendsViewController (which has been pushed at some point)
-            if ([viewController isKindOfClass:[ChallengeViewController class]] ) {
-                
-                // Here viewController is a reference of UIViewController base class of CreatePuzzleViewController
-                // but viewController holds CreatePuzzleViewController  object so we can type cast it here
-                ChallengeViewController *challengeViewController = (ChallengeViewController *)viewController;
-                [nav popToViewController:challengeViewController animated:YES];
-                [challengeViewController.currentGamesTable setContentOffset:CGPointZero animated:YES];
-                break;
-            }
-        }
-    }];
+    CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
+    CGFloat width = image.size.width * scale;
+    CGFloat height = image.size.height * scale;
+    CGRect imageRect = CGRectMake((size.width - width)/2.0f,
+                                  (size.height - height)/2.0f,
+                                  width,
+                                  height);
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
+    [image drawInRect:imageRect];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"gameOver"]) {
+        GameOverViewController *gameOverViewController = (GameOverViewController *)segue.destinationViewController;
+        gameOverViewController.pieceNum = self.pieceNum;
+    }
+}
+
+- (IBAction)pauseButtonDidPress:(id)sender {
+    [self performSegueWithIdentifier:@"pauseMenu" sender: self];
+}
+
+
+- (IBAction)replyLaterButtonDidPress:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (IBAction)replyButtonDidPress:(id)sender { // delegate method
+    // delegate allows us to transfer user's data back to previous view controller for creating puzzle game
+    [self.delegate receiveReplyGameData2:self.createdGame andOpponent:self.opponent];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - helper methods
+
+// instantiation
+-(NSMutableArray*)targets{
+    if (!_targets) {
+        _targets = [[NSMutableArray alloc] init];
+    }
+    return _targets;
+}
+
+-(NSMutableArray*)pieces{
+    if (!_pieces) {
+        _pieces = [[NSMutableArray alloc]init];
+    }
+    return _pieces;
+}
 
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {

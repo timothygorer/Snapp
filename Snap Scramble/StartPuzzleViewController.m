@@ -8,7 +8,6 @@
 
 #import "StartPuzzleViewController.h"
 #import "GameViewController.h"
-#import "ChallengeViewController.h"
 #import "Snap_Scramble-Swift.h"
 
 @interface StartPuzzleViewController ()
@@ -35,12 +34,18 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:true];
     NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
+    [self.startPuzzleButton addTarget:self action:@selector(startGame:) forControlEvents:UIControlEventTouchUpInside];
+    self.startPuzzleButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.startPuzzleButton.titleLabel.minimumScaleFactor = 0.5;
+    self.cancelButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.cancelButton.titleLabel.minimumScaleFactor = 0.5;
+ 
 
     if (!self.image) { // or, if the image is being retrieved from the server by the receiving player
         // Adds a status below the circle
         [KVNProgress showWithStatus:@"Downloading..."];
         self.startPuzzleButton.userInteractionEnabled = false;
-        [self.startPuzzleButton setTitle:@"Start" forState:UIControlStateNormal];
+        [self.startPuzzleButton setTitle:@"Start Puzzle" forState:UIControlStateNormal];
         [[self.createdGame objectForKey:@"file"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             if (!error) {
                 UIImage *image = [UIImage imageWithData:data];
@@ -84,6 +89,10 @@
             }
         }];
     }
+}
+
+- (IBAction)startGame:(id)sender {
+    [self performSegueWithIdentifier:@"initiateGame" sender:self];
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
@@ -158,6 +167,7 @@
         gameViewController.opponent = self.opponent;
         NSLog(@"opponent %@",gameViewController.opponent);
         gameViewController.createdGame = self.createdGame;
+        gameViewController.delegate = self;
     }
 }
 
@@ -166,14 +176,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - delegate methods
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent {
+    self.createdGame = selectedGame;
+    self.opponent = opponent;
+    
+    // delegate allows us to transfer user's data back to previous view controller for creating puzzle game
+    [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-*/
+
 
 @end

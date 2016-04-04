@@ -14,6 +14,7 @@
 
 
 @interface RandomUserTableViewController : UITableViewController
+
 @property (weak, nonatomic) id<FirstVCDelegate> delegate;
 @property (nonatomic, strong) NSArray *randomUserArray;
 @property (nonatomic, strong) PFUser *opponent;

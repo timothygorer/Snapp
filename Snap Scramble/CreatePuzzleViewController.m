@@ -11,6 +11,7 @@
 #import "GameViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AVFoundation/AVFoundation.h>
+#import "ChallengeViewController.h"
 
 @interface CreatePuzzleViewController ()
 
@@ -27,7 +28,7 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setHidden:false];
+    [self.navigationController.navigationBar setHidden:true];
     self.currentUser = [PFUser currentUser];
     NSLog(@"Opponent: %@", [self.opponent objectForKey:@"username"]);
     //self.usernameDisplay.text = [NSString stringWithFormat:@"      Opponent: %@", [self.opponent objectForKey:@"username"]]; // nothing happens, change
@@ -37,8 +38,14 @@
 
     [self.takePhotoButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.choosePhotoButton addTarget:self action:@selector(choosePhoto:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchDown];
+    [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.backButton.adjustsImageWhenHighlighted = NO;
+    self.takePhotoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.takePhotoButton.titleLabel.minimumScaleFactor = 0.5;
+    self.choosePhotoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.choosePhotoButton.titleLabel.minimumScaleFactor = 0.5;
+    self.createPuzzleLabel.adjustsFontSizeToFitWidth = YES;
+    self.createPuzzleLabel.minimumScaleFactor = 0.5;
 }
 
 - (IBAction)takePhoto:(id)sender {
@@ -64,11 +71,9 @@
 }
 
 - (IBAction)backButtonDidPress:(id)sender {
-    [UIView beginAnimations:@"ScaleButton" context:NULL];
-    [UIView setAnimationDuration: 0.5f];
-    self.backButton.transform = CGAffineTransformMakeScale(1.1,1.1);
-    [UIView commitAnimations];
-    [self.navigationController popViewControllerAnimated:YES];
+    self.createPuzzleView.animation = @"fall";
+    [self.createPuzzleView animate];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - Image Picker Controller delegate

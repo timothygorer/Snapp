@@ -18,12 +18,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setHidden:true];
     self.puzzleSizes = [[NSArray alloc] initWithObjects:@"3 x 3", @"4 x 4", @"5 x 5", @"6 x 6", @"7 x 7", nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:true];
     self.imageView = [UIImageView new];
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.cornerRadius = 5.0f;

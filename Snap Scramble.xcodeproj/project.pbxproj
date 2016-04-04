@@ -13,13 +13,14 @@
 		6A112ABB1B5DFB0D0035A75C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */; };
 		6A112AC71B5DFB0D0035A75C /* Snap_ScrambleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AC61B5DFB0D0035A75C /* Snap_ScrambleTests.m */; };
 		6A112AD81B5E02450035A75C /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AD71B5E02450035A75C /* SignupViewController.m */; };
-		6A112ADB1B5E02570035A75C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112ADA1B5E02570035A75C /* HomeViewController.m */; };
 		6A112ADE1B5E02640035A75C /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112ADD1B5E02640035A75C /* ChallengeViewController.m */; };
 		6A112AE11B5E026E0035A75C /* CreatePuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE01B5E026E0035A75C /* CreatePuzzleViewController.m */; };
 		6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE31B5E02780035A75C /* PreviewPuzzleViewController.m */; };
 		6A112AE71B5E02870035A75C /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE61B5E02870035A75C /* GameViewController.m */; };
 		6A12D3621CA8D62500848EB4 /* PauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A12D3611CA8D62500848EB4 /* PauseViewController.m */; };
 		6A15C9211B675FB800DD46E3 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A15C9201B675FB800DD46E3 /* GameOverViewController.m */; };
+		6A1E77C61CB303C0002688D0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1E77C51CB303C0002688D0 /* LoginViewController.m */; };
+		6A1E77CC1CB31487002688D0 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1E77CB1CB31487002688D0 /* SettingsViewController.m */; };
 		6A4EAF4392F92044A05101DC /* Pods_Snap_Scramble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15078B1E8CC671A35F71F15B /* Pods_Snap_Scramble.framework */; };
 		6A6298951CB0E47B007DC522 /* RandomUserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6298941CB0E47B007DC522 /* RandomUserTableViewController.m */; };
 		6A62D55E1B5E1C9400AC638E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */; };
@@ -106,8 +107,6 @@
 		6A112AC61B5DFB0D0035A75C /* Snap_ScrambleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snap_ScrambleTests.m; sourceTree = "<group>"; };
 		6A112AD61B5E02450035A75C /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
 		6A112AD71B5E02450035A75C /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
-		6A112AD91B5E02570035A75C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		6A112ADA1B5E02570035A75C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		6A112ADC1B5E02640035A75C /* ChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeViewController.h; sourceTree = "<group>"; };
 		6A112ADD1B5E02640035A75C /* ChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeViewController.m; sourceTree = "<group>"; };
 		6A112ADF1B5E026E0035A75C /* CreatePuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePuzzleViewController.h; sourceTree = "<group>"; };
@@ -120,6 +119,10 @@
 		6A12D3611CA8D62500848EB4 /* PauseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewController.m; sourceTree = "<group>"; };
 		6A15C91F1B675FB800DD46E3 /* GameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewController.h; sourceTree = "<group>"; };
 		6A15C9201B675FB800DD46E3 /* GameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewController.m; sourceTree = "<group>"; };
+		6A1E77C41CB303C0002688D0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		6A1E77C51CB303C0002688D0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		6A1E77CA1CB31487002688D0 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		6A1E77CB1CB31487002688D0 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6A6298931CB0E47B007DC522 /* RandomUserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUserTableViewController.h; sourceTree = "<group>"; };
 		6A6298941CB0E47B007DC522 /* RandomUserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserTableViewController.m; sourceTree = "<group>"; };
 		6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -262,10 +265,10 @@
 				6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */,
 				6A112AD61B5E02450035A75C /* SignupViewController.h */,
 				6A112AD71B5E02450035A75C /* SignupViewController.m */,
-				6A112AD91B5E02570035A75C /* HomeViewController.h */,
-				6A112ADA1B5E02570035A75C /* HomeViewController.m */,
-				6A112AB41B5DFB0D0035A75C /* Main.storyboard */,
-				6ABA8D021C5764FE00810DE6 /* SnapScrambleTableViewCell.xib */,
+				6A1E77C41CB303C0002688D0 /* LoginViewController.h */,
+				6A1E77C51CB303C0002688D0 /* LoginViewController.m */,
+				6A1E77CA1CB31487002688D0 /* SettingsViewController.h */,
+				6A1E77CB1CB31487002688D0 /* SettingsViewController.m */,
 				6AC8890A1B602ABF007DBCAB /* SnapScrambleTableViewCell.h */,
 				6AC8890B1B602ABF007DBCAB /* SnapScrambleTableViewCell.m */,
 				6A112ADC1B5E02640035A75C /* ChallengeViewController.h */,
@@ -290,8 +293,6 @@
 				6A15C9201B675FB800DD46E3 /* GameOverViewController.m */,
 				6A12D3601CA8D62500848EB4 /* PauseViewController.h */,
 				6A12D3611CA8D62500848EB4 /* PauseViewController.m */,
-				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
-				6AD28CE21B5E092E00BCD802 /* Images.xcassets */,
 				6A112AAA1B5DFB0D0035A75C /* Supporting Files */,
 			);
 			name = Controllers;
@@ -301,6 +302,10 @@
 		6A112AAA1B5DFB0D0035A75C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6A112AB41B5DFB0D0035A75C /* Main.storyboard */,
+				6ABA8D021C5764FE00810DE6 /* SnapScrambleTableViewCell.xib */,
+				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
+				6AD28CE21B5E092E00BCD802 /* Images.xcassets */,
 				6A112AAB1B5DFB0D0035A75C /* Info.plist */,
 				6A112AAC1B5DFB0D0035A75C /* main.m */,
 			);
@@ -465,7 +470,7 @@
 						DevelopmentTeam = 67D5VP8GSS;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -575,11 +580,13 @@
 				6AB4F4BB1C6058190082EF42 /* SoundPlayer.swift in Sources */,
 				6A15C9211B675FB800DD46E3 /* GameOverViewController.m in Sources */,
 				6AB4F4BF1C6058190082EF42 /* SpringImageView.swift in Sources */,
+				6A1E77CC1CB31487002688D0 /* SettingsViewController.m in Sources */,
 				6A112ADE1B5E02640035A75C /* ChallengeViewController.m in Sources */,
 				6A112AE11B5E026E0035A75C /* CreatePuzzleViewController.m in Sources */,
 				6AB4F4BA1C6058190082EF42 /* Misc.swift in Sources */,
 				6AB4F4AE1C6058190082EF42 /* DesignableButton.swift in Sources */,
 				6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */,
+				6A1E77C61CB303C0002688D0 /* LoginViewController.m in Sources */,
 				6AB4F4B51C6058190082EF42 /* ImageLoader.swift in Sources */,
 				6AD28CB71B5E06F900BCD802 /* TargetView.m in Sources */,
 				6A112AE71B5E02870035A75C /* GameViewController.m in Sources */,
@@ -594,7 +601,6 @@
 				6A6298951CB0E47B007DC522 /* RandomUserTableViewController.m in Sources */,
 				6AB4F4C01C6058190082EF42 /* SpringLabel.swift in Sources */,
 				6AB4F4C41C6058190082EF42 /* TransitionManager.swift in Sources */,
-				6A112ADB1B5E02570035A75C /* HomeViewController.m in Sources */,
 				6A112AAD1B5DFB0D0035A75C /* main.m in Sources */,
 				6AB4F4AF1C6058190082EF42 /* DesignableImageView.swift in Sources */,
 				6AB4F4BD1C6058190082EF42 /* SpringAnimation.swift in Sources */,

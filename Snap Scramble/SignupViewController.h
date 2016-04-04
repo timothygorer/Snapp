@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet DesignableTextField *usernameField;
 @property (weak, nonatomic) IBOutlet DesignableTextField *passwordField;
+@property (weak, nonatomic) IBOutlet DesignableTextField *reenterPasswordField;
+@property (weak, nonatomic) IBOutlet DesignableTextField *emailField;
 @property (weak, nonatomic) IBOutlet SpringView *signupView;
 
 

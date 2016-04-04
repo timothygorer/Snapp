@@ -35,6 +35,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self.navigationController.navigationBar setHidden:false];
     NSLog(@"..........");
     self.friendsRelation = [[PFUser currentUser] relationForKey:@"friends"];
     PFQuery *friendsQuery = [self.friendsRelation query];
@@ -163,8 +164,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // set this friend as the opponent.
     self.opponent = [self.mutableFriendsList objectAtIndex:indexPath.row];
-    NSLog(@"opponent from friends list selected: %@", self.opponent);
-    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // create puzzle once friend (opponent) is selected
+    
+    // delegate allows us to transfer user's data back to previous view controller for creating puzzle game
+    [self.delegate receiveFriendUserData:self.opponent];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

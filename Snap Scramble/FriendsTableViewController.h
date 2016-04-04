@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import <KVNProgress/KVNProgress.h>
+#import "UserSelectionViewController.h"
+
+@class UserSelectionViewController;
 
 @interface FriendsTableViewController : UITableViewController
 
+@property (weak, nonatomic) id<FirstVCDelegate> delegate;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) PFRelation *friendsRelation;
 @property (nonatomic, strong) PFUser *currentUserPFObject;

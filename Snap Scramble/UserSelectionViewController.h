@@ -12,6 +12,7 @@
 
 @protocol FirstVCDelegate <NSObject>
 - (void)receiveRandomUserData:(PFUser *)opponent;
+- (void)receiveFriendUserData:(PFUser *)opponent;
 @end
 
 @interface UserSelectionViewController : UIViewController <FirstVCDelegate>
@@ -22,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton* cancelButton;
 @property (weak, nonatomic) IBOutlet SpringView *scoreView;
 @property (nonatomic, strong) PFUser *opponent;
+@property (nonatomic, strong) IBOutlet UILabel *opponentSelectionLabel;
 
 
 @end

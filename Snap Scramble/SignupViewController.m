@@ -21,8 +21,12 @@
     [self.navigationItem.backBarButtonItem setTitle:@""];
     self.usernameField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.passwordField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.reenterPasswordField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.passwordField setDelegate:self];
     [self.usernameField setDelegate:self];
+    [self.reenterPasswordField setDelegate:self];
+    [self.emailField setDelegate:self];
     
 }
 
@@ -40,7 +44,17 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     if (theTextField == self.passwordField) {
         [theTextField resignFirstResponder];
-    } else if (theTextField == self.usernameField) {
+    }
+    
+    else if (theTextField == self.reenterPasswordField) {
+        [theTextField resignFirstResponder];
+    }
+    
+    else if (theTextField == self.emailField) {
+        [theTextField resignFirstResponder];
+    }
+    
+    else if (theTextField == self.usernameField) {
         [self.passwordField becomeFirstResponder];
     }
     return YES;
@@ -64,9 +78,23 @@
 - (IBAction)signupButtonDidPress:(id)sender {
     NSString *username = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *reenteredPassword = [self.reenterPasswordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *email = [self.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     if ([username length] == 0 || [password length] == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Make sure you enter a username!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid username and password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+    }
+    
+    else if (![reenteredPassword isEqualToString:password]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Make sure your you enter your password correctly both times." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+    }
+    
+    else if (![email containsString:@"@"]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [alertView show];
     }
@@ -75,6 +103,7 @@
         PFUser *newUser = [PFUser user];
         newUser.username = username;
         newUser.password = password;
+        newUser.email = email;
         [KVNProgress showWithStatus:@"Signing up..."];
         
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

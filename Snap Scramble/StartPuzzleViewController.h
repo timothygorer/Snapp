@@ -10,13 +10,18 @@
 #import "Snap_Scramble-Swift.h"
 #import <Parse/Parse.h>
 #import <KVNProgress/KVNProgress.h>
+#import "ChallengeViewController.h"
 
-@interface StartPuzzleViewController : UIViewController
+@protocol StartVCDelegate <NSObject>
+- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent;
+@end
 
+@interface StartPuzzleViewController : UIViewController <StartVCDelegate>
+
+@property (weak, nonatomic) id<ChallengeVCDelegate> delegate;
 @property (nonatomic, strong) PFObject* createdGame;
 @property (nonatomic, strong) UIImageView* imageView;
 @property (nonatomic, strong) PFUser* opponent;
-@property (weak, nonatomic) IBOutlet UIButton* backButton;
 @property (nonatomic, strong) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton* startPuzzleButton;
 @property (weak, nonatomic) IBOutlet UIButton* cancelButton;

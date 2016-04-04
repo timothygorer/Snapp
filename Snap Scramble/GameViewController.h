@@ -12,14 +12,11 @@
 #import <Parse/Parse.h>
 #import "GameOverViewController.h"
 #import "Snap_Scramble-Swift.h"
-
-@protocol GameViewControllerDelegate <NSObject>
-- (IBAction)replyButtonDidPress:(id)sender;
-@end
-
+#import "StartPuzzleViewController.h"
 
 @interface GameViewController : UIViewController
 
+@property (weak, nonatomic) id<StartVCDelegate> delegate;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (nonatomic, strong) UIImageView *previewView;
 @property (nonatomic, strong) UIImage *image;

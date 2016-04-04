@@ -12,6 +12,7 @@
 #import "Snap_Scramble-Swift.h"
 #import "RandomUserTableViewController.h"
 #import "CreatePuzzleViewController.h"
+#import "FriendsTableViewController.h"
 
 @interface UserSelectionViewController ()
 
@@ -31,6 +32,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self.navigationController.navigationBar setHidden:true];
+    self.randomUserButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.randomUserButton.titleLabel.minimumScaleFactor = 0.5;
+    self.friendsListButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.friendsListButton.titleLabel.minimumScaleFactor = 0.5;
+    self.opponentSelectionLabel.adjustsFontSizeToFitWidth = YES;
+    self.opponentSelectionLabel.minimumScaleFactor = 0.5;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -54,25 +61,8 @@
 
 - (IBAction)cancelButtonDidPress:(id)sender {
     self.scoreView.animation = @"fall";
-    
-    self.scoreView.delay = 5.0;
     [self.scoreView animate];
-    
-
-    //This for loop iterates through all the view controllers in navigation stack.
-    for (UIViewController* viewController in self.navigationController.viewControllers) {
-        NSLog(@"why");
-        //This if condition checks whether the viewController's class is a CreatePuzzleViewController
-        // if true that means its the FriendsViewController (which has been pushed at some point)
-        if ([viewController isKindOfClass:[ChallengeViewController class]] ) {
-            
-            // Here viewController is a reference of UIViewController base class of CreatePuzzleViewController
-            // but viewController holds CreatePuzzleViewController  object so we can type cast it here
-            ChallengeViewController *challengeViewController = (ChallengeViewController *)viewController;
-            [self.navigationController popToViewController:challengeViewController animated:YES];
-            break;
-        }
-    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 
@@ -87,6 +77,11 @@
         randomUserTableViewController.delegate = self;
     }
     
+    else if ([segue.identifier isEqualToString:@"selectFriend"]) {
+        FriendsTableViewController *friendsTableViewController = (FriendsTableViewController *)segue.destinationViewController;
+        friendsTableViewController.delegate = self;
+    }
+    
     // onlyl called when the delegate receives the random user. Then we can create the game.
     else if ([segue.identifier isEqualToString:@"createPuzzle"]) {
         CreatePuzzleViewController  *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
@@ -94,12 +89,17 @@
     }
 }
 
-#pragma mark - delegate
+#pragma mark - delegate methods
 
-// This will just update the label text with the message we get from the RandomUserTableViewController
 - (void)receiveRandomUserData:(PFUser *)opponent {
     self.opponent = opponent;
-    NSLog(@"delegate success. opponent selected: %@", self.opponent);
+    NSLog(@"delegate success. (random) opponent selected: %@", self.opponent);
+    [self performSegueWithIdentifier:@"createPuzzle" sender:self];
+}
+
+- (void)receiveFriendUserData:(PFUser *)opponent {
+    self.opponent = opponent;
+    NSLog(@"delegate success. (friend) opponent selected: %@", self.opponent);
     [self performSegueWithIdentifier:@"createPuzzle" sender:self];
 }
 

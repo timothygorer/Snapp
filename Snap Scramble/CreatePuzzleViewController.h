@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "GameViewController.h"
+#import "Snap_Scramble-Swift.h"
 
 @interface CreatePuzzleViewController : UIViewController <UIImagePickerControllerDelegate>
 
@@ -26,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UIButton* choosePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (nonatomic, strong) IBOutlet UILabel *headerLabel;
+@property (nonatomic, strong) IBOutlet UILabel *createPuzzleLabel;
+@property (weak, nonatomic) IBOutlet SpringView *createPuzzleView;
 
 
 - (void)uploadGame;
