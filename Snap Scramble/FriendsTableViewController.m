@@ -60,6 +60,7 @@
     [alert addTextFieldWithConfigurationHandler:nil];
     
     [alert addAction: [UIAlertAction actionWithTitle:@"Search" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [KVNProgress showWithStatus:@"Adding friend..."];
         UITextField *textField = alert.textFields[0];
         NSString *username = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSLog(@"text was %@", textField.text);
@@ -70,6 +71,7 @@
         NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
         
         if ([username isEqualToString:comparisonUsername]) {
+            [KVNProgress dismiss];
             NSLog(@"Still nope because you're trying to play yourself fam.");
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"You cannot play a game with yourself." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
@@ -77,6 +79,7 @@
         }
         
         else if (networkStatus == NotReachable) {
+            [KVNProgress dismiss];
             NSLog(@"There IS NO internet connection");
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
@@ -87,11 +90,8 @@
             [query whereKey:@"username" equalTo:username];
             PFUser *addedFriend = (PFUser *)[query getFirstObject];
             NSLog(@"adding friend: %@", addedFriend);
-            // Adds a status below the circle
-            [KVNProgress showWithStatus:@"Adding friend..."];
-            
+           
             if (addedFriend) { // if the friend exists
-                [KVNProgress dismiss];
                 if (![self isFriend:addedFriend]) { // if the user isn't already a friend, add him
                     NSLog(@"yup");
                     [self.mutableFriendsList addObject:addedFriend];
@@ -102,6 +102,7 @@
                         }
                         
                         else {
+                            [KVNProgress dismiss];
                             NSLog(@"WORKS1, mutable friends list: %@", self.friendsRelation);
                             [self.tableView reloadData];
                         }
@@ -116,6 +117,7 @@
             }
             
             else {
+                [KVNProgress dismiss];
                 NSLog(@"nope");
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"This user does not exist." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alertView show];

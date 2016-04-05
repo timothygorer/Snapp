@@ -55,7 +55,7 @@
     }
     
     else {
-        [self performSegueWithIdentifier:@"showLogin" sender:self];
+        [self performSegueWithIdentifier:@"showLogin" sender:self]; // show log in screen if user not signed in
     }
 }
 
@@ -125,16 +125,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    /* if ([self.currentGames count] == 0 && [self.currentPendingGames count] == 0) {
+    if ([self.currentGames count] == 0 && [self.currentPendingGames count] == 0) {
         
-        self.emptyTableScreen.image = [UIImage imageNamed:@"empty_table_background"];
-        self.emptyTableScreen.frame =  CGRectMake((self.view.frame.size.width - self.emptyTableScreen.image.size.width) / 2,self.view.frame.size.height - self.emptyTableScreen.image.size.height, self.emptyTableScreen.image.size.width, self.emptyTableScreen.image.size.height); // fix, the y part isn't how i want it.
-        [self.view addSubview:self.emptyTableScreen];
+       /*  self.emptyTableScreen.image = [UIImage imageNamed:@"empty_table_background"];
+        self.emptyTableScreen.frame =  CGRectMake((self.view.frame.size.width - self.emptyTableScreen.image.size.width) / 2,self.view.frame.size.height - self.emptyTableScreen.image.size.height, self.emptyTableScreen.image.size.width, self.emptyTableScreen.image.size.height); // fix, the y part isn't how i want it. */
+        //[self.view addSubview:self.emptyTableScreen];
+        self.currentGamesTable.backgroundView = self.backgroundView;
+        self.currentGamesTable.backgroundView.hidden = NO;
         self.currentGamesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    } */
+        self.currentGamesTable.scrollEnabled = false;
+    }
     
     if ([self.currentGames count] != 0 || [self.currentPendingGames count] != 0) {
-        [self.emptyTableScreen removeFromSuperview];
+        //[self.emptyTableScreen removeFromSuperview];
+        self.currentGamesTable.backgroundView.hidden = YES;
         self.currentGamesTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.currentGamesTable.scrollEnabled = true;
     }
@@ -294,6 +298,15 @@
     NSLog(@"delegate success. replying... opponent: %@    game: %@", self.opponent, self.selectedGame);
     [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it
 }
+
+- (void)showLoginScreen {
+    [self performSegueWithIdentifier:@"showLogin" sender:self];
+}
+
+- (void)showSignupScreen {
+    [self performSegueWithIdentifier:@"showSignup" sender:self];
+}
+
 
  /* - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
      cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"CurrentGameButtonUnpressed.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];

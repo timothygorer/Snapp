@@ -18,6 +18,7 @@
 		6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE31B5E02780035A75C /* PreviewPuzzleViewController.m */; };
 		6A112AE71B5E02870035A75C /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AE61B5E02870035A75C /* GameViewController.m */; };
 		6A12D3621CA8D62500848EB4 /* PauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A12D3611CA8D62500848EB4 /* PauseViewController.m */; };
+		6A13A63B1CB450AD00A134AF /* LegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A13A63A1CB450AD00A134AF /* LegalViewController.m */; };
 		6A15C9211B675FB800DD46E3 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A15C9201B675FB800DD46E3 /* GameOverViewController.m */; };
 		6A1E77C61CB303C0002688D0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1E77C51CB303C0002688D0 /* LoginViewController.m */; };
 		6A1E77CC1CB31487002688D0 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1E77CB1CB31487002688D0 /* SettingsViewController.m */; };
@@ -117,6 +118,8 @@
 		6A112AE61B5E02870035A75C /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		6A12D3601CA8D62500848EB4 /* PauseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewController.h; sourceTree = "<group>"; };
 		6A12D3611CA8D62500848EB4 /* PauseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewController.m; sourceTree = "<group>"; };
+		6A13A6391CB450AD00A134AF /* LegalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegalViewController.h; sourceTree = "<group>"; };
+		6A13A63A1CB450AD00A134AF /* LegalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalViewController.m; sourceTree = "<group>"; };
 		6A15C91F1B675FB800DD46E3 /* GameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewController.h; sourceTree = "<group>"; };
 		6A15C9201B675FB800DD46E3 /* GameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewController.m; sourceTree = "<group>"; };
 		6A1E77C41CB303C0002688D0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				6A15C9201B675FB800DD46E3 /* GameOverViewController.m */,
 				6A12D3601CA8D62500848EB4 /* PauseViewController.h */,
 				6A12D3611CA8D62500848EB4 /* PauseViewController.m */,
+				6A13A6391CB450AD00A134AF /* LegalViewController.h */,
+				6A13A63A1CB450AD00A134AF /* LegalViewController.m */,
 				6A112AAA1B5DFB0D0035A75C /* Supporting Files */,
 			);
 			name = Controllers;
@@ -470,7 +475,7 @@
 						DevelopmentTeam = 67D5VP8GSS;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -583,6 +588,7 @@
 				6A1E77CC1CB31487002688D0 /* SettingsViewController.m in Sources */,
 				6A112ADE1B5E02640035A75C /* ChallengeViewController.m in Sources */,
 				6A112AE11B5E026E0035A75C /* CreatePuzzleViewController.m in Sources */,
+				6A13A63B1CB450AD00A134AF /* LegalViewController.m in Sources */,
 				6AB4F4BA1C6058190082EF42 /* Misc.swift in Sources */,
 				6AB4F4AE1C6058190082EF42 /* DesignableButton.swift in Sources */,
 				6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */,
@@ -770,7 +776,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fc9f0f55-22aa-43bf-bc24-55300e89c49d";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -794,7 +800,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fc9f0f55-22aa-43bf-bc24-55300e89c49d";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

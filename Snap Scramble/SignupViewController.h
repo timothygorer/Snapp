@@ -18,8 +18,11 @@
 @property (weak, nonatomic) IBOutlet DesignableTextField *reenterPasswordField;
 @property (weak, nonatomic) IBOutlet DesignableTextField *emailField;
 @property (weak, nonatomic) IBOutlet SpringView *signupView;
+@property (weak, nonatomic) IBOutlet UIButton *legalButton;
 
 
 - (IBAction)signupButtonDidPress:(id)sender;
+- (IBAction)loginScreenButtonDidPress:(id)sender;
+
 
 @end

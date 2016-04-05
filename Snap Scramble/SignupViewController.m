@@ -27,7 +27,8 @@
     [self.usernameField setDelegate:self];
     [self.reenterPasswordField setDelegate:self];
     [self.emailField setDelegate:self];
-    
+    self.legalButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.legalButton.titleLabel.minimumScaleFactor = 0.5;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -73,7 +74,11 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+ */
+
+- (IBAction)loginScreenButtonDidPress:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (IBAction)signupButtonDidPress:(id)sender {
     NSString *username = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -114,7 +119,7 @@
             }
             
             else {
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
                 NSLog(@"User %@ signed up.", newUser);
                 [KVNProgress dismiss];
                 self.signupView.animation = @"fall";

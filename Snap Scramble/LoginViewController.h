@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet SpringView *loginView;
 
 - (IBAction)loginButtonDidPress:(id)sender;
+- (IBAction)signupScreenButtonDidPress:(id)sender;
 
 @end

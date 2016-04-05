@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Snap_Scramble-Swift.h"
+#import "Parse/Parse.h"
 
 @interface PauseViewController : UIViewController
 
@@ -16,7 +17,9 @@
 @property (weak, nonatomic) IBOutlet UIButton* resignButton;
 @property (weak, nonatomic) IBOutlet UIButton* cancelButton;
 @property (weak, nonatomic) IBOutlet SpringView *pauseView;
-
+@property (nonatomic, strong) PFObject *createdGame;
+@property (nonatomic, strong) PFUser *opponent;
+@property (nonatomic, strong) PFRelation *blockedUsersRelation;
 
 
 @end

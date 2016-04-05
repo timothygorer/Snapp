@@ -10,6 +10,7 @@
 #import "GameOverViewController.h"
 #import "ChallengeViewController.h"
 #import "CreatePuzzleViewController.h"
+#import "PauseViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 
 
@@ -257,12 +258,11 @@
     if ([[self.createdGame objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) { // 1: if user is the receiver and the receiver has already sent back.
         NSLog(@"why %@", self.createdGame);
         NSLog(@"booltest1");
-        [self.createdGame setObject:[NSString stringWithFormat:@"%i", self.totalSeconds] forKey:@"time"];
         [self.createdGame setObject:[NSNumber numberWithBool:true] forKey:@"receiverPlayed"]; // receiver played, set true
         NSLog(@"why2 %@", self.createdGame);
         [self.createdGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                 [alertView show];
                 NSLog(@"test error");
             }
@@ -391,6 +391,12 @@
     if ([segue.identifier isEqualToString:@"gameOver"]) {
         GameOverViewController *gameOverViewController = (GameOverViewController *)segue.destinationViewController;
         gameOverViewController.pieceNum = self.pieceNum;
+    }
+    
+    else if ([segue.identifier isEqualToString:@"pauseMenu"]) {
+        PauseViewController *pauseViewController = (PauseViewController *)segue.destinationViewController;
+        pauseViewController.createdGame = self.createdGame;
+        pauseViewController.opponent = self.opponent;
     }
 }
 

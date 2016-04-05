@@ -29,5 +29,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *challengeButton;
 
 
+// background view properties
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+
+
+
 
 @end

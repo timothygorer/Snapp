@@ -62,6 +62,11 @@
  }
  */
 
+- (IBAction)signupScreenButtonDidPress:(id)sender {
+    [self performSegueWithIdentifier:@"showSignup" sender:self];
+}
+
+
 - (IBAction)loginButtonDidPress:(id)sender {
     NSString *username = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -76,14 +81,14 @@
         [KVNProgress showWithStatus:@"Logging in..."];
         [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
             if (error) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry!"
-                                                                    message:[error.userInfo objectForKey:@"error"]
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                                    message:@"Your e-mail or password don't match an account we have in our database."
                                                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alertView show];
                 [KVNProgress dismiss];
             }
             else {
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
                 NSLog(@"User %@ logged in.", user);
                 [KVNProgress dismiss];
                 self.loginView.animation = @"fall";
