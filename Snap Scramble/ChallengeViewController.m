@@ -21,7 +21,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.currentGamesTable.delegate = self;
+    self.currentGamesTable.dataSource = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"reloadTheTable" object:nil];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
     [self.currentGamesTable addSubview:self.refreshControl];
@@ -59,13 +61,16 @@
     }
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
+-(void)viewWillDisappear:(BOOL)animated {
     [self.currentGamesTable reloadData];
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
         [self retrieveUserMatches];
     }
+}
+
+- (void)reloadTable:(NSNotification *)notification {
+    [self retrieveUserMatches];
 }
 
 - (IBAction)selectUserFromOptions:(id)sender {
@@ -133,7 +138,7 @@
         self.currentGamesTable.backgroundView = self.backgroundView;
         self.currentGamesTable.backgroundView.hidden = NO;
         self.currentGamesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.currentGamesTable.scrollEnabled = false;
+        self.currentGamesTable.scrollEnabled = true;
     }
     
     if ([self.currentGames count] != 0 || [self.currentPendingGames count] != 0) {
@@ -155,17 +160,58 @@
     return 0;
 }
 
-/* - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0)
-        return @"Your turn";
-    
-    if (section == 1) {
-        return @"Pending";
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return YES - we will be able to delete all rows
+    return YES;
+}
+
+// deletion functionality
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) { // current games section
+        PFObject *gameToDelete = [self.currentGames objectAtIndex:indexPath.row];
+        NSMutableArray* tempCurrentGames = [NSMutableArray arrayWithArray:self.currentGames];
+        
+        [gameToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                for (PFObject *object in self.currentGames) {
+                    if ([object.objectId isEqualToString:gameToDelete.objectId]) {
+                        [tempCurrentGames removeObject:object];
+                        break;
+                    }
+                }
+                
+                self.currentGames = tempCurrentGames;
+                [self.currentGamesTable reloadData];
+                UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game deleted successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
+                [alert show];
+            }
+        }];
     }
     
-    return nil;
-} */
-
+    else if (indexPath.section == 1) { // current pending games section
+        PFObject *gameToDelete = [self.currentPendingGames objectAtIndex:indexPath.row];
+        NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentGames];
+        
+        [gameToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                for (PFObject *object in self.currentGames) {
+                    if ([object.objectId isEqualToString:gameToDelete.objectId]) {
+                        [tempCurrentPendingGames removeObject:object];
+                        break;
+                    }
+                }
+                
+                self.currentGames = tempCurrentPendingGames;
+                [self.currentGamesTable reloadData];
+                UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game deleted successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
+                [alert show];
+            }
+        }];
+    }
+   
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
