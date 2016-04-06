@@ -171,11 +171,12 @@
 {
     if (indexPath.section == 0) { // current games section
         PFObject *gameToDelete = [self.currentGames objectAtIndex:indexPath.row];
-        NSMutableArray* tempCurrentGames = [NSMutableArray arrayWithArray:self.currentGames];
+        // NSMutableArray* tempCurrentGames = [NSMutableArray arrayWithArray:self.currentGames];
         
         [gameToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
-                for (PFObject *object in self.currentGames) {
+                [self retrieveUserMatches];
+                /* for (PFObject *object in self.currentGames) {
                     if ([object.objectId isEqualToString:gameToDelete.objectId]) {
                         [tempCurrentGames removeObject:object];
                         break;
@@ -183,7 +184,7 @@
                 }
                 
                 self.currentGames = tempCurrentGames;
-                [self.currentGamesTable reloadData];
+                [self.currentGamesTable reloadData]; */
                 UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game deleted successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
                 [alert show];
             }
@@ -192,11 +193,12 @@
     
     else if (indexPath.section == 1) { // current pending games section
         PFObject *gameToDelete = [self.currentPendingGames objectAtIndex:indexPath.row];
-        NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentGames];
+        //NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentGames];
         
         [gameToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
-                for (PFObject *object in self.currentGames) {
+                [self retrieveUserMatches];
+                /* for (PFObject *object in self.currentPendingGames) {
                     if ([object.objectId isEqualToString:gameToDelete.objectId]) {
                         [tempCurrentPendingGames removeObject:object];
                         break;
@@ -204,7 +206,7 @@
                 }
                 
                 self.currentGames = tempCurrentPendingGames;
-                [self.currentGamesTable reloadData];
+                [self.currentGamesTable reloadData]; */
                 UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game deleted successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
                 [alert show];
             }
