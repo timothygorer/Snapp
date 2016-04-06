@@ -85,8 +85,12 @@
     [alert addTextFieldWithConfigurationHandler:nil];
     
     [alert addAction: [UIAlertAction actionWithTitle:@"Search" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [KVNProgress showWithStatus:@"Adding friend..."];
         UITextField *textField = alert.textFields[0];
+        
+        if (textField) {
+            [KVNProgress showWithStatus:@"Adding friend..."];
+        }
+        
         NSString *username = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSLog(@"text was %@", textField.text);
         
@@ -94,6 +98,13 @@
         
         Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
         NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+        
+        if ([username length] == 0) {
+            [KVNProgress dismiss];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Please enter a username" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+        
         
         if ([username isEqualToString:comparisonUsername]) {
             [KVNProgress dismiss];
@@ -104,7 +115,6 @@
         }
         
         else if (networkStatus == NotReachable) {
-            [KVNProgress dismiss];
             NSLog(@"There IS NO internet connection");
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
