@@ -45,11 +45,36 @@
         }
         
         else {
-            NSLog(@"happy");
             self.friends = objects;
             self.mutableFriendsList = [NSMutableArray arrayWithArray:self.friends]; // set mutable list
             NSLog(@"friends: %@", self.friends);
             [self.tableView reloadData];
+            
+            // add the founder of Snap Scramble to the friends list
+            PFQuery *query = [PFUser query];
+            [query whereKey:@"username" equalTo:@"tim"];
+            [query getFirstObjectInBackgroundWithBlock:^(PFObject* founderUser, NSError* error) {
+                if(!error) {
+                    if (![self isFriend:founderUser]) {
+                        [self.mutableFriendsList addObject:founderUser];
+                        [self.friendsRelation addObject:founderUser];
+                        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if (error) {
+                                NSLog(@"Error %@ %@", error, [error userInfo]);
+                            }
+                            
+                            else {
+                                NSLog(@"mutable friends list: %@", self.friendsRelation);
+                                [self.tableView reloadData];
+                            }
+                        }];
+                    }
+                    
+                    else {
+                        NSLog(@"Good. Founder is already a friend.");
+                    }
+                }
+            }];
         }
     }];
 }
@@ -110,6 +135,7 @@
                 }
                 
                 else {
+                    [KVNProgress dismiss];
                     NSLog(@"this user is already on your friends list.");
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"This user is already on your friends list." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                     [alertView show];
@@ -153,12 +179,30 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
+
+    if(cell == nil)
+    {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+    }
+    
+    UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
+    cell.textLabel.font = myFont;
+    cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
+    cell.detailTextLabel.minimumScaleFactor = 0.5;
     PFUser* friend = [self.mutableFriendsList objectAtIndex:indexPath.row];
     cell.textLabel.text = friend.username;
+    
+    if ([friend.username isEqualToString:@"tim"]) {
+        cell.detailTextLabel.text = @"Snap Scramble founder";
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:252.0/255.0 green:194.0/255.0 blue:0 alpha:1.0];
+    }
+    
+    else {
+        cell.detailTextLabel.text = @"";
+    }
     
     return cell;
 }

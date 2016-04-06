@@ -43,21 +43,25 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    if (theTextField == self.usernameField) {
+        [self.usernameField resignFirstResponder];
+        [self.passwordField becomeFirstResponder];
+    }
+    
     if (theTextField == self.passwordField) {
-        [theTextField resignFirstResponder];
+        [self.passwordField resignFirstResponder];
+        [self.reenterPasswordField becomeFirstResponder];
     }
     
     else if (theTextField == self.reenterPasswordField) {
-        [theTextField resignFirstResponder];
+        [self.reenterPasswordField resignFirstResponder];
+        [self.emailField becomeFirstResponder];
     }
     
     else if (theTextField == self.emailField) {
-        [theTextField resignFirstResponder];
+        [self.emailField resignFirstResponder];
     }
     
-    else if (theTextField == self.usernameField) {
-        [self.passwordField becomeFirstResponder];
-    }
     return YES;
 }
 
@@ -88,6 +92,12 @@
 
     if ([username length] == 0 || [password length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid username and password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+    }
+    
+    else if ([username length] > 10) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username is too long. Please keep it below 10 characters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [alertView show];
     }

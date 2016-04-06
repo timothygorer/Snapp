@@ -37,13 +37,15 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    if (theTextField == self.passwordField) {
-        [theTextField resignFirstResponder];
-    }
-    
-    else if (theTextField == self.usernameField) {
+    if (theTextField == self.usernameField) {
+        [self.usernameField resignFirstResponder];
         [self.passwordField becomeFirstResponder];
     }
+    
+    else if (theTextField == self.passwordField) {
+        [self.passwordField resignFirstResponder];
+    }
+    
     return YES;
 }
 
