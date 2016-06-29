@@ -9,14 +9,27 @@
 #import "ChallengeViewController.h"
 #import "PreviewPuzzleViewController.h"
 #import "CreatePuzzleViewController.h"
-#import "SnapScrambleTableViewCell.h"
 #import "Reachability.h"
+#import "ChallengeViewModel.h"
 
 @interface ChallengeViewController ()
+
+@property(nonatomic, strong) ChallengeViewModel *viewModel;
 
 @end
 
 @implementation ChallengeViewController
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        _viewModel = [[ChallengeViewModel alloc] init];
+    }
+
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,43 +93,35 @@
 #pragma mark - userMatchesTable code
 
 - (void)retrieveUserMatches {
-    PFQuery *currentGamesQuery = [PFQuery queryWithClassName:@"Messages"];
-    [currentGamesQuery orderByDescending:@"updatedAt"];
-    [currentGamesQuery whereKey:@"receiverName" equalTo:[PFUser currentUser].username];
-    [currentGamesQuery includeKey:@"sender"];
-    [currentGamesQuery includeKey:@"receiver"];
-    //[currentGamesQuery includeKey:@"file"];
-    [currentGamesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    NSString *username = [PFUser currentUser].username;
+    [self.viewModel retrievePendingMatches:username completion:^(NSArray *matches, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
         }
         
         else {
-            NSLog(@"howcome1 %@", objects);
-            if ([self.refreshControl isRefreshing]) {
-                [self.refreshControl endRefreshing];
-             }
-            
-            self.currentGames = objects;
-            [self.currentGamesTable reloadData];
-        }
-    }];
-    
-    PFQuery *currentPendingGamesQuery = [PFQuery queryWithClassName:@"Messages"];
-    [currentPendingGamesQuery orderByDescending:@"updatedAt"];
-    [currentPendingGamesQuery whereKey:@"senderName" equalTo:[PFUser currentUser].username];
-    [currentPendingGamesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
-            NSLog(@"Error %@ %@", error, [error userInfo]);
-        }
-        
-        else {
-            NSLog(@"howcome2");
+            NSLog(@"howcome1 %@", matches);
             if ([self.refreshControl isRefreshing]) {
                 [self.refreshControl endRefreshing];
             }
             
-            self.currentPendingGames = objects;
+            self.currentPendingGames = matches;
+            [self.currentGamesTable reloadData];
+        }
+    }];
+    
+    [self.viewModel retrieveCurrentMatches:username completion:^(NSArray *matches, NSError *error) {
+        if (error) {
+            NSLog(@"Error %@ %@", error, [error userInfo]);
+        }
+        
+        else {
+            NSLog(@"howcome1 %@", matches);
+            if ([self.refreshControl isRefreshing]) {
+                [self.refreshControl endRefreshing];
+            }
+            
+            self.currentGames = matches;
             [self.currentGamesTable reloadData];
         }
     }];
@@ -354,25 +359,5 @@
 - (void)showSignupScreen {
     [self performSegueWithIdentifier:@"showSignup" sender:self];
 }
-
-
- /* - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-     cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"CurrentGameButtonUnpressed.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-     UIImageView *pressed = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CurrentGameNewGameButton.png"]];
-     cell.selectedBackgroundView = pressed;  
-    
-    
-    
-    // [cell.layer setMasksToBounds:NO];
-    
-    //[cell.layer setCornerRadius:10.0f];
-    //cell.layer.cornerRadius = 5;
-    /* UIView *selectedView = [[UIView alloc]init];
-    [selectedView.layer setCornerRadius:5.0f];
-    selectedView.backgroundColor = [UIColor colorWithRed:40.0/255.0 green:170.0/255.0 blue:235.0/255.0 alpha:100];
-    
-    cell.selectedBackgroundView =  selectedView;
-} */
-
 
 @end

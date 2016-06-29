@@ -118,7 +118,6 @@
         }
         
         else if (self.puzzleImage.size.width > self.puzzleImage.size.height) { // landscape puzzle
-            // this is the place of the very first target view.
             targetRect = CGRectMake((self.view.frame.size.width - self.puzzleImage.size.width) / 2, (self.view.frame.size.height - self.puzzleImage.size.height) / 2, 200, 200);
             
             // this is the place of the very first piece view.
@@ -201,18 +200,17 @@
         for (int j = 0; j < col; j++) {
             PieceView* piece = [[PieceView alloc]initWithFrame:CGRectMake(x, y, sideLengthX, sideLengthY)];
             piece.dragDelegate = self;
-            int randomIndex = arc4random()%([idArray count]);
-            piece.pieceId = [idArray[randomIndex] intValue];
+            int randomIndex = arc4random()%([idArray count]); // create random index
+            piece.pieceId = [idArray[randomIndex] intValue]; // assign random index to piece
             piece.image = images[piece.pieceId];
-            [idArray removeObjectAtIndex:randomIndex]; // remove the index after using so the random is not reused
+            [idArray removeObjectAtIndex:randomIndex]; // remove the object after using so the random index is not reused
             for (TargetView* currentTargetView in self.targets) { // self.targets is the array of TargetViews
                 if (CGRectContainsPoint(currentTargetView.frame, piece.center)) {
                     piece.targetView = currentTargetView;
-                    piece.targetView.filled = YES;
                     if (piece.pieceId == piece.targetView.targetId) { // check if piece is matched to its target
                         piece.isMatched = true; // if matched at beginning, set it to true
                     }
-                    else{
+                    else if (piece.pieceId != piece.targetView.targetId) {
                         piece.isMatched = false; // if it's not matched at beginning, set it to false
                     }
                 }
@@ -304,7 +302,7 @@
         x = 0.0;
         for (int col = 0; col < side; col++) {
             CGRect rect = CGRectMake(x, y, sideLengthX, sideLengthY);
-            CGImageRef cImage = CGImageCreateWithImageInRect([image CGImage],  rect); // coregraphics method! review
+            CGImageRef cImage = CGImageCreateWithImageInRect([image CGImage],  rect); // coregraphics method!
             UIImage* dImage = [[UIImage alloc]initWithCGImage:cImage];
             [images addObject:dImage];
             x = x + sideLengthX;
@@ -315,51 +313,47 @@
 }
 
 // if a piece is dragged, check if it can fit in a TargetView
--(void)pieceView:(PieceView*)pieceView didDragToPoint: (CGPoint)pt{
-    NSLog(@"pieceView x-coordinate: %f    pieceView y-coordinateeee: %f", pieceView.frame.origin.x, pieceView.frame.origin.y);
-    TargetView* targetView = nil;
-    int targetCount = 0;
-    // go through the array and find out if any of the TargetViews have the PieceView on them. If yes, save that TargetView.
+-(void)pieceView:(PieceView*)currentPieceView didDragToPoint: (CGPoint)pt{
+    PieceView* nonCurrentPieceView;
     for (TargetView* currentTargetView in self.targets) { // self.targets is the array of TargetViews
-        if (CGRectContainsPoint(currentTargetView.frame, pt)) { // if the piece is dragged near a target (if the TargetView has the PieceView's current point in it)
-            if (pieceView.targetView.filled == true) { // if piece has an OLD target already and is dragged to a new target, we empty out that old target and reset the .targetView variable (B)
-                pieceView.targetView.filled = false;
-                pieceView.targetView = nil;
-                NSLog(@"part1");
+        if (CGRectContainsPoint(currentTargetView.frame, pt)) { // if the piece is dragged near a target
+            
+            // if it exists, get the (noncurrent) pieceview that's about to be swapped and place it on current pieceview's old targetview
+            for (PieceView* aPieceView in self.pieces) {
+                if (aPieceView.targetView == currentTargetView) {
+                    nonCurrentPieceView = aPieceView; // piece view about to be swapped
+                    
+                    // place non current piece view on current pieceview's old targetview
+                    if (nonCurrentPieceView) {
+                        nonCurrentPieceView.targetView = currentPieceView.targetView;
+                        nonCurrentPieceView.center = currentPieceView.targetView.center;
+                    }
+                    
+                    break;
+                }
             }
             
-            if (currentTargetView.filled == false) { // now we check if the NEW target is empty or not to find out if we can place the piece there. this works for either the very first step (pieceView.targetView == nil, we don't do any resets), or if we're moving the piece from an old to new target (pieceView.targetView != nil). (A,B)
-                pieceView.targetView = currentTargetView;
-                pieceView.targetView.filled = true;
-                pieceView.center = pieceView.targetView.center;
-                NSLog(@"part2");
-                break;
-            }
-            
-            else if (currentTargetView.filled == true) { // if the NEW target isn't empty, we do nothing (C)
-                NSLog(@"part3");
-                break;
-            }
-        }
-        
-        else {
-            targetCount++;
-            NSLog(@"count: %@", [NSNumber numberWithInt:targetCount]);
+            // place the current piece view on the nearest target
+            currentPieceView.targetView = currentTargetView;
+            currentPieceView.center = currentPieceView.targetView.center;
+            break;
         }
     }
     
-    NSLog(@"part4: targetCount: %d", targetCount);
-    if (targetCount == self.pieceNum) { // we do this to find out if the piece hasn't been able to be assigned a new target – if the piece has been dragged off the screen (targetCount will be equal to the amount of pieces because the for loop cycles through entirely). if the piece isn't being dragged near a new target, we empty out its old target (and don't assign it to a new one, which is the point) (D)
-        NSLog(@"part5");
-        pieceView.targetView.filled = false;
-        pieceView.targetView = nil;
-    }
-    
-    NSLog(@"%ld", (long)targetView.targetId);
-    if (pieceView.pieceId == pieceView.targetView.targetId) { // check if piece is matched to its target
-        pieceView.isMatched = true; // if matched, set it to true
+    // check if current piece is matched to its target
+    if (currentPieceView.pieceId == currentPieceView.targetView.targetId) {
+        currentPieceView.isMatched = true; // if matched, set it to true
+        currentPieceView.userInteractionEnabled = false;
     } else{
-        pieceView.isMatched = false; // if it's not matched, set it to false
+        currentPieceView.isMatched = false; // if it's not matched, set it to false
+    }
+    
+    // check if non-current piece - the piece being swapped - is matched to its target
+    if (nonCurrentPieceView.pieceId == nonCurrentPieceView.targetView.targetId) {
+        nonCurrentPieceView.isMatched = true; // if matched, set it to true
+        currentPieceView.userInteractionEnabled = false;
+    } else{
+        nonCurrentPieceView.isMatched = false; // if it's not matched, set it to false
     }
     
     if ([self gameOver]) {

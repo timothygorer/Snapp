@@ -87,4 +87,14 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL succeeded))completionHandler {
+    if ([shortcutItem.type isEqualToString:@"com.timgorer.SnapScrambleDescrambleFriends.First"]) {
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *friendsVC = [storyBoard instantiateViewControllerWithIdentifier:@"FriendsVC"];
+        UIViewController *rootVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        [rootVC presentViewController:friendsVC animated:YES completion:^(void) {
+            completionHandler(true);
+        }];
+    }
+}
 @end

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '08F70897AB12574904306D57'
+               BlueprintIdentifier = '8741C3BA3853FAC0E124E045'
                BlueprintName = 'Pods-Snap Scramble'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_Snap_Scramble.framework'>

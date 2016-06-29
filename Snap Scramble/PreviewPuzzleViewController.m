@@ -9,6 +9,7 @@
 #import "PreviewPuzzleViewController.h"
 #import "GameViewController.h"
 #import "ChallengeViewController.h"
+#import "UIImage_Extension.h"
 
 @interface PreviewPuzzleViewController ()
 
@@ -38,12 +39,11 @@
     self.currentUser = [PFUser currentUser];
     
     if (self.image) { // if the image was just created by the player (sender) and is saved in memory
-        self.imageView.image = self.image; // preview image
         UIImage* image = self.image; // preview image
-        
         // create the image view frame and center it, then add to subview
         self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
         [self.imageView setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2)];
+        self.imageView.image = self.image;
         [self.view addSubview:self.imageView];
         [self.view bringSubviewToFront:self.sendButton];
         [self.view bringSubviewToFront:self.backButton];
@@ -58,6 +58,7 @@
         NSLog(@"Some problem.");
     }
 }
+
 
 - (IBAction)selectPuzzleSizeButtonDidPress:(id)sender {
     NSLog(@"....?");

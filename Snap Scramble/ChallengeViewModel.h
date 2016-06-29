@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
+
 
 @interface ChallengeViewModel : NSObject
+
+- (void)retrieveCurrentMatches:(NSString *)username completion:(void (^)(NSArray *matches, NSError *error))completion;
+- (void)retrievePendingMatches:(NSString *)username completion:(void (^)(NSArray *matches, NSError *error))completion;
 
 @end

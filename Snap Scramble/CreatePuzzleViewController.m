@@ -116,14 +116,14 @@
         }
         
         else if (tempOriginalImage.size.width > tempOriginalImage.size.height) { // landscape or square
-            self.resizedImage = [self resizeImage:tempOriginalImage withMaxDimension:self.view.frame.size.width - 20];
+            self.resizedImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
         }
         
         else if (tempOriginalImage.size.width == tempOriginalImage.size.height) { // square
             self.resizedImage = [self resizeImage:tempOriginalImage withMaxDimension:self.view.frame.size.width - 20];
         }
         
-        // created a half compressed photo to upload so that it can be resized on the receiver's end. is this necessary? maybe... since there's the 5S photo to 6+ dilemma. this might actually be quite smart.
+    
         self.originalImage = tempOriginalImage;
         NSLog(@"resized image: %@    original image: %@", self.resizedImage, self.originalImage);
         

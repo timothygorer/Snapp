@@ -18,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self startRandomUserSearch];
     [self findRandomUsers]; // creates a list of 20 random users searching for a game.
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(findRandomUsers) forControlEvents:UIControlEventValueChanged];
@@ -33,22 +32,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [self startRandomUserSearch];
     [self findRandomUsers]; // creates a list of 20 random users searching for a game.
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
-    if (self.isMovingFromParentViewController) {
-        [self stopRandomUserSearch];
-    }
+    [self stopRandomUserSearch];
 }
 
 
 - (void)findRandomUsers {
-    [self startRandomUserSearch]; // this is just in case (for if the user closes the app)
+     [self startRandomUserSearch];
      PFQuery *query = [PFUser query];
      [query whereKey:@"username" notEqualTo:[PFUser currentUser].username];
      [query whereKey:@"searchingForGame" equalTo:[NSNumber numberWithBool:YES]];
@@ -124,7 +119,7 @@
 }
 
 - (void)startRandomUserSearch {
-    [[PFUser currentUser] setObject:[NSNumber numberWithBool:YES] forKey:@"searchingForGame"]; // set it so current user isn't searching for a random user anymore
+    [[PFUser currentUser] setObject:[NSNumber numberWithBool:YES] forKey:@"searchingForGame"]; // set it so current user is searching for a random user
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
