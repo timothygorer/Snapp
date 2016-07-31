@@ -9,13 +9,36 @@
 #import "PreviewPuzzleViewController.h"
 #import "GameViewController.h"
 #import "ChallengeViewController.h"
-#import "UIImage_Extension.h"
+#import "PreviewPuzzleViewModel.h"
 
 @interface PreviewPuzzleViewController ()
+
+@property(nonatomic, strong) PreviewPuzzleViewModel *viewModel;
 
 @end
 
 @implementation PreviewPuzzleViewController
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        _viewModel = [[PreviewPuzzleViewModel alloc] init];
+    }
+    
+    return self;
+}
+
+#pragma mark - set view model properties
+
+- (void)setViewModelProperties {
+    _viewModel.opponent = self.opponent;
+    _viewModel.createdGame = self.createdGame;
+    _viewModel.puzzleSize = self.puzzleSize;
+}
+
+#pragma mark - view controller methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,12 +61,12 @@
 
     self.currentUser = [PFUser currentUser];
     
-    if (self.image) { // if the image was just created by the player (sender) and is saved in memory
-        UIImage* image = self.image; // preview image
-        // create the image view frame and center it, then add to subview
-        self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-        [self.imageView setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2)];
-        self.imageView.image = self.image;
+    if (self.previewImage) { // if the image was just created by the player (sender) and is saved in memory, display it
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.imageView.backgroundColor = [UIColor clearColor];
+        self.imageView.image = self.previewImage;
         [self.view addSubview:self.imageView];
         [self.view bringSubviewToFront:self.sendButton];
         [self.view bringSubviewToFront:self.backButton];
@@ -52,6 +75,9 @@
         [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
         [self.selectPuzzleSizeButton addTarget:self action:@selector(selectPuzzleSizeButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
         self.selectPuzzleSizeButton.adjustsImageWhenHighlighted = YES;
+        self.sendButton.adjustsImageWhenHighlighted = YES;
+        self.backButton.adjustsImageWhenHighlighted = YES;
+
     }
     
     else {
@@ -59,9 +85,22 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // enable swipe back functionality
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return YES;
+}
 
 - (IBAction)selectPuzzleSizeButtonDidPress:(id)sender {
-    NSLog(@"....?");
     //Create select action
     RMAction *selectAction = [RMAction actionWithTitle:@"Select" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
         UIPickerView *picker = ((RMPickerViewController *)controller).picker;
@@ -72,6 +111,8 @@
         }
         
         NSLog(@"puzzle size selected: %@", self.puzzleSize);
+    
+        self.selectPuzzleSizeButton.titleLabel.text = self.puzzleSize;
     }];
     
     
@@ -97,134 +138,68 @@
     // Dispose of any resources that can be recreated.
 }
 
+# pragma mark - game methods
+
 - (IBAction)sendGame:(id)sender { // after creating game, upload it
     NSData *fileData;
     NSString *fileName;
     NSString *fileType;
     
-    if (self.originalImage != nil) {
+    if (self.previewImage != nil && self.originalImage != nil) { // just make sure that there is no problem and that images were selected
         if (self.puzzleSize != nil) { // make sure a puzzle size was chosen in memory
-            // UIImage *newImage = [self resizeImage:self.resizedImage toWidth:375.0f andHeight:667.0f]; fix/delete?
             UIImage* tempOriginalImage = self.originalImage;
             fileData = UIImageJPEGRepresentation(tempOriginalImage, 0.6); // compress original image
             fileName = @"image.jpg";
             fileType = @"image";
             self.sendButton.userInteractionEnabled = NO;
-            NSLog(@"compressed original image before upload: %@", self.originalImage);
+            NSLog(@"image before upload: %@", self.originalImage);
    
             // Adds a status below the circle
             [KVNProgress showWithStatus:@"Uploading..."];
             
+            [self setViewModelProperties]; // set view model properties
+            [self.viewModel setGameKeyParameters:fileData fileType:fileType fileName:fileName]; // set all of the key values that the cloud game model requires. this is for new games and games where the receiver has yet to send back.
             
-            PFFile* file; // file
-            if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // if the receiver has played but the receiver has yet to send back, let him. this is code for the receiver.
-                file = [PFFile fileWithName:fileName data:fileData];
-                [self.createdGame setObject:self.puzzleSize forKey:@"puzzleSize"];
-                [self.createdGame setObject:file forKey:@"file"];
-                [self.createdGame setObject:fileType forKey:@"fileType"];
-                [self.createdGame setObject:self.opponent forKey:@"receiver"]; // is this necesary?
-                [self.createdGame setObject:[PFUser currentUser] forKey:@"sender"]; // is this necessary?
-                [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // reset that receiver played
-                [self.createdGame setObject:self.opponent.username forKey:@"receiverName"]; // sent back, so set receiver key to the opponent. this changes.
-                [self.createdGame setObject:self.opponent.objectId forKey:@"receiverID"];
-                [self.createdGame setObject:[PFUser currentUser].username forKey:@"senderName"]; // sent back, so set sender key to current user. this changes.
-                [self.createdGame setObject:[[PFUser currentUser] objectId] forKey:@"senderID"];
-            }
-            
-            else if (self.createdGame == nil) { // if the game is a NEWLY created game
-                NSLog(@"b");
-                self.createdGame = [PFObject objectWithClassName:@"Messages"];
-                [self.createdGame setObject:self.puzzleSize forKey:@"puzzleSize"];
-                [self.createdGame setObject:[[PFUser currentUser] objectId] forKey:@"senderID"];
-                [self.createdGame setObject:[[PFUser currentUser] username] forKey:@"senderName"];
-                [self.createdGame setObject:self.opponent forKey:@"receiver"]; // is this necesary?
-                [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"];
-                [self.createdGame setObject:self.opponent.objectId forKey:@"receiverID"];
-                [self.createdGame setObject:self.opponent.username forKey:@"receiverName"];
-                // [self.createdGame setObject:challengePuzzleSize forKey:@"puzzleSize"];
-                [self.createdGame setObject:[PFUser currentUser] forKey:@"sender"]; // is this necessary?
-                file = [PFFile fileWithName:fileName data:fileData];
-                [self.createdGame setObject:file forKey:@"file"];
-                [self.createdGame setObject:fileType forKey:@"fileType"];
-            }
-            
-            [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            // save image file and cloud game model
+            [self.viewModel saveFile:^(BOOL succeeded, NSError *error) {
                 if (error) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try sending your Snap Scramble again. Sorry about that!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                     [alertView show];
                 }
                 
                 else {
-                    [self.createdGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
                         if (error) {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try sending your Snap Scramble again. Sorry about that!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                             [alertView show];
                         }
                         
                         else { // sent game
                             NSLog(@"this was the uploaded (created) game: %@", self.createdGame);
                             [self.navigationController popToRootViewControllerAnimated:NO]; // go back to first screen
-                            //[self.cogwheelLoadingIndicator stopAnimating];
                             self.sendButton.userInteractionEnabled = YES;
-                            [self sendNotificationToOpponent]; // send the push notification
+                            [self.viewModel sendNotificationToOpponent]; // send the push notification
                             [KVNProgress dismiss];
                         }
                     }];
                 }
             }];
         }
+        
         else {
             NSLog(@"you didn't choose a size");
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Puzzle Size" message:@"Please select a puzzle size." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
     }
+    
     else {
         NSLog(@"some problem");
     }
 }
 
-- (void)sendNotificationToOpponent {
-    PFUser *currentUser = [PFUser currentUser];
-    PFQuery *innerQuery = [PFUser query];
-    
-    NSLog(@"You sent a notification to: objectID: %@", self.opponent.objectId);
-    [innerQuery whereKey:@"objectId" equalTo:self.opponent.objectId];
-    
-    // Build the actual push notification target query
-    PFQuery *query = [PFInstallation query];
-    
-    // only return Installations that belong to a User that
-    // matches the innerQuery
-    [query whereKey:@"User" matchesQuery:innerQuery];
-    
-    // Send the notification.
-    PFPush *push = [[PFPush alloc] init];
-    [push setQuery:query];
-    
-    NSString *message = [NSString stringWithFormat:@"%@ has sent you a puzzle!", currentUser.username];
-    [push setMessage:message];
-    
-    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-                          message, @"alert",
-                          @"Increment", @"badge",
-                          @"cheering.caf", @"sound",
-                          nil];
-    [push setData:data];
-    [push sendPushInBackground];
-}
-
 #pragma mark - UIPickerView code
 
-
-/* - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
-    
-}
-
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    
-} */
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return [self.puzzleSizes objectAtIndex:row];

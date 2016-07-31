@@ -17,8 +17,8 @@
         // Initialization code
         self.userInteractionEnabled = YES;
         self.isMatched = false;
-        // [self.layer setCornerRadius:3.0];
-        // self.layer.masksToBounds = YES;
+        [self.layer setCornerRadius:4.0];
+        self.layer.masksToBounds = YES;
     }
     return self;
 }
@@ -34,19 +34,21 @@
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     CGPoint pt = [[touches anyObject]locationInView:self.superview];
-    // (pt.x - self.xOffset, pt.y - self.yOffset) is the new point being dragged to.
+    
+    // boundaries check code; (pt.x - self.xOffset, pt.y - self.yOffset) is the new point being dragged to.
     if (pt.x - self.xOffset < self.superview.frame.size.width - 5 && pt.x - self.xOffset > 5) { // (left right bounds check) if the point is within the boundary, we can place it there. Otherwise, we can't.
         if (pt.y - self.yOffset < self.superview.frame.size.height - 5 && pt.y - self.yOffset > 5) { // (top and bottom bounds check) if the point is within the boundary, we can place it there. Otherwise, we can't.
             self.center = CGPointMake(pt.x - self.xOffset, pt.y - self.yOffset);
         }
     }
     
-    NSLog(@"pieceView x-coordinate: %f    pieceView y-coordinateeee: %f", self.frame.origin.x, self.frame.origin.y);
+    // NSLog(@"pieceView x-coordinate: %f    pieceView y-coordinate: %f", self.frame.origin.x, self.frame.origin.y);
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if (self.dragDelegate) {
-        [self.dragDelegate pieceView:self didDragToPoint:self.center]; // self.center is the pt
+        NSLog(@"duhwhat");
+        [self.dragDelegate pieceView:self didDragToPoint:self.center]; // self.center is the new point
     }
 }
 

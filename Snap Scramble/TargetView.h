@@ -12,6 +12,5 @@
 
 @property (strong,nonatomic) UIImage* image;
 @property (nonatomic)NSInteger targetId;
-@property (nonatomic)BOOL filled;
 
 @end

@@ -10,12 +10,27 @@
 #import "EditFriendsTableViewController.h"
 #import "Reachability.h"
 #import "CreatePuzzleViewController.h"
+#import "FriendsViewModel.h"
+
 
 @interface FriendsTableViewController ()
+
+@property(nonatomic, strong) FriendsViewModel *viewModel;
 
 @end
 
 @implementation FriendsTableViewController
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        _viewModel = [[FriendsViewModel alloc] init];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,14 +47,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self.navigationController.navigationBar setHidden:false];
-    NSLog(@"..........");
-    self.friendsRelation = [[PFUser currentUser] relationForKey:@"friends"];
-    PFQuery *friendsQuery = [self.friendsRelation query];
-    [friendsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    
+    [self.viewModel retrieveFriends:^(NSArray *objects, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
         }
@@ -47,24 +60,20 @@
         else {
             self.friends = objects;
             self.mutableFriendsList = [NSMutableArray arrayWithArray:self.friends]; // set mutable list
-            NSLog(@"friends: %@", self.friends);
             [self.tableView reloadData];
             
-            // add the founder of Snap Scramble to the friends list
-            PFQuery *query = [PFUser query];
-            [query whereKey:@"username" equalTo:@"tim"];
-            [query getFirstObjectInBackgroundWithBlock:^(PFObject* founderUser, NSError* error) {
+            [self.viewModel addFounder:^(PFObject* founderUser, NSError* error) {
                 if(!error) {
-                    if (![self isFriend:founderUser]) {
+                    if (![self.viewModel isFriend:founderUser friendsList:self.mutableFriendsList]) {
                         [self.mutableFriendsList addObject:founderUser];
                         [self.friendsRelation addObject:founderUser];
-                        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
                             if (error) {
                                 NSLog(@"Error %@ %@", error, [error userInfo]);
                             }
                             
                             else {
-                                NSLog(@"mutable friends list: %@", self.friendsRelation);
+                                NSLog(@"friends list: %@", self.mutableFriendsList);
                                 [self.tableView reloadData];
                             }
                         }];
@@ -80,7 +89,6 @@
 }
 
 - (IBAction)addFriend:(id)sender {
-    NSLog(@"NAHHH");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Search for a user." message:@"Enter the person's username." preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:nil];
     
@@ -93,7 +101,6 @@
         
         NSString *username = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSLog(@"text was %@", textField.text);
-        
         NSString *comparisonUsername = [[PFUser currentUser].username stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
@@ -106,63 +113,57 @@
         }
         
         
-        if ([username isEqualToString:comparisonUsername]) {
-            [KVNProgress dismiss];
-            NSLog(@"Still nope because you're trying to play yourself fam.");
+        else if ([username isEqualToString:comparisonUsername]) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"You cannot play a game with yourself." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
-            // [self.navigationController popToRootViewControllerAnimated:YES];
         }
         
         else if (networkStatus == NotReachable) {
-            NSLog(@"There IS NO internet connection");
+            [KVNProgress dismiss];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
         
+        // if everything is ok, start searching for the friend
         else {
-            PFQuery *query = [PFUser query];
-            [query whereKey:@"username" equalTo:username];
-            PFUser *addedFriend = (PFUser *)[query getFirstObject];
-            NSLog(@"adding friend: %@", addedFriend);
-           
-            if (addedFriend) { // if the friend exists
-                if (![self isFriend:addedFriend]) { // if the user isn't already a friend, add him
-                    NSLog(@"yup");
-                    [self.mutableFriendsList addObject:addedFriend];
-                    [self.friendsRelation addObject:addedFriend];
-                    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                        if (error) {
-                            NSLog(@"Error %@ %@", error, [error userInfo]);
+            [self.viewModel getFriend:username completion:^(PFObject *searchedUser, NSError *error) {
+                if (!error) {
+                    NSLog(@"trying to add friend: %@", searchedUser);
+                    if (searchedUser != nil) { // if the friend exists
+                        
+                        // if the user isn't already a friend, add him
+                        if (![self.viewModel isFriend:searchedUser friendsList:self.mutableFriendsList]) {
+                            [self.mutableFriendsList addObject:searchedUser];
+                            [self.friendsRelation addObject:searchedUser];
+                            [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
+                                if (!error) {
+                                    [KVNProgress dismiss];
+                                    NSLog(@"new friends list: %@", self.mutableFriendsList);
+                                    [self.tableView reloadData];
+                                }
+                            }];
                         }
                         
+                        // if the user is already a friend, don't add him
                         else {
                             [KVNProgress dismiss];
-                            NSLog(@"WORKS1, mutable friends list: %@", self.friendsRelation);
-                            [self.tableView reloadData];
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"This user is already on your friends list." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                            [alertView show];
                         }
-                    }];
+                    }
+                    
+                    // if the user doesn't exist, display a message
+                    else {
+                        [KVNProgress dismiss];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"This user does not exist." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alertView show];
+                    }
                 }
-                
-                else {
-                    [KVNProgress dismiss];
-                    NSLog(@"this user is already on your friends list.");
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"This user is already on your friends list." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                    [alertView show];
-                }
-            }
-            
-            else {
-                [KVNProgress dismiss];
-                NSLog(@"nope");
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"This user does not exist." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alertView show];
-                // [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-            
+            }];
         }
     }]];
     
+            
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         NSLog(@"Cancel pressed");
     }]];
@@ -220,8 +221,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // set this friend as the opponent.
     self.opponent = [self.mutableFriendsList objectAtIndex:indexPath.row];
+    NSLog(@"opponent: %@", self.opponent);
     
-    // delegate allows us to transfer user's data back to previous view controller for creating puzzle game
+    // delegate allows us to transfer opponent's data back to previous view controller for creating puzzle game
     [self.delegate receiveFriendUserData:self.opponent];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -232,18 +234,5 @@
         createPuzzleViewController.opponent = self.opponent;
     }
 }
-
-#pragma mark - Helper methods
-
-- (BOOL)isFriend:(PFUser *)user {
-    for(PFUser *friend in self.mutableFriendsList) {
-        if ([friend.objectId isEqualToString:user.objectId]) {
-            return YES;
-        }
-    }
-    
-    return NO;
-}
-
 
 @end

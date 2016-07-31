@@ -14,6 +14,7 @@
 
 @end
 
+// this view controller displays stats
 @implementation GameOverViewController
 
 - (void)viewDidLoad {

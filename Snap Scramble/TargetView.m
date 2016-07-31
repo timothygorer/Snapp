@@ -15,9 +15,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        [self.layer setCornerRadius:15.0];
+        [self.layer setCornerRadius:9.0];
         self.layer.masksToBounds = YES;
-        self.filled = false;
     }
     return self;
 }

@@ -20,8 +20,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton* startPuzzleButton;
 @property (weak, nonatomic) IBOutlet UIButton* retakePhotoButton;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView* cogwheelLoadingIndicator;
-@property (nonatomic, strong) UIImage* image; // preview image
+@property (nonatomic, strong) UIImage* previewImage;
 @property (nonatomic, strong) UIImage* originalImage;
 @property (nonatomic, strong) PFUser* currentUser;
 @property (nonatomic, strong) UIImage* compressedUploadImage;

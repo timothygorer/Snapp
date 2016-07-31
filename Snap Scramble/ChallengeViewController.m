@@ -34,9 +34,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setHidden:false];
     self.currentGamesTable.delegate = self;
     self.currentGamesTable.dataSource = self;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"reloadTheTable" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"reloadTheTable" object:nil]; // reload the table if the user receives a notification?
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
     [self.currentGamesTable addSubview:self.refreshControl];
@@ -44,12 +45,28 @@
     
     self.currentGamesTable.tableHeaderView = self.headerView;
     self.currentGamesTable.delaysContentTouches = NO;
-    // self.currentGamesTable.allowsSelection = NO;
     
     // initialize a view for displaying the empty table screen if a user has no games.
      self.emptyTableScreen = [[UIImageView alloc] init];
-    [self.challengeButton addTarget:self action:@selector(selectUserFromOptions:) forControlEvents:UIControlEventTouchUpInside];
+    [self.challengeButton addTarget:self action:@selector(selectUserFromOptions:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
     self.challengeButton.adjustsImageWhenHighlighted = NO;
+    
+    
+    // check for internet connection, send a friendly message.
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    
+    if (networkStatus == NotReachable) { // if there's no internet
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    
+    // this is for push notifications.
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser) {
+        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"]; // questionable
+        [[PFInstallation currentInstallation] saveInBackground];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,10 +77,8 @@
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
         NSLog(@"Current user: %@", currentUser.username);
-        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"]; // questionable
-        [[PFInstallation currentInstallation] saveInBackground];
-        [self.currentGamesTable reloadData];
-        [self retrieveUserMatches];
+        [self.currentGamesTable reloadData]; // reload the table view
+        [self retrieveUserMatches]; // retrieve all games, both pending and current
         NSString* usernameText = @"Username: ";
         usernameText = [usernameText stringByAppendingString:currentUser.username];
         [self.usernameLabel setText:usernameText];
@@ -86,6 +101,7 @@
     [self retrieveUserMatches];
 }
 
+// this starts an entirely new game, don't be confused.
 - (IBAction)selectUserFromOptions:(id)sender {
     [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
 }
@@ -93,14 +109,12 @@
 #pragma mark - userMatchesTable code
 
 - (void)retrieveUserMatches {
-    NSString *username = [PFUser currentUser].username;
-    [self.viewModel retrievePendingMatches:username completion:^(NSArray *matches, NSError *error) {
+    [self.viewModel retrievePendingMatches:^(NSArray *matches, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
         }
         
         else {
-            NSLog(@"howcome1 %@", matches);
             if ([self.refreshControl isRefreshing]) {
                 [self.refreshControl endRefreshing];
             }
@@ -110,13 +124,12 @@
         }
     }];
     
-    [self.viewModel retrieveCurrentMatches:username completion:^(NSArray *matches, NSError *error) {
+    [self.viewModel retrieveCurrentMatches:^(NSArray *matches, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
         }
         
         else {
-            NSLog(@"howcome1 %@", matches);
             if ([self.refreshControl isRefreshing]) {
                 [self.refreshControl endRefreshing];
             }
@@ -137,9 +150,7 @@
     // Return the number of rows in the section.
     if ([self.currentGames count] == 0 && [self.currentPendingGames count] == 0) {
         
-       /*  self.emptyTableScreen.image = [UIImage imageNamed:@"empty_table_background"];
-        self.emptyTableScreen.frame =  CGRectMake((self.view.frame.size.width - self.emptyTableScreen.image.size.width) / 2,self.view.frame.size.height - self.emptyTableScreen.image.size.height, self.emptyTableScreen.image.size.width, self.emptyTableScreen.image.size.height); // fix, the y part isn't how i want it. */
-        //[self.view addSubview:self.emptyTableScreen];
+        // set the "no games" background image. change this code later on.
         self.currentGamesTable.backgroundView = self.backgroundView;
         self.currentGamesTable.backgroundView.hidden = NO;
         self.currentGamesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -161,13 +172,13 @@
         return [self.currentPendingGames count];
     }
     
-    
     return 0;
 }
 
+// a method so that the user can delete games he doesn't want to play anymore
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return YES - we will be able to delete all rows
+    // Return YES - we will be able to delet rows
     return YES;
 }
 
@@ -176,12 +187,11 @@
 {
     if (indexPath.section == 0) { // current games section
         PFObject *gameToDelete = [self.currentGames objectAtIndex:indexPath.row];
-        // NSMutableArray* tempCurrentGames = [NSMutableArray arrayWithArray:self.currentGames];
+        NSMutableArray* tempCurrentGames = [NSMutableArray arrayWithArray:self.currentGames];
         
-        [gameToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self.viewModel deleteGame:gameToDelete completion:^(BOOL succeeded, NSError *error) {
             if (!error) {
-                [self retrieveUserMatches];
-                /* for (PFObject *object in self.currentGames) {
+                for (PFObject *object in self.currentGames) {
                     if ([object.objectId isEqualToString:gameToDelete.objectId]) {
                         [tempCurrentGames removeObject:object];
                         break;
@@ -189,7 +199,7 @@
                 }
                 
                 self.currentGames = tempCurrentGames;
-                [self.currentGamesTable reloadData]; */
+                [self.currentGamesTable reloadData]; // update table view
                 UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game deleted successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
                 [alert show];
             }
@@ -198,26 +208,24 @@
     
     else if (indexPath.section == 1) { // current pending games section
         PFObject *gameToDelete = [self.currentPendingGames objectAtIndex:indexPath.row];
-        //NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentGames];
+        NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentPendingGames];
         
-        [gameToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self.viewModel deleteGame:gameToDelete completion:^(BOOL succeeded, NSError *error) {
             if (!error) {
-                [self retrieveUserMatches];
-                /* for (PFObject *object in self.currentPendingGames) {
+                for (PFObject *object in self.currentPendingGames) {
                     if ([object.objectId isEqualToString:gameToDelete.objectId]) {
                         [tempCurrentPendingGames removeObject:object];
                         break;
                     }
                 }
                 
-                self.currentGames = tempCurrentPendingGames;
-                [self.currentGamesTable reloadData]; */
+                self.currentPendingGames = tempCurrentPendingGames;
+                [self.currentGamesTable reloadData]; // update table view
                 UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game deleted successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
                 [alert show];
             }
         }];
     }
-   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -229,6 +237,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
 
+    // styling the cell
     UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
     cell.textLabel.font = myFont;
     cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
@@ -237,76 +246,82 @@
     if (indexPath.section == 0) { // current games section
         PFObject *aCurrentGame = [self.currentGames objectAtIndex:indexPath.row];
         
-        if ([[aCurrentGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) { // if user is the receiver
+        // if current user is the receiver for the round
+        if ([[aCurrentGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) {
             NSString *senderName = [aCurrentGame objectForKey:@"senderName"];
             cell.textLabel.text = [NSString stringWithFormat:@"Your turn vs. %@", senderName];
+            
+            // check if it is the receiver's (the current user in this case) turn to reply or to play for the round
             if ([aCurrentGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
                 cell.detailTextLabel.text = @"Your turn to reply";
-                NSLog(@"1");
             }
             else if ([aCurrentGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
                 cell.detailTextLabel.text = @"Your turn to play";
-                NSLog(@"2");
             }
         }
     }
     
     if (indexPath.section == 1) { // pending games section
-        NSLog(@"sec 1");
         PFObject *aCurrentPendingGame = [self.currentPendingGames objectAtIndex:indexPath.row];
         
-        if ([[aCurrentPendingGame objectForKey:@"senderName"]  isEqualToString:[PFUser currentUser].username]) { // if user is the sender
+        // if current user is the sender for the round
+        if ([[aCurrentPendingGame objectForKey:@"senderName"]  isEqualToString:[PFUser currentUser].username]) {
             NSString *opponentName = [aCurrentPendingGame objectForKey:@"receiverName"];
             cell.textLabel.text = [NSString stringWithFormat:@"%@'s turn vs. You", opponentName];
-            cell.detailTextLabel.text = @""; // blank text on purpose
+            
+            // check if it is the receiver's (not the current user in this case) turn to reply or to play for the round
+            if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
+                cell.detailTextLabel.text = @"Opponent's turn to reply";
+            }
+            else if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
+                cell.detailTextLabel.text = @"Opponent's turn to play";
+            }
         }
     }
     
     return cell;
 }
 
- - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //self.loadingBox.hidden = NO;
-    //[self.cogwheelLoadingIndicator startAnimating];
-     
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
      Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
      NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     
-    if (indexPath.section == 0) { // all of the user's current games (user is receiver here)
+    // all of the current user's current games (current user is receiver here)
+    if (indexPath.section == 0) {
         if (networkStatus == NotReachable) { // if there's no internet
-            NSLog(@"There IS NO internet connection");
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
         
         else {
-            NSLog(@"pressed sec 0 %@", self.selectedGame);
             self.selectedGame = [self.currentGames objectAtIndex:indexPath.row];
             
+            // if current user is the receiver for the round (just a safety check if statement)
             if ([[self.selectedGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) {
                 self.opponent = [self.selectedGame objectForKey:@"sender"];
-                NSLog(@"OK1.");
-                if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // if the receiver (you) played
-                    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it
+
+                if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { //  this is the condition if the game already exists but the receiver has yet to send back. he's already played.
+                    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let you create another puzzle, play it, and send it
                 }
                 
                 else if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) { // if receiver (you) didn't play yet
                     [self performSegueWithIdentifier:@"startPuzzleScreen" sender:self];
-                }
+                } //  we are going to have to get rid of this last part for new version.
             }
         }
     }
     
-    else if (indexPath.section == 1) { // all of the user's pending games (user is sender here)
+    // all of the user's pending games (user is sender here)
+    else if (indexPath.section == 1) {
         if (networkStatus == NotReachable) {
             NSLog(@"There IS NO internet connection");
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
         
         else {
-            NSLog(@"pressed sec 1");
             self.selectedGame = [self.currentPendingGames objectAtIndex:indexPath.row];
+            // do nothing currently, but in a next version display stats.
         }
     }
 }
@@ -314,31 +329,19 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"startPuzzleScreen"]) {
          StartPuzzleViewController *startPuzzleViewController = (StartPuzzleViewController *)segue.destinationViewController;
-        startPuzzleViewController.delegate = self;
+         startPuzzleViewController.delegate = self;
          startPuzzleViewController.createdGame = self.selectedGame;
-         startPuzzleViewController.opponent = self.opponent; //
-         NSLog(@"opponent, 1st segue %@:", self.opponent);
-         NSLog(@"OPENED THIS PUZZLE, 1st segue: %@", self.selectedGame);
+         startPuzzleViewController.opponent = self.opponent;
+         NSLog(@"Start puzzle screen opening...");
+         NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
      }
     
     else if ([segue.identifier isEqualToString:@"createPuzzle"]) {
         CreatePuzzleViewController *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
-        NSLog(@"opponent %@:", self.opponent);
         createPuzzleViewController.opponent = self.opponent;
-        
-        if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played.
-            createPuzzleViewController.createdGame = self.selectedGame;
-            NSLog(@"opponent, 2nd segue, %@:", self.opponent);
-            NSLog(@"receiver didn't send back");
-        }
-        
-        if (createPuzzleViewController.createdGame != nil) {
-            NSLog(@"created THIS PUZZLE receiver didn't send back, 2nd segue %@", createPuzzleViewController.createdGame);
-        }
-        
-        else {
-            NSLog(@"created THIS PUZZLE first game, 2nd segue %@", self.selectedGame);
-        }
+        createPuzzleViewController.createdGame = self.selectedGame;
+        NSLog(@"create puzzle screen opening... the current user has yet to start a new round by playing and sending back.");
+        NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
     }
 }
 

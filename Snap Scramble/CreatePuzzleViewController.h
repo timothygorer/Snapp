@@ -13,12 +13,11 @@
 
 @interface CreatePuzzleViewController : UIViewController <UIImagePickerControllerDelegate>
 
-@property (nonatomic, strong) UIImage* resizedImage;
+@property (nonatomic, strong) UIImage* previewImage;
 @property (nonatomic, strong) UIImage* originalImage;
 @property (nonatomic, strong) UIImagePickerController* imagePicker;
 @property (nonatomic, strong) PFRelation* friendsRelation;
 @property (nonatomic, strong) NSArray* friends;
-@property (nonatomic, strong) PFUser* currentUser;
 @property (nonatomic, strong) PFUser* opponent;
 @property (nonatomic, strong) PFObject* createdGame;
 @property (weak, nonatomic) IBOutlet UILabel* usernameDisplay;

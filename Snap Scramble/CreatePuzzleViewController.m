@@ -10,8 +10,8 @@
 #import "PreviewPuzzleViewController.h"
 #import "GameViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
-#import <AVFoundation/AVFoundation.h>
 #import "ChallengeViewController.h"
+#import "CameraViewController.h"
 
 @interface CreatePuzzleViewController ()
 
@@ -27,11 +27,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setHidden:true];
-    self.currentUser = [PFUser currentUser];
-    NSLog(@"Opponent: %@", [self.opponent objectForKey:@"username"]);
-    //self.usernameDisplay.text = [NSString stringWithFormat:@"      Opponent: %@", [self.opponent objectForKey:@"username"]]; // nothing happens, change
     self.imagePicker = [[UIImagePickerController alloc] init];
     self.imagePicker.delegate = self;
     self.imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
@@ -49,14 +45,8 @@
 }
 
 - (IBAction)takePhoto:(id)sender {
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:self.imagePicker animated:NO completion:nil];
-    }
-     
-     else {
-         NSLog(@"No camera available.");
-     }
+    // takes the user to the next view controller so he can take the photo (CameraViewController)
+    [self performSegueWithIdentifier:@"openCamera" sender:self];
 }
 
 - (IBAction)choosePhoto:(id)sender {
@@ -96,43 +86,34 @@
     }
 }
 
+// this is for resizing an image that is selected from the photo library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {   // A photo was taken or selected
-
         UIImage* tempOriginalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-        NSLog(@"tempOriginaImage: %@", tempOriginalImage);
-        if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-            // save the image
-            UIImageWriteToSavedPhotosAlbum(tempOriginalImage, nil, nil, nil);
+        
+        // for photos from library you need to resize resize the photo
+        if (tempOriginalImage.size.height > tempOriginalImage.size.width) { // portrait; resizing photo so it fits the entire device screen
+            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
         }
         
-        // resize the photo
-        if (tempOriginalImage.size.height > tempOriginalImage.size.width) { // portrait
-            /* self.resizedImage = [self resizeImage:tempOriginalImage withMaxDimension:self.view.frame.size.height - 200]; */
-            self.resizedImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-            NSLog(@".......");
-        }
-        
-        else if (tempOriginalImage.size.width > tempOriginalImage.size.height) { // landscape or square
-            self.resizedImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+        else if (tempOriginalImage.size.width > tempOriginalImage.size.height) { // landscape
+            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
         }
         
         else if (tempOriginalImage.size.width == tempOriginalImage.size.height) { // square
-            self.resizedImage = [self resizeImage:tempOriginalImage withMaxDimension:self.view.frame.size.width - 20];
+            self.previewImage = [self resizeImage:tempOriginalImage withMaxDimension:self.view.frame.size.width - 20];
         }
         
-    
         self.originalImage = tempOriginalImage;
-        NSLog(@"resized image: %@    original image: %@", self.resizedImage, self.originalImage);
-        
+        NSLog(@"preview (resized) image: %@    original image: %@", self.previewImage, self.originalImage);
         NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
-
         [self dismissViewControllerAnimated:YES completion:nil]; // dismiss photo picker
         [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self];
     }
 }
+
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
@@ -174,17 +155,39 @@
     return newImage;
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
         PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
         if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
+            NSLog(@"Game already started: %@", self.createdGame);
             previewPuzzleViewController.createdGame = self.createdGame;
         }
+        
+        else if (self.createdGame == nil) { // entirely new game
+            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
+            
+        }
+        
         previewPuzzleViewController.opponent = self.opponent;
-        NSLog(@"createdGame: %@", self.createdGame);
-        previewPuzzleViewController.image = self.resizedImage; // resized image
+        previewPuzzleViewController.previewImage = self.previewImage; // resized image for preview imageview
         previewPuzzleViewController.originalImage = self.originalImage;
+        NSLog(@"Opponent: %@", self.opponent);
+    }
+    
+    else if ([segue.identifier isEqualToString:@"openCamera"]) {
+        CameraViewController *cameraViewController = (CameraViewController *)segue.destinationViewController;
+        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
+            NSLog(@"Game already started: %@", self.createdGame);
+            cameraViewController.createdGame = self.createdGame;
+        }
+        
+        else if (self.createdGame == nil) { // entirely new game
+            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
+            
+        }
+        
+        NSLog(@"Opponent: %@", self.opponent);
+        cameraViewController.opponent = self.opponent;
     }
 }
 

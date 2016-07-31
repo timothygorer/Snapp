@@ -12,7 +12,8 @@
 
 @interface ChallengeViewModel : NSObject
 
-- (void)retrieveCurrentMatches:(NSString *)username completion:(void (^)(NSArray *matches, NSError *error))completion;
-- (void)retrievePendingMatches:(NSString *)username completion:(void (^)(NSArray *matches, NSError *error))completion;
+- (void)retrieveCurrentMatches:(void (^)(NSArray *matches, NSError *error))completion;
+- (void)retrievePendingMatches:(void (^)(NSArray *matches, NSError *error))completion;
+- (void)deleteGame:(PFObject *)gameToDelete completion:(void (^)(BOOL succeeded, NSError *error))completion;
 
 @end

@@ -41,7 +41,7 @@
     self.cancelButton.titleLabel.minimumScaleFactor = 0.5;
  
 
-    if (!self.image) { // or, if the image is being retrieved from the server by the receiving player
+    if (!self.image) { // if the image is being retrieved from the server by the receiving player
         // Adds a status below the circle
         [KVNProgress showWithStatus:@"Downloading..."];
         self.startPuzzleButton.userInteractionEnabled = false;
@@ -51,39 +51,21 @@
                 UIImage *image = [UIImage imageWithData:data];
                 NSLog(@"downloaded image before resizing: %@", image);
                 
-                // resizing the photo when it's sent from a sender to the receiver. should work for all screen sizes
+                // resizing the photo when it's sent from a sender to the receiver. should work for all screen sizes.
                 if (image.size.height > image.size.width) { // portrait
                     image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
                     self.image = image;
                 }
                 
-                else if (image.size.width > image.size.height) { // landscape or square
+                else if (image.size.width > image.size.height) { // landscape
                     image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
                     self.image = image;
                 }
                 
-                else if (image.size.width == image.size.height) {
+                else if (image.size.width == image.size.height) { // square
                     self.image = [self resizeImage:image withMaxDimension:self.view.frame.size.width - 20];
                 }
                 
-                /* resizing the photo when it's sent from a sender to the receiver. should work for all screen sizes
-                if (image.size.height > image.size.width) {  // portrait
-                    //image = [self resizeImage:image withMaxDimension:self.view.frame.size.height - 200];
-                    self.image = [self imageWithImage:image scaledToSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-                    NSLog(@"what1");
-                }
-                
-                else if (image.size.width > image.size.height || image.size.width == image.size.height) {  // landscape or square
-                    image = [self imageWithImage:image scaledToSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-                    NSLog(@"what2");
-                }*/
-                
-                
-                // set the image, create the image view frame and center it on all screen sizes, then add to subview
-                //self.imageView.image = image;
-                //self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-                //[self.imageView setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2)];
-                //[self.view addSubview:self.imageView];
                 NSLog(@"downloaded image after resizing: %@", self.image);
                 self.startPuzzleButton.userInteractionEnabled = true;
                 [KVNProgress dismiss];
@@ -148,7 +130,6 @@
         GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
         //gameViewController.puzzleImage = self.imageView.image;
         gameViewController.puzzleImage = self.image;
-        // gameViewController.opponent = [self.createdGame objectForKey:@"receiver"]; // idk why this doesn't work. figure it out.... now i know
         gameViewController.opponent = self.opponent;
         NSLog(@"opponent %@",gameViewController.opponent);
         gameViewController.createdGame = self.createdGame;

@@ -17,8 +17,7 @@
 
 @property (weak, nonatomic) id<FirstVCDelegate> delegate;
 @property (nonatomic, strong) PFUser *opponent;
-@property (nonatomic, strong) PFRelation *friendsRelation;
-@property (nonatomic, strong) PFUser *currentUserPFObject;
+@property (nonatomic, strong) PFRelation *friendsRelation; // remove later on........
 @property (nonatomic, strong) NSArray *friends;
 @property (nonatomic, strong) NSMutableArray *mutableFriendsList;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *addFriendBarButton;

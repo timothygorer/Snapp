@@ -7,12 +7,27 @@
 //
 
 #import "LoginViewController.h"
+#import "LoginViewModel.h"
 
 @interface LoginViewController ()
+
+@property(nonatomic, strong) LoginViewModel *viewModel;
 
 @end
 
 @implementation LoginViewController
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        _viewModel = [[LoginViewModel alloc] init];
+    }
+    
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,8 +95,8 @@
         [alertView show];
     }
     else {
-        [KVNProgress showWithStatus:@"Logging in..."];
-        [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
+        [KVNProgress showWithStatus:@"Logging in..."]; // UI
+        [self.viewModel logInUser:username password:password completion:^(PFUser *user, NSError *error) {
             if (error) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                                     message:@"Your e-mail or password don't match an account we have in our database."

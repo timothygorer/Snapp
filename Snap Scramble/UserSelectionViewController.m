@@ -82,7 +82,7 @@
         friendsTableViewController.delegate = self;
     }
     
-    // onlyl called when the delegate receives the random user. Then we can create the game.
+    // only called when the delegate receives the random user. Then we can create the game.
     else if ([segue.identifier isEqualToString:@"createPuzzle"]) {
         CreatePuzzleViewController  *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
         createPuzzleViewController.opponent = self.opponent; // random user that was selected

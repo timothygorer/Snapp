@@ -37,6 +37,7 @@
         [application registerForRemoteNotifications];
     }
 
+    [self.window makeKeyAndVisible];
     
     return YES;
 }

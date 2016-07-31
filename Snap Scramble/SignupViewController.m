@@ -7,12 +7,26 @@
 //
 
 #import "SignupViewController.h"
+#import "SignupViewModel.h"
 
 @interface SignupViewController ()
+
+@property(nonatomic, strong) SignupViewModel *viewModel;
 
 @end
 
 @implementation SignupViewController
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        _viewModel = [[SignupViewModel alloc] init];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,7 +103,21 @@
     NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *reenteredPassword = [self.reenterPasswordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email = [self.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    
+    NSString *lowercaseString = [username lowercaseString]; // get the lowercase username
+    BOOL containsUppercaseLetter = false;
+    
+    if (![username isEqualToString:lowercaseString])
+    {
+        containsUppercaseLetter = true;
+    }
+    
+    else if ([username isEqualToString:lowercaseString]) {
+        containsUppercaseLetter = false;
+    }
 
+    // checks for if the sign up information is valid start here
     if ([username length] == 0 || [password length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid username and password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
@@ -98,6 +126,12 @@
     
     else if ([username length] > 10) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username is too long. Please keep it below 10 characters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+    }
+    
+    else if (containsUppercaseLetter == true) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username cannot contain capital letters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [alertView show];
     }
@@ -115,13 +149,8 @@
     }
     
     else {
-        PFUser *newUser = [PFUser user];
-        newUser.username = username;
-        newUser.password = password;
-        newUser.email = email;
-        [KVNProgress showWithStatus:@"Signing up..."];
-        
-        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [KVNProgress showWithStatus:@"Signing up..."]; // UI
+        [self.viewModel signUpUser:username password:password email:email completion:^(BOOL succeeded, NSError *error) {
             if (error) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:[error.userInfo objectForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alertView show];
@@ -130,7 +159,7 @@
             
             else {
                 [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
-                NSLog(@"User %@ signed up.", newUser);
+                NSLog(@"User %@ signed up.", [PFUser currentUser]);
                 [KVNProgress dismiss];
                 self.signupView.animation = @"fall";
                 self.signupView.delay = 1.0;
