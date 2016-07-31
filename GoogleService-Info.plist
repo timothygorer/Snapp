@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>240689863288-f6l76ipd6so45q6bo5306a6huiaqeumc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.240689863288-f6l76ipd6so45q6bo5306a6huiaqeumc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBhHxR1Q3UPg97QQdq4lgzRN6OKyFwCElg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>240689863288</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.timgorer.SnapScrambleDescrambleFriends</string>
+	<key>PROJECT_ID</key>
+	<string>snap-scramble</string>
+	<key>STORAGE_BUCKET</key>
+	<string>snap-scramble.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:240689863288:ios:fb68cd5df1ea5f16</string>
+	<key>DATABASE_URL</key>
+	<string>https://snap-scramble.firebaseio.com</string>
+</dict>
+</plist>

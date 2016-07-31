@@ -30,6 +30,7 @@
 		6A4ED8621D440352006213A7 /* PreviewPuzzleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED8611D440352006213A7 /* PreviewPuzzleViewModel.m */; };
 		6A6298951CB0E47B007DC522 /* RandomUserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6298941CB0E47B007DC522 /* RandomUserTableViewController.m */; };
 		6A62D55E1B5E1C9400AC638E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */; };
+		6A6FB62F1D4DC95300EFA6C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */; };
 		6A77DF7D1D44978E00ECD9BC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */; };
 		6A7C81671D49EC3F00F36C43 /* SignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C81661D49EC3F00F36C43 /* SignupViewModel.m */; };
 		6A7C816A1D49EC5A00F36C43 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C81691D49EC5A00F36C43 /* LoginViewModel.m */; };
@@ -158,6 +159,7 @@
 		6A6298931CB0E47B007DC522 /* RandomUserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUserTableViewController.h; sourceTree = "<group>"; };
 		6A6298941CB0E47B007DC522 /* RandomUserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserTableViewController.m; sourceTree = "<group>"; };
 		6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A77DF7B1D44978E00ECD9BC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		6A7C81651D49EC3F00F36C43 /* SignupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewModel.h; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 		6A112AAA1B5DFB0D0035A75C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */,
 				6A7C81721D49F77A00F36C43 /* Images */,
 				6AB4F46F1C6058190082EF42 /* Spring-master */,
 				6AD6338F1B71EB4C0038A4EB /* Reachability.h */,
@@ -629,6 +632,7 @@
 				6A7C81751D49F77A00F36C43 /* camera-switch.png in Resources */,
 				6A7C81771D49F77A00F36C43 /* cancel.png in Resources */,
 				6A7C81781D49F77A00F36C43 /* cancel@2x.png in Resources */,
+				6A6FB62F1D4DC95300EFA6C3 /* GoogleService-Info.plist in Resources */,
 				6AB4F4C71C6058190082EF42 /* Spring.podspec in Resources */,
 				6AB4F4B61C6058190082EF42 /* Info.plist in Resources */,
 				6A7C81761D49F77A00F36C43 /* camera-switch@2x.png in Resources */,
