@@ -1,5 +1,4 @@
 PODS:
-  - Bolts/Tasks (1.8.4)
   - Firebase (3.3.0):
     - Firebase/Core (= 3.3.0)
   - Firebase/Analytics (3.3.0):
@@ -19,8 +18,6 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0)
   - KVNProgress (2.3)
   - LLSimpleCamera (4.2.0)
-  - Parse (1.14.2):
-    - Bolts/Tasks (~> 1.8)
   - RMActionController (1.0.5)
   - RMPickerViewController (2.0.3):
     - RMActionController (~> 1.0.5)
@@ -29,11 +26,9 @@ DEPENDENCIES:
   - Firebase
   - KVNProgress
   - LLSimpleCamera (~> 4.1)
-  - Parse
   - RMPickerViewController (~> 2.0.3)
 
 SPEC CHECKSUMS:
-  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Firebase: 6250071f0e2440a5c4c67b8cb6b868f868237ac3
   FirebaseAnalytics: 0fd6532cb2c3d03cd5cf26ad295ccb091efd3104
   FirebaseInstanceID: a9d923f3d0b6fbf9fac89310860357aaadc34be5
@@ -42,7 +37,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   KVNProgress: d0459bfa4dca0379cdba5c038326ea34e9fc2df9
   LLSimpleCamera: ed7813ce4827ff3e34c6af159c99b5b56e54d1c6
-  Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   RMActionController: b83653e7452ed51492094d65dc82151c36443c03
   RMPickerViewController: f774dbdfddfe819bbaf211d5719deebcbf1a55ed
 

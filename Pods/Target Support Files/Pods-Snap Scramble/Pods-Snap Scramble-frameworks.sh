@@ -82,18 +82,3 @@ strip_invalid_archs() {
   fi
 }
 
-
-if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-Snap Scramble/Bolts.framework"
-  install_framework "Pods-Snap Scramble/KVNProgress.framework"
-  install_framework "Pods-Snap Scramble/Parse.framework"
-  install_framework "Pods-Snap Scramble/RMActionController.framework"
-  install_framework "Pods-Snap Scramble/RMPickerViewController.framework"
-fi
-if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-Snap Scramble/Bolts.framework"
-  install_framework "Pods-Snap Scramble/KVNProgress.framework"
-  install_framework "Pods-Snap Scramble/Parse.framework"
-  install_framework "Pods-Snap Scramble/RMActionController.framework"
-  install_framework "Pods-Snap Scramble/RMPickerViewController.framework"
-fi
