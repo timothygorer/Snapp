@@ -8,15 +8,18 @@
 
 #import "SignupViewModel.h"
 
+
 @implementation SignupViewModel
 
-- (void)signUpUser:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(BOOL succeeded, NSError *error))completion {
-    PFUser *newUser = [PFUser user];
-    newUser.username = username;
-    newUser.password = password;
-    newUser.email = email;
-    [newUser signUpInBackgroundWithBlock:completion];
+- (void)signUpUser:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(FIRUser *user,  NSError *error))completion {
+    [[FIRAuth auth]
+     createUserWithEmail:email
+     password:password
+     completion:completion
+         // ...
+     ];
 }
+
 
 
 @end

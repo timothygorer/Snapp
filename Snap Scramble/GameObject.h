@@ -16,18 +16,22 @@
 
 @protocol GameDelegate
 
--(void)updateToGameOverUI;
 -(void)updateTimerLabel:(NSNumber*)totalSeconds;
+
+@end
+
+@protocol GameUIDelegate
+
+-(void)updateToGameOverUI;
 
 @end
 
 @interface GameObject : NSObject
 
-@property (nonatomic, weak) id<GameDelegate> delegate;
-@property (nonatomic, strong) UILabel *countLabel;
+@property (nonatomic, weak) id<GameDelegate> gameDelegate;
+@property (nonatomic, weak) id<GameUIDelegate> gameUIDelegate;
 @property (nonatomic, strong) NSTimer *gameTimer;
 @property (nonatomic, strong) NSNumber* totalSeconds;
-@property (nonatomic, strong) UILabel *timerLabel;
 @property (strong,nonatomic) PuzzleObject *puzzle;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) PFObject *createdGame;

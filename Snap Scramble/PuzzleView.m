@@ -18,7 +18,7 @@
         self.game = gameObject;
         // timer creation and start
         self.timerLabel = [UILabel new];
-        self.timerLabel.frame = CGRectMake(190, 20, 160.0, 40.0);
+        self.timerLabel.frame = CGRectMake(self.frame.size.width / 2, 1, 160.0, 40.0);
         [self addSubview:self.timerLabel];
         
         // create the actual puzzle that the user interacts with
@@ -363,36 +363,58 @@
 -(void)pieceView:(PieceView *)currentPieceView didDragToPoint: (CGPoint)pt{
     NSLog(@"this method is executing");
     PieceView* nonCurrentPieceView;
-    for (TargetView* currentTargetView in self.puzzle.targets) { // self.targets is the array of TargetViews
-        if (CGRectContainsPoint(currentTargetView.frame, pt)) { // if the piece is dragged near a target
+    for (TargetView* nonCurrentTargetView in self.puzzle.targets) { // self.targets is the array of TargetViews
+        if (CGRectContainsPoint(nonCurrentTargetView.frame, pt)) { // if the piece is dragged near a target
             
             // if it exists, get the pieceview that's about to be swapped (the noncurrent piece view) and place it on current pieceview's old targetview
             for (PieceView* aPieceView in self.puzzle.pieces) {
                 
                 // find the piece view about to be swapped, which lies on the current target view
-                if (aPieceView.targetView == currentTargetView) {
+                if (aPieceView.targetView == nonCurrentTargetView) {
                     nonCurrentPieceView = aPieceView; // piece view about to be swapped
                     
-                    // place non current piece view on current pieceview's old targetview
-                    if (nonCurrentPieceView) {
+                    // if the non current piece view isn't matched, we can place it
+                    if (!nonCurrentPieceView.isMatched) {
+                        // place non current piece view on current pieceview's old targetview
                         nonCurrentPieceView.targetView = currentPieceView.targetView;
                         nonCurrentPieceView.center = currentPieceView.targetView.center;
+                        break;
                     }
                     
+                    else if (nonCurrentPieceView.isMatched) {
+                        NSLog(@"this non current piece view is already matched, try placing the current piece view somewhere else.");
+                        break;
+                    }
+                }
+            }
+            
+            
+            if (nonCurrentPieceView) { // if we have a noncurrent piece view, we might be able to place the current piece view, or not
+                if (!nonCurrentPieceView.isMatched) {
+                    // place the current piece view on the nearest target, which in this case is the noncurrent piece view's target
+                    currentPieceView.targetView = nonCurrentTargetView;
+                    currentPieceView.center = currentPieceView.targetView.center;
+                    break;
+                }
+                else if (!nonCurrentPieceView.isMatched) {
+                    NSLog(@"this non current piece view is already matched, try placing the current piece view somewhere else.");
                     break;
                 }
             }
             
-            // place the current piece view on the nearest target, which in this case is the noncurrent piece view's target
-            currentPieceView.targetView = currentTargetView;
-            currentPieceView.center = currentPieceView.targetView.center;
-            break;
+            else if (nonCurrentPieceView == nil) { // if we don't have a noncurrent piece view, we will be placing the current piece in an empty target
+                // place the current piece view on the nearest target, which in this case is empty
+                currentPieceView.targetView = nonCurrentTargetView;
+                currentPieceView.center = currentPieceView.targetView.center;
+                break;
+            }
         }
     }
     
     // check if current piece is matched to its target
     if (currentPieceView.pieceId == currentPieceView.targetView.targetId) {
         currentPieceView.isMatched = true; // if matched, set it to true
+        currentPieceView.userInteractionEnabled = false;
     } else{
         currentPieceView.isMatched = false; // if it's not matched, set it to false
     }
@@ -400,6 +422,7 @@
     // check if non-current piece - the piece being swapped - is matched to its target
     if (nonCurrentPieceView.pieceId == nonCurrentPieceView.targetView.targetId) {
         nonCurrentPieceView.isMatched = true; // if matched, set it to true
+        nonCurrentPieceView.userInteractionEnabled = false;
     } else{
         nonCurrentPieceView.isMatched = false; // if it's not matched, set it to false
     }

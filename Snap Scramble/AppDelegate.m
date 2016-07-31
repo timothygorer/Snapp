@@ -11,10 +11,12 @@
 #import <Bolts/Bolts.h>
 #import "ChallengeViewController.h"
 
-
 @interface AppDelegate ()
 
 @end
+
+@import UIKit;
+@import Firebase;
 
 @implementation AppDelegate
 
@@ -22,10 +24,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [FIRApp configure];
     [Parse setApplicationId:@"2rlZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1"
                   clientKey:@"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X"];
 
-    
     // Register for Push Notitications, if running iOS 8
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |

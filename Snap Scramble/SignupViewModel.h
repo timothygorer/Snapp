@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "Parse/Parse.h"
 
+@import Firebase;
+
 @interface SignupViewModel : NSObject
 
-- (void)signUpUser:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(BOOL succeeded, NSError *error))completion;
+- (void)signUpUser:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(FIRUser *user,  NSError *error))completion;
 
 @end

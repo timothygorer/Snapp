@@ -76,7 +76,7 @@
         if (pv.isMatched) count++;
     }
     
-    NSLog(@"amount of pieces matched: %i", count);
+    // NSLog(@"amount of pieces matched: %i", count);
     
     // check if all the pieces are matched. count would be equal to the number of pieces in this case.
     if (count == self.numberofPieces) {

@@ -41,8 +41,9 @@
 
 
     // Set the delegate
-    puzzleView.delegate = self; // set the delegate of the puzzle view to be this view controller
-    currentGame.delegate = self;
+    puzzleView.delegate = self; // set the delegate of the puzzle view to be this view controller so that the pause button segue works
+    currentGame.gameDelegate = puzzleView; // this delegate is so that the game object can constantly update the puzzle view's timer label
+    currentGame.gameUIDelegate = self; // this delegate is so that the game object can update the UI
 }
 
 

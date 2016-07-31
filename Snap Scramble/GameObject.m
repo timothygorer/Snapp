@@ -51,8 +51,7 @@
             }
             else {
                 NSLog(@"game updated successfully.");
-                [NSThread sleepForTimeInterval:4.0f];
-                [self.delegate updateToGameOverUI]; // update the UI
+                [self.gameUIDelegate updateToGameOverUI]; // update the UI
             }
         }];
     }
@@ -61,9 +60,8 @@
 - (void)gameOver {
     int value = [self.totalSeconds intValue];
     self.totalSeconds = [NSNumber numberWithInt:value + 1];
-    
-    // [self.puzzle.puzzleView updateTimerLabel:self.totalSeconds]; // update timer label so that the time is shown
-    NSLog(@"time: %@", self.totalSeconds);
+    [self.gameDelegate updateTimerLabel:self.totalSeconds]; // update timer label so that the time is shown
+    // NSLog(@"time: %@", self.totalSeconds);
      if (self.puzzle.puzzleSolved) {
          NSLog(@"solved the puzzle in: %@ seconds", self.totalSeconds);
          [self.gameTimer invalidate];
