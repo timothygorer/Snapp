@@ -433,7 +433,28 @@
 }
 
 -(void)updateTimerLabel:(NSNumber*)totalSeconds {
-    self.timerLabel.text = [NSString stringWithFormat:@"%@", totalSeconds];
+    int intValueTotalSeconds = [totalSeconds intValue];
+    int minutes = 0; int seconds = 0; int hours = 0;
+    
+    seconds = intValueTotalSeconds % 60;
+    if (intValueTotalSeconds >= 60) {
+        minutes = intValueTotalSeconds / 60;
+    }
+    
+   /* else if (intValueTotalSeconds >= 3600) {
+        hours = intValueTotalSeconds / 3600;
+        intValueTotalSeconds = intValueTotalSeconds - 3600;
+        minutes = intValueTotalSeconds / 60;
+        seconds = intValueTotalSeconds % 60;
+    } */
+  
+    if (seconds < 10) {
+        self.timerLabel.text = [NSString stringWithFormat:@"%d:0%d", minutes, seconds];
+    }
+    
+    else if (seconds >= 10) {
+        self.timerLabel.text = [NSString stringWithFormat:@"%d:%d", minutes, seconds];
+    }
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size

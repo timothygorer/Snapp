@@ -157,7 +157,7 @@
                                         </mask>
                                     </variation>
                                 </view>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -445,7 +445,7 @@
                                         <constraint firstItem="qaa-Vw-jfe" firstAttribute="centerY" secondItem="vWT-cp-gMU" secondAttribute="centerY" id="qfv-Vg-G7H"/>
                                     </constraints>
                                 </view>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -582,15 +582,22 @@
                                     <color key="titleColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FX9-nA-x61">
-                                <rect key="frame" x="297" y="693" width="104" height="23"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
-                                <state key="normal" title="  Send" image="action-reply">
-                                    <color key="titleColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FX9-nA-x61">
+                                <rect key="frame" x="297" y="692" width="105" height="23"/>
+                                <state key="normal" image="action-reply">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content=" Start Game">
+                                            <attributes>
+                                                <color key="NSColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="14" name="AvenirNext-Regular"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUs-3g-2Xe">
-                                <rect key="frame" x="129" y="691" width="165" height="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUs-3g-2Xe">
+                                <rect key="frame" x="134" y="691" width="165" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="VWm-sz-W2M"/>
                                 </constraints>
@@ -730,7 +737,7 @@
                                         <constraint firstAttribute="bottom" secondItem="KeH-8u-aGg" secondAttribute="bottom" constant="120" id="pR2-Sn-v4e"/>
                                     </constraints>
                                 </view>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
                         <constraints>
@@ -842,7 +849,7 @@
                                         <constraint firstItem="kBS-Ox-MQD" firstAttribute="top" secondItem="qIR-Z2-oP3" secondAttribute="top" constant="120" id="yQX-uY-ONq"/>
                                     </constraints>
                                 </view>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
                         <constraints>
@@ -1084,7 +1091,7 @@
                                         <constraint firstItem="Xxt-fA-ALb" firstAttribute="centerX" secondItem="ppl-eD-SsH" secondAttribute="centerX" id="WuA-KA-Dsg"/>
                                     </constraints>
                                 </view>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
                         <constraints>
@@ -1525,7 +1532,7 @@
         <image name="resume-button" width="118" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gCo-d5-hdL"/>
+        <segue reference="VO9-uy-9nj"/>
         <segue reference="H2T-pd-LdQ"/>
         <segue reference="ASb-Oy-YdI"/>
     </inferredMetricsTieBreakers>
