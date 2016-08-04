@@ -31,6 +31,7 @@
 		6A6298951CB0E47B007DC522 /* RandomUserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6298941CB0E47B007DC522 /* RandomUserTableViewController.m */; };
 		6A62D55E1B5E1C9400AC638E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */; };
 		6A6FB62F1D4DC95300EFA6C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */; };
+		6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */; };
 		6A77DF7D1D44978E00ECD9BC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */; };
 		6A7C81671D49EC3F00F36C43 /* SignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C81661D49EC3F00F36C43 /* SignupViewModel.m */; };
 		6A7C816A1D49EC5A00F36C43 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C81691D49EC5A00F36C43 /* LoginViewModel.m */; };
@@ -100,6 +101,7 @@
 		6AD28CD41B5E080500BCD802 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CD31B5E080500BCD802 /* UIKit.framework */; };
 		6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AD28CE21B5E092E00BCD802 /* Images.xcassets */; };
 		6AD633911B71EB4C0038A4EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD633901B71EB4C0038A4EB /* Reachability.m */; };
+		6AD6439F1D516C2300121E98 /* PauseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD6439E1D516C2300121E98 /* PauseViewModel.m */; };
 		8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 		E9C7226C1D63F1B2D85E8E23 /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 /* End PBXBuildFile section */
@@ -160,6 +162,8 @@
 		6A6298941CB0E47B007DC522 /* RandomUserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserTableViewController.m; sourceTree = "<group>"; };
 		6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6A6FB6341D508FB700EFA6C3 /* GameViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewModel.h; sourceTree = "<group>"; };
+		6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewModel.m; sourceTree = "<group>"; };
 		6A77DF7B1D44978E00ECD9BC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		6A7C81651D49EC3F00F36C43 /* SignupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewModel.h; sourceTree = "<group>"; };
@@ -244,6 +248,8 @@
 		6AD28CE21B5E092E00BCD802 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		6AD6338F1B71EB4C0038A4EB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ../Reachability.h; sourceTree = "<group>"; };
 		6AD633901B71EB4C0038A4EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Reachability.m; sourceTree = "<group>"; };
+		6AD6439D1D516C2300121E98 /* PauseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewModel.h; sourceTree = "<group>"; };
+		6AD6439E1D516C2300121E98 /* PauseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewModel.m; sourceTree = "<group>"; };
 		DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
 		FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -343,10 +349,10 @@
 				6AB628931C8ACE6100D68261 /* StartPuzzleViewController.m */,
 				6A112AE51B5E02870035A75C /* GameViewController.h */,
 				6A112AE61B5E02870035A75C /* GameViewController.m */,
-				6A15C91F1B675FB800DD46E3 /* GameOverViewController.h */,
-				6A15C9201B675FB800DD46E3 /* GameOverViewController.m */,
 				6A12D3601CA8D62500848EB4 /* PauseViewController.h */,
 				6A12D3611CA8D62500848EB4 /* PauseViewController.m */,
+				6A15C91F1B675FB800DD46E3 /* GameOverViewController.h */,
+				6A15C9201B675FB800DD46E3 /* GameOverViewController.m */,
 				6A13A6391CB450AD00A134AF /* LegalViewController.h */,
 				6A13A63A1CB450AD00A134AF /* LegalViewController.m */,
 				6A112AAA1B5DFB0D0035A75C /* Supporting Files */,
@@ -500,6 +506,10 @@
 				6A4ED85E1D42EB60006213A7 /* FriendsViewModel.m */,
 				6A4ED8601D440352006213A7 /* PreviewPuzzleViewModel.h */,
 				6A4ED8611D440352006213A7 /* PreviewPuzzleViewModel.m */,
+				6A6FB6341D508FB700EFA6C3 /* GameViewModel.h */,
+				6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */,
+				6AD6439D1D516C2300121E98 /* PauseViewModel.h */,
+				6AD6439E1D516C2300121E98 /* PauseViewModel.m */,
 			);
 			name = "View Models";
 			path = "Snap Scramble";
@@ -750,6 +760,7 @@
 				6AB4F4BB1C6058190082EF42 /* SoundPlayer.swift in Sources */,
 				6A15C9211B675FB800DD46E3 /* GameOverViewController.m in Sources */,
 				6AB4F4BF1C6058190082EF42 /* SpringImageView.swift in Sources */,
+				6AD6439F1D516C2300121E98 /* PauseViewModel.m in Sources */,
 				6A1E77CC1CB31487002688D0 /* SettingsViewController.m in Sources */,
 				6A112ADE1B5E02640035A75C /* ChallengeViewController.m in Sources */,
 				6A8F2FF01D45E1020031A8A0 /* UIImage+Resize.m in Sources */,
@@ -790,6 +801,7 @@
 				6AB4F4A91C6058190082EF42 /* README.md in Sources */,
 				6A4ED85F1D42EB60006213A7 /* FriendsViewModel.m in Sources */,
 				6AB4F4C11C6058190082EF42 /* SpringTextField.swift in Sources */,
+				6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */,
 				6A8F2FF11D45E1020031A8A0 /* ViewUtils.m in Sources */,
 				6AB4F4BC1C6058190082EF42 /* Spring.swift in Sources */,
 				6AB4F4AD1C6058190082EF42 /* BlurView.swift in Sources */,

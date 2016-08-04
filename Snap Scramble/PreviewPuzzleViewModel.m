@@ -22,20 +22,24 @@
 }
 
 
-- (void)setGameKeyParameters:(NSData *)fileData fileType:(NSString *)fileType fileName:(NSString *)fileName {
+- (PFObject *)setGameKeyParameters:(NSData *)fileData fileType:(NSString *)fileType fileName:(NSString *)fileName {
     PFFile* file; // file
-    if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // if the receiver has played but the receiver has yet to send back, let him. this is code for the receiver.
+    
+    // set all parameters we need for the cloud game object. this is for either a new game or an existing game when the current user has to reply.
+    if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true] &&   [[self.createdGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) { // if the receiver has played but the receiver has yet to send back, let him. this is code for the receiver.
         file = [PFFile fileWithName:fileName data:fileData];
         [self.createdGame setObject:self.puzzleSize forKey:@"puzzleSize"];
         [self.createdGame setObject:file forKey:@"file"];
         [self.createdGame setObject:fileType forKey:@"fileType"];
-        [self.createdGame setObject:self.opponent forKey:@"receiver"]; // is this necesary?
+        [self.createdGame setObject:self.opponent forKey:@"receiver"];
         [self.createdGame setObject:[PFUser currentUser] forKey:@"sender"]; // is this necessary?
-        [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // reset that receiver played
-        [self.createdGame setObject:self.opponent.username forKey:@"receiverName"]; // sent back, so set receiver key to the opponent. this changes.
-        [self.createdGame setObject:self.opponent.objectId forKey:@"receiverID"];
-        [self.createdGame setObject:[PFUser currentUser].username forKey:@"senderName"]; // sent back, so set sender key to current user. this changes.
+        [self.createdGame setObject:[PFUser currentUser].username forKey:@"senderName"]; // receiver becomes sender here
         [self.createdGame setObject:[[PFUser currentUser] objectId] forKey:@"senderID"];
+        [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played
+        
+        // set later so that a glitch doesn't happen
+        [self.createdGame setObject:@"" forKey:@"receiverID"];
+        [self.createdGame setObject:@"" forKey:@"receiverName"];
     }
     
     else if (self.createdGame == nil) { // if the game is a NEWLY created game
@@ -43,23 +47,29 @@
         [self.createdGame setObject:self.puzzleSize forKey:@"puzzleSize"];
         [self.createdGame setObject:[[PFUser currentUser] objectId] forKey:@"senderID"];
         [self.createdGame setObject:[[PFUser currentUser] username] forKey:@"senderName"];
-        [self.createdGame setObject:self.opponent forKey:@"receiver"]; // is this necesary?
-        [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"];
-        [self.createdGame setObject:self.opponent.objectId forKey:@"receiverID"];
-        [self.createdGame setObject:self.opponent.username forKey:@"receiverName"];
-        [self.createdGame setObject:[PFUser currentUser] forKey:@"sender"]; // is this necessary?
+        [self.createdGame setObject:self.opponent forKey:@"receiver"];
+        [self.createdGame setObject:[PFUser currentUser] forKey:@"sender"];
         file = [PFFile fileWithName:fileName data:fileData];
         [self.createdGame setObject:file forKey:@"file"];
         [self.createdGame setObject:fileType forKey:@"fileType"];
+        [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played
+
+        
+        // set later so that a glitch doesn't happen
+        [self.createdGame setObject:@"" forKey:@"receiverID"];
+        [self.createdGame setObject:@"" forKey:@"receiverName"];
     }
     
     self.file = file; // set the file property
+    return self.createdGame;
 }
 
+// save the file (photo) before saving the game cloud object
 - (void)saveFile:(void (^)(BOOL succeeded, NSError *error))completion {
     [self.file saveInBackgroundWithBlock:completion];
 }
 
+// save the game cloud object
 - (void)saveCurrentGame:(void (^)(BOOL succeeded, NSError *error))completion {
     [self.createdGame saveInBackgroundWithBlock:completion];
 }
@@ -93,5 +103,6 @@
     [push setData:data];
     [push sendPushInBackground];
 }
+
 
 @end

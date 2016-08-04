@@ -86,32 +86,38 @@
     }
 }
 
-// this is for resizing an image that is selected from the photo library
+// resize photo library image for game
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {   // A photo was taken or selected
         UIImage* tempOriginalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         
-        // for photos from library you need to resize resize the photo
-        if (tempOriginalImage.size.height > tempOriginalImage.size.width) { // portrait; resizing photo so it fits the entire device screen
-            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-        }
         
-        else if (tempOriginalImage.size.width > tempOriginalImage.size.height) { // landscape
-            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-        }
-        
-        else if (tempOriginalImage.size.width == tempOriginalImage.size.height) { // square
-            self.previewImage = [self resizeImage:tempOriginalImage withMaxDimension:self.view.frame.size.width - 20];
-        }
-        
+        self.previewImage = [self prepareImageForGame:tempOriginalImage]; // resize photo lib image for game
         self.originalImage = tempOriginalImage;
         NSLog(@"preview (resized) image: %@    original image: %@", self.previewImage, self.originalImage);
         NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
         [self dismissViewControllerAnimated:YES completion:nil]; // dismiss photo picker
         [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self];
     }
+}
+
+-(UIImage*)prepareImageForGame:(UIImage*)image {
+    if (image.size.height > image.size.width) { // portrait
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
+    }
+    
+    else if (image.size.width > image.size.height) { // landscape
+         image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; 
+    }
+    
+    else if (image.size.width == image.size.height) { // square
+        image = [self resizeImage:image withMaxDimension:self.view.frame.size.width - 20];
+    }
+    
+    NSLog(@"image after resizing: %@", image);
+    return image;
 }
 
 

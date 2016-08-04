@@ -42,7 +42,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.puzzleSizes = [[NSArray alloc] initWithObjects:@"3 x 3", @"4 x 4", @"5 x 5", @"6 x 6", @"7 x 7", nil];
+    self.puzzleSizes = [[NSArray alloc] initWithObjects:@"3 x 3", @"4 x 4", @"5 x 5", nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -77,7 +77,6 @@
         self.selectPuzzleSizeButton.adjustsImageWhenHighlighted = YES;
         self.sendButton.adjustsImageWhenHighlighted = YES;
         self.backButton.adjustsImageWhenHighlighted = YES;
-
     }
     
     else {
@@ -105,14 +104,16 @@
     RMAction *selectAction = [RMAction actionWithTitle:@"Select" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
         UIPickerView *picker = ((RMPickerViewController *)controller).picker;
         
+        NSString *puzzleSizeText;
         for(NSInteger i=0 ; i<[picker numberOfComponents] ; i++) {
             self.puzzleSize = [self.puzzleSizes objectAtIndex:[picker selectedRowInComponent:i]];
-            NSLog(@"index of puzzle size picker %ld", (long)[picker selectedRowInComponent:i]);
+           // NSLog(@"index of puzzle size picker %ld", (long)[picker selectedRowInComponent:i]);
+            puzzleSizeText = [NSString stringWithFormat:@"%@%@", @"          ", self.puzzleSize];
         }
         
         NSLog(@"puzzle size selected: %@", self.puzzleSize);
     
-        self.selectPuzzleSizeButton.titleLabel.text = self.puzzleSize;
+        self.selectPuzzleSizeButton.titleLabel.text = puzzleSizeText;
     }];
     
     
@@ -145,7 +146,7 @@
     NSString *fileName;
     NSString *fileType;
     
-    if (self.previewImage != nil && self.originalImage != nil) { // just make sure that there is no problem and that images were selected
+    if (self.originalImage != nil) { // just make sure that there is no problem and that images were selected
         if (self.puzzleSize != nil) { // make sure a puzzle size was chosen in memory
             UIImage* tempOriginalImage = self.originalImage;
             fileData = UIImageJPEGRepresentation(tempOriginalImage, 0.6); // compress original image
@@ -155,31 +156,33 @@
             NSLog(@"image before upload: %@", self.originalImage);
    
             // Adds a status below the circle
-            [KVNProgress showWithStatus:@"Uploading..."];
+            [KVNProgress showWithStatus:@"Starting game... Get ready to solve the puzzle as fast as possible."];
             
             [self setViewModelProperties]; // set view model properties
-            [self.viewModel setGameKeyParameters:fileData fileType:fileType fileName:fileName]; // set all of the key values that the cloud game model requires. this is for new games and games where the receiver has yet to send back.
+            self.createdGame = [self.viewModel setGameKeyParameters:fileData fileType:fileType fileName:fileName]; // set all of the key values that the cloud game model requires. this is for new games and games where the receiver has yet to send back.
             
             // save image file and cloud game model
             [self.viewModel saveFile:^(BOOL succeeded, NSError *error) {
                 if (error) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try sending your Snap Scramble again. Sorry about that!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                     [alertView show];
                 }
-                
+               
                 else {
                     [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
                         if (error) {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try sending your Snap Scramble again. Sorry about that!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                             [alertView show];
                         }
-                        
+                       
                         else { // sent game
-                            NSLog(@"this was the uploaded (created) game: %@", self.createdGame);
-                            [self.navigationController popToRootViewControllerAnimated:NO]; // go back to first screen
+                            NSLog(@"this was the uploaded game cloud object: %@", self.createdGame);
+                            // [self.navigationController popToRootViewControllerAnimated:NO]; // go back to first screen
                             self.sendButton.userInteractionEnabled = YES;
                             [self.viewModel sendNotificationToOpponent]; // send the push notification
+                            [NSThread sleepForTimeInterval:2];
                             [KVNProgress dismiss];
+                            [self performSegueWithIdentifier:@"createGame" sender:self];
                         }
                     }];
                 }
@@ -195,6 +198,18 @@
     
     else {
         NSLog(@"some problem");
+    }
+}
+
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"createGame"]) {
+        GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
+        gameViewController.puzzleImage = self.previewImage;
+        gameViewController.opponent = self.opponent;
+        NSLog(@"the opponent %@", gameViewController.opponent);
+        gameViewController.createdGame = self.createdGame;
     }
 }
 

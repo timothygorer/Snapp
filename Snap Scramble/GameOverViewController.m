@@ -22,8 +22,10 @@
     // Do any additional setup after loading the view.
     [self.doneButton addTarget:self action:@selector(doneButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.doneButton.adjustsImageWhenHighlighted = NO;
-    NSString *pieceNum = [NSString stringWithFormat:@" / %ld |  Your time: %@", (long)self.pieceNum, [self.createdGame objectForKey:@"time"]];
-    self.scoreLabel.text = [self.scoreString stringByAppendingString:pieceNum];
+    NSNumber* time = [self.createdGame objectForKey:@"time"];
+    NSString *timeString = [NSString stringWithFormat:@"Your time: %@", time];
+    self.timeLabelOne.text = timeString;
+    self.timeLabelTwo.text = @"opponent's time: 1:23";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -43,25 +45,48 @@
 }
 
 - (IBAction)doneButtonDidPress:(id)sender {
-    self.scoreView.animation = @"fall";
-    self.scoreView.delay = 5.0;
-    [self.scoreView animate];
-    
-    //This for loop iterates through all the view controllers in navigation stack.
-    for (UIViewController* viewController in self.navigationController.viewControllers) {
-        NSLog(@"why");
-        //This if condition checks whether the viewController's class is a CreatePuzzleViewController
-        // if true that means its the FriendsViewController (which has been pushed at some point)
-        if ([viewController isKindOfClass:[ChallengeViewController class]] ) {
-            
-            // Here viewController is a reference of UIViewController base class of CreatePuzzleViewController
-            // but viewController holds CreatePuzzleViewController  object so we can type cast it here
-            ChallengeViewController *challengeViewController = (ChallengeViewController *)viewController;
-            [self.navigationController popToViewController:challengeViewController animated:YES];
-            break;
-        }
-    }
+    self.statsView.animation = @"fall";
+    self.statsView.delay = 5.0;
+    [self.statsView animate];
+    [self.navigationController popToRootViewControllerAnimated:YES]; // go to main menu
 }
+
+// set whether current user has to reply or not
+/* - (void)updateGame {
+    NSLog(@"receiverName: %@    PFUser username: %@     game: %@", [self.createdGame objectForKey:@"receiverName"], [PFUser currentUser].username, self.createdGame);
+    if ([[self.createdGame objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the receiver (we want the receiver to send back a puzzle)
+        [self.createdGame setObject:[NSNumber numberWithBool:true] forKey:@"receiverPlayed"]; // receiver played, set true
+        [self.createdGame setObject:self.totalSeconds forKey:@"receiverTime"];
+        NSLog(@"current user is the receiver. let him see stats, and then reply or end game. RECEIVER HAS PLAYED");
+        [self.createdGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+            else {
+                NSLog(@"game updated successfully.");
+                [self.gameUIDelegate updateToGameOverUI]; // update the UI
+                // [self.gameUIDelegate updateToShowStatsUI];
+            }
+        }];
+    }
+    
+    else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender
+        [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played. i did this already in PreviewPuzzleVC, but I'm doing it again here to stop any confusion.
+        [self.createdGame setObject:self.totalSeconds forKey:@"senderTime"];
+        NSLog(@"current user is not the receiver, he's the sender. let him see stats, switch turns / send a push notification and then go to main menu to wait. RECEIVER HAS NOT PLAYED.");
+        [self.createdGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+            else {
+                NSLog(@"game updated successfully.");
+                [self.gameUIDelegate updateToShowStatsUI];
+            }
+        }];
+    }
+} */
 
 /*
 #pragma mark - Navigation

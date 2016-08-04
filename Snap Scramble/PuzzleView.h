@@ -19,7 +19,7 @@
 
 @protocol PuzzleViewDelegate
 
--(void)puzzleView:(PuzzleView *)view performSegueWithIdentifier:(NSString *)identifier;
+-(void)pause;
 
 @end
 

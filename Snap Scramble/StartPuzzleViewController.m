@@ -52,19 +52,7 @@
                 NSLog(@"downloaded image before resizing: %@", image);
                 
                 // resizing the photo when it's sent from a sender to the receiver. should work for all screen sizes.
-                if (image.size.height > image.size.width) { // portrait
-                    image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-                    self.image = image;
-                }
-                
-                else if (image.size.width > image.size.height) { // landscape
-                    image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-                    self.image = image;
-                }
-                
-                else if (image.size.width == image.size.height) { // square
-                    self.image = [self resizeImage:image withMaxDimension:self.view.frame.size.width - 20];
-                }
+                self.image = [self prepareImageForGame:image];
                 
                 NSLog(@"downloaded image after resizing: %@", self.image);
                 self.startPuzzleButton.userInteractionEnabled = true;
@@ -74,8 +62,25 @@
     }
 }
 
+-(UIImage*)prepareImageForGame:(UIImage*)image {
+    if (image.size.height > image.size.width) { // portrait
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
+    }
+    
+    else if (image.size.width > image.size.height) { // landscape
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; 
+    }
+    
+    else if (image.size.width == image.size.height) { // square
+        image = [self resizeImage:image withMaxDimension:self.view.frame.size.width - 20];
+    }
+    
+    NSLog(@"image after resizing: %@", image);
+    return image;
+}
+
 - (IBAction)startGame:(id)sender {
-    [self performSegueWithIdentifier:@"initiateGame" sender:self];
+    [self performSegueWithIdentifier:@"beginGame" sender:self];
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
@@ -126,9 +131,8 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"initiateGame"]) {
+    if ([segue.identifier isEqualToString:@"beginGame"]) {
         GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
-        //gameViewController.puzzleImage = self.imageView.image;
         gameViewController.puzzleImage = self.image;
         gameViewController.opponent = self.opponent;
         NSLog(@"opponent %@",gameViewController.opponent);
@@ -148,7 +152,7 @@
     self.createdGame = selectedGame;
     self.opponent = opponent;
     
-    // delegate allows us to transfer user's data back to previous view controller for creating puzzle game
+    // delegate allows us to transfer user's data back to ChallengeViewController for creating puzzle game, which then sends data to CreatePuzzleVC
     [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

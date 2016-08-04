@@ -10,10 +10,10 @@
 
 @implementation FriendsViewModel
 
-- (id)init {
+- (id)initWithFriendsRelation:(PFRelation *)friendsRelation {
     self = [super init];
     if (self) {
-        self.friendsRelation = [[PFUser currentUser] relationForKey:@"friends"];
+        self.friendsRelation = friendsRelation;
         
     }
     

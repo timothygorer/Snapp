@@ -26,7 +26,7 @@
     self = [super initWithCoder:aDecoder];
     if (self)
     {
-        _viewModel = [[FriendsViewModel alloc] init];
+        _viewModel = [[FriendsViewModel alloc] initWithFriendsRelation:[[PFUser currentUser] relationForKey:@"friends"]];
     }
     
     return self;
@@ -114,6 +114,7 @@
         
         
         else if ([username isEqualToString:comparisonUsername]) {
+            [KVNProgress dismiss];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"You cannot play a game with yourself." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }

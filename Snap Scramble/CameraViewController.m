@@ -196,6 +196,8 @@
     [self.camera capture:^(LLSimpleCamera *camera, UIImage *image, NSDictionary *metadata, NSError *error) {
         if(!error) {
             self.originalImage = image;
+            self.cameraImage = image;
+            self.cameraImage = [self prepareImageForGame:self.cameraImage]; // resize camera image for game
             [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
         }
         else {
@@ -235,6 +237,60 @@
     return UIInterfaceOrientationPortrait;
 }
 
+-(UIImage*)prepareImageForGame:(UIImage*)image {
+    if (image.size.height > image.size.width) { // portrait
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+    }
+    
+    else if (image.size.width == image.size.height) { // square
+        image = [self resizeImage:image withMaxDimension:self.view.frame.size.width - 20];
+    }
+    
+    NSLog(@"image after resizing: %@", image);
+    return image;
+}
+
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
+{
+    CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
+    CGFloat width = image.size.width * scale;
+    CGFloat height = image.size.height * scale;
+    CGRect imageRect = CGRectMake((size.width - width)/2.0f,
+                                  (size.height - height)/2.0f,
+                                  width,
+                                  height);
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
+    [image drawInRect:imageRect];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+- (UIImage *)resizeImage:(UIImage *)image withMaxDimension:(CGFloat)maxDimension {
+    if (fmax(image.size.width, image.size.height) <= maxDimension) {
+        return image;
+    }
+    
+    CGFloat aspect = image.size.width / image.size.height;
+    CGSize newSize;
+    
+    if (image.size.width > image.size.height) {
+        newSize = CGSizeMake(maxDimension, maxDimension / aspect);
+    } else {
+        newSize = CGSizeMake(maxDimension * aspect, maxDimension);
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 1.0);
+    CGRect newImageRect = CGRectMake(0.0, 0.0, newSize.width, newSize.height);
+    [image drawInRect:newImageRect];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
         PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
@@ -248,11 +304,12 @@
         }
         
         previewPuzzleViewController.originalImage = self.originalImage;
-        previewPuzzleViewController.previewImage = self.originalImage; // pass the original image for preview since it doesn't need to be resized
+        previewPuzzleViewController.previewImage = self.cameraImage; // pass the original image for preview since it doesn't need to be resized
         previewPuzzleViewController.opponent = self.opponent;
         NSLog(@"Opponent: %@", self.opponent);
     }
 }
+
 
 - (void)didReceiveMemoryWarning
 {

@@ -158,7 +158,6 @@
     }
     
     if ([self.currentGames count] != 0 || [self.currentPendingGames count] != 0) {
-        //[self.emptyTableScreen removeFromSuperview];
         self.currentGamesTable.backgroundView.hidden = YES;
         self.currentGamesTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.currentGamesTable.scrollEnabled = true;
@@ -178,7 +177,7 @@
 // a method so that the user can delete games he doesn't want to play anymore
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return YES - we will be able to delet rows
+    // Return YES - we will be able to delete rows
     return YES;
 }
 
@@ -352,7 +351,7 @@
     self.opponent = opponent;
     self.selectedGame = selectedGame;
     NSLog(@"delegate success. replying... opponent: %@    game: %@", self.opponent, self.selectedGame);
-    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it
+    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it from CreatePuzzleVC
 }
 
 - (void)showLoginScreen {

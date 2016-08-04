@@ -34,6 +34,7 @@
         
         else if (self.puzzle.puzzleImage.size.width == self.puzzle.puzzleImage.size.height) { // if the image is landscape, create a landscape puzzle
             [self createSquarePuzzleWithGridSize:[self.puzzle getNumberOfPieces]];
+            NSLog(@"square puzzle");
         }
     }
     
@@ -43,11 +44,10 @@
 -(void)createVerticalPuzzleWithGridSize:(NSInteger)size {
     if (self.puzzle.puzzleImage) { // if the image from the preview controller was assigned to this
         NSLog(@"Puzzle Image Width: %f     Puzzle Image Height: %f", self.puzzle.puzzleImage.size.width, self.puzzle.puzzleImage.size.height);
-        self.puzzle.numberofPieces = size;
         
         CGFloat sideLengthY = self.puzzle.puzzleImage.size.height/sqrt(self.puzzle.numberofPieces); // sideLengthY is the length of each PieceView/TargetView. Formula: length of photo (or height) divided by # of pieces in Y-axis = sideLengthY (if we want not X by X we need two pieceNums?********** like 7x4. REMEMBER THIS.)
         CGFloat sideLengthX = self.puzzle.puzzleImage.size.width/sqrt(self.puzzle.numberofPieces); // sideLengthX is the width of each PieceView/TargetView. Formula: width of photo (or height) divided by # of pieces in X-axis = sideLengthX
-        NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
+        // NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
         
         CGRect targetRect;
         CGRect pieceRect;
@@ -74,11 +74,10 @@
 -(void)createSquarePuzzleWithGridSize:(NSInteger)size {
     if (self.puzzle.puzzleImage) { // if the image from the preview controller was assigned to this
         NSLog(@"Puzzle Image Width: %f     Puzzle Image Height: %f", self.puzzle.puzzleImage.size.width, self.puzzle.puzzleImage.size.height);
-        self.puzzle.numberofPieces = size;
         
         CGFloat sideLengthY = self.puzzle.puzzleImage.size.height/sqrt(self.puzzle.numberofPieces); // sideLengthY is the length of each PieceView/TargetView. Formula: length of photo (or height) divided by # of pieces in Y-axis = sideLengthY (if we want not X by X we need two pieceNums?********** like 7x4. REMEMBER THIS.)
         CGFloat sideLengthX = self.puzzle.puzzleImage.size.width/sqrt(self.puzzle.numberofPieces); // sideLengthX is the width of each PieceView/TargetView. Formula: width of photo (or height) divided by # of pieces in X-axis = sideLengthX
-        NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
+        // NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
         
         CGRect targetRect;
         CGRect pieceRect;
@@ -88,9 +87,7 @@
         
         // this is the place of the very first piece view.
         pieceRect = CGRectMake((self.frame.size.width - self.puzzle.puzzleImage.size.width) / 2, (self.frame.size.height - self.puzzle.puzzleImage.size.height), 200, 200); // 200s do nothing, just placeholders
-        NSLog(@"targetRect x: %f", targetRect.origin.x);
-        NSLog(@"frame width: %f   image width: %f", self.frame.size.width, self.puzzle.puzzleImage.size.width);
-        
+   
         // create all of the target views of the puzzle
         [self createVerticalTargetViewInRect:targetRect WithImage:nil num:self.puzzle.numberofPieces sideLenX:sideLengthX sideLenY:sideLengthY]; // this works for square puzzles as well.
         
@@ -106,13 +103,11 @@
 
 -(void)createHorizontalPuzzleWithGridSize:(NSInteger)size {
     if (self.puzzle.puzzleImage) { // if the image from the preview controller was assigned to this
-        NSLog(@"executed!2");
         NSLog(@"Puzzle Image Width: %f     Puzzle Image Height: %f", self.puzzle.puzzleImage.size.width, self.puzzle.puzzleImage.size.height);
-        self.puzzle.numberofPieces = size;
         
         CGFloat sideLengthY = self.puzzle.puzzleImage.size.height/sqrt(self.puzzle.numberofPieces); // sideLengthY is the length of each PieceView/TargetView. Formula: width of photo (or height) divided by # of pieces in Y-axis = sideLengthY
         CGFloat sideLengthX = self.puzzle.puzzleImage.size.width/sqrt(self.puzzle.numberofPieces); // sideLengthX is the width of each PieceView/TargetView. Formula: height of photo (or height) divided by # of pieces in X-axis = sideLengthX
-        NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
+        // NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
         
         CGRect targetRect;
         CGRect pieceRect;
@@ -144,7 +139,7 @@
     CGFloat x = targetRect.origin.x;
     CGFloat y = targetRect.origin.y;
     y = 30; // give some space for the timer label
-    NSLog(@"x : %f    y : %f", x, y);
+    // NSLog(@"x : %f    y : %f", x, y);
     NSInteger col = sqrt(pieceNum); // calculate the column number
     NSInteger row = sqrt(pieceNum); // calculate the row number
     for (int i = 0; i < row; i++) {
@@ -153,11 +148,10 @@
             TargetView* target = [[TargetView alloc]initWithFrame:CGRectMake(x, y, sideLengthX, sideLengthY)]; // initialize each target with the current x & y and static sideLengthX & sideLengthY
             target.backgroundColor = [self colorWithHexString:@"71C7F0"]; // blue
             target.targetId = count;
-            NSLog(@"executed3");
             [self addSubview:target]; // add to the PuzzleView's subview
             [self.puzzle.targets addObject:target]; // add the current target to the puzzle's target array
             count++;
-            NSLog(@"x : %f    y : %f", x, y);
+            // NSLog(@"x : %f    y : %f", x, y);
             x = x + sideLengthX; // add a target view's X length each time the column loop is traversed
             
             if (j == (col - 1) && i == 0) { // if the last column of the first row is being created, put a pause button there
@@ -174,7 +168,7 @@
                 [self addSubview:button];
             }
         }
-        NSLog(@"x : %f    y : %f", x, y);
+        // NSLog(@"x : %f    y : %f", x, y);
         y = y + sideLengthY; // add a target view's Y length each time the row loop is traversed
     }
 }
@@ -188,7 +182,7 @@
         NSNumber* iWrapped = [NSNumber numberWithInt:i];
         [idArray addObject:iWrapped];
     }
-    NSMutableArray* images = [self splitImageWith:image andPieceNum:(int)pieceNum]; // create all of the pieces by slicing the image.
+    NSMutableArray* images = [self splitImageWith:image andPieceNum:pieceNum]; // create all of the pieces by slicing the image.
     CGFloat x = pieceRect.origin.x;
     CGFloat y = pieceRect.origin.y;
     y = 30;
@@ -210,6 +204,7 @@
                     piece.targetView = currentTargetView; // assign the target view
                     if (piece.pieceId == piece.targetView.targetId) { // check if piece is matched to its target
                         piece.isMatched = true; // if matched at beginning, set it to true
+                        piece.userInteractionEnabled = false;
                     }
                     else if (piece.pieceId != piece.targetView.targetId) {
                         piece.isMatched = false; // if it's not matched at beginning, set it to false
@@ -239,7 +234,6 @@
             TargetView* target = [[TargetView alloc]initWithFrame:CGRectMake(x, y, sideLengthX, sideLengthY)]; // initialize each target with the current x & y and static sideLengthX & sideLengthY
             target.backgroundColor = [self colorWithHexString:@"71C7F0"]; // blue
             target.targetId = count;
-            NSLog(@"executed3");
             [self addSubview:target]; // add to the PuzzleView's subview
             [self.puzzle.targets addObject:target]; // add the current target to the puzzle's target array
             count++;
@@ -262,12 +256,6 @@
         y = y + sideLengthY; // add a target view's Y length each time the row loop is traversed
     }
 }
-
-
-- (IBAction)pauseButtonDidPress:(id)sender {
-    [self.delegate puzzleView:self performSegueWithIdentifier:@"pauseMenu"];
-}
-
 
 // create a piece view
 -(void)createHorizontalPieceViewInRect:(CGRect)pieceRect WithImage:(UIImage *)image num:(NSInteger)pieceNum sideLenX:(CGFloat)sideLengthX sideLenY:(CGFloat)sideLengthY {
@@ -315,19 +303,21 @@
 
 // split the image into pieceNum pieces and return an array
 - (NSMutableArray *)splitImageWith: (UIImage *)image andPieceNum: (NSInteger)pieceNum{
-    NSMutableArray* images = [NSMutableArray arrayWithCapacity:pieceNum];
+    NSMutableArray* images = [NSMutableArray arrayWithCapacity:(NSUInteger)pieceNum];
     NSInteger side = sqrt(pieceNum);
+    NSLog(@"pieceNum: %ld   side: %ld", (long)pieceNum, (long)side);
     CGFloat x = 0.0, y = 0.0;
     CGFloat sideLengthY = self.puzzle.puzzleImage.size.height/side; // sideLengthY is the length of each PieceView/TargetView. Formula: length of photo (or height) divided by # of pieces in Y-axis = sideLengthY (if we want not X by X we need two pieceNums?********** like 7x4. REMEMBER THIS.)
     CGFloat sideLengthX = self.puzzle.puzzleImage.size.width/side; // sideLengthX is the width of each PieceView/TargetView. Formula: width of photo (or height) divided by # of pieces in X-axis = sideLengthX
-    NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
+   //NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
     
-    for (int row = 0; row < side ; row++) {
+    for (int row = 0; row < side; row++) {
         x = 0.0;
         for (int col = 0; col < side; col++) {
             CGRect rect = CGRectMake(x, y, sideLengthX, sideLengthY);
             CGImageRef cImage = CGImageCreateWithImageInRect([image CGImage],  rect); // coregraphics method!
             UIImage* dImage = [[UIImage alloc]initWithCGImage:cImage];
+            NSLog(@"cImage: %@   dImage: %@", cImage, dImage);
             [images addObject:dImage];
             x = x + sideLengthX;
         }
@@ -338,12 +328,12 @@
 
 // split the image into pieceNum pieces and return an array
 - (NSMutableArray *)splitHorizontalImageWith: (UIImage *)image andPieceNum: (NSInteger)pieceNum{
-    NSMutableArray* images = [NSMutableArray arrayWithCapacity:pieceNum];
+    NSMutableArray* images = [NSMutableArray arrayWithCapacity:(NSUInteger)pieceNum];
     NSInteger side = sqrt(pieceNum);
     CGFloat x = 0.0, y = 0.0;
     CGFloat sideLengthY = self.puzzle.puzzleImage.size.height/side; // sideLengthY is the length of each PieceView/TargetView. Formula: length of photo (or height) divided by # of pieces in Y-axis = sideLengthY (if we want not X by X we need two pieceNums?********** like 7x4. REMEMBER THIS.)
     CGFloat sideLengthX = self.puzzle.puzzleImage.size.width/side; // sideLengthX is the width of each PieceView/TargetView. Formula: width of photo (or height) divided by # of pieces in X-axis = sideLengthX
-    NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
+    // NSLog(@"sideLengthY: %f     sideLengthX: %f", sideLengthY, sideLengthX);
     
     for (int row = 0; row < side ; row++) {
         x = 0.0;
@@ -361,7 +351,6 @@
 
 // if a piece is dragged, check if it can fit in a TargetView
 -(void)pieceView:(PieceView *)currentPieceView didDragToPoint: (CGPoint)pt{
-    NSLog(@"this method is executing");
     PieceView* nonCurrentPieceView;
     for (TargetView* nonCurrentTargetView in self.puzzle.targets) { // self.targets is the array of TargetViews
         if (CGRectContainsPoint(nonCurrentTargetView.frame, pt)) { // if the piece is dragged near a target
@@ -456,6 +445,12 @@
         self.timerLabel.text = [NSString stringWithFormat:@"%d:%d", minutes, seconds];
     }
 }
+
+
+- (IBAction)pauseButtonDidPress:(id)sender {
+    [self.delegate pause]; // pause the timer, perform the segue
+}
+
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {

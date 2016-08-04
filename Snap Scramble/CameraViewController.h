@@ -12,7 +12,7 @@
 
 @interface CameraViewController : UIViewController
 
-@property (nonatomic, strong) UIImage* image; // preview image
+@property (nonatomic, strong) UIImage* cameraImage; // preview image
 @property (nonatomic, strong) UIImage* originalImage;
 @property (nonatomic, strong) PFObject* createdGame;
 @property (nonatomic, strong) PFUser* opponent;

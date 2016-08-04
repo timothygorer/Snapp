@@ -23,6 +23,7 @@
 @protocol GameUIDelegate
 
 -(void)updateToGameOverUI;
+-(void)updateToShowStatsUI;
 
 @end
 
@@ -35,6 +36,7 @@
 @property (strong,nonatomic) PuzzleObject *puzzle;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) PFObject *createdGame;
+@property (nonatomic, strong) NSNumber *isPaused;
 
 
 - (id)initWithPuzzle:(PuzzleObject *)puzzle opponent:(PFUser *)opponent andPFObject:(PFObject *)createdGame; // start the game

@@ -20,7 +20,7 @@
 
 
 -(id)initWithOpponent:(PFUser *)opponent andGame:(PFObject *)createdGame;
-- (void)setGameKeyParameters:(NSData *)fileData fileType:(NSString *)fileType fileName:(NSString *)fileName;
+- (PFObject *)setGameKeyParameters:(NSData *)fileData fileType:(NSString *)fileType fileName:(NSString *)fileName;
 - (void)saveFile:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)saveCurrentGame:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)sendNotificationToOpponent;

@@ -13,11 +13,12 @@
 
 @interface GameOverViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *headerStatsLabel;
+@property (weak, nonatomic) IBOutlet DesignableTextField *timeLabelOne;
+@property (weak, nonatomic) IBOutlet DesignableTextField *timeLabelTwo;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
-@property (weak, nonatomic) IBOutlet SpringView *scoreView;
-@property (weak, nonatomic) IBOutlet UITextField *scoreLabel;
-@property (weak, nonatomic) NSString* scoreString;
-@property (nonatomic) NSInteger pieceNum;
+@property (weak, nonatomic) IBOutlet SpringView *statsView;
 @property (nonatomic, strong) PFObject *createdGame;
+
 
 @end

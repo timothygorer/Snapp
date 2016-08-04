@@ -50,6 +50,8 @@
         self.numberofPieces = 49;
     }
     
+    NSLog(@"number of pieces: %ld", (long)self.numberofPieces);
+    
     return self;
 }
 

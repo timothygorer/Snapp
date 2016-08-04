@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) PFRelation *friendsRelation;
 
+- (id)initWithFriendsRelation:(PFRelation *)friendsRelation;
 - (void)retrieveFriends:(void (^)(NSArray *objects, NSError *error))completion;
 - (void)addFounder:(void (^)(PFObject *founderUser, NSError *error))completion;
 - (BOOL)isFriend:(PFUser *)user friendsList:(NSMutableArray *)mutableFriendsList;

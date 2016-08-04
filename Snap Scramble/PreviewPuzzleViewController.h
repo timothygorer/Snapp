@@ -17,13 +17,9 @@
 @property (nonatomic, strong) UIImageView* imageView;
 @property (nonatomic, strong) PFUser* opponent;
 @property (weak, nonatomic) IBOutlet UIButton* backButton;
-@property (nonatomic, strong) IBOutlet UILabel *headerLabel;
-@property (weak, nonatomic) IBOutlet UIButton* startPuzzleButton;
-@property (weak, nonatomic) IBOutlet UIButton* retakePhotoButton;
 @property (nonatomic, strong) UIImage* previewImage;
 @property (nonatomic, strong) UIImage* originalImage;
 @property (nonatomic, strong) PFUser* currentUser;
-@property (nonatomic, strong) UIImage* compressedUploadImage;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *selectPuzzleSizeButton;
 @property (nonatomic, strong) NSArray *puzzleSizes;

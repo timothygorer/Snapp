@@ -63,15 +63,7 @@
     //[self stopRandomUserSearch]; // stop user from being searched for if he closes the app.
 }
 
-- (void)stopRandomUserSearch {
-    [[PFUser currentUser] setObject:[NSNumber numberWithBool:NO] forKey:@"searchingForGame"]; // set it so current user isn't searching for a random user anymore
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
-    }];
-}
+
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -87,17 +79,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:
 }
 
-- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL succeeded))completionHandler {
-    if ([shortcutItem.type isEqualToString:@"com.timgorer.SnapScrambleDescrambleFriends.First"]) {
-        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *friendsVC = [storyBoard instantiateViewControllerWithIdentifier:@"FriendsVC"];
-        UIViewController *rootVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-        [rootVC presentViewController:friendsVC animated:YES completion:^(void) {
-            completionHandler(true);
-        }];
-    }
-}
 @end

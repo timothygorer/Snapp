@@ -47,7 +47,6 @@
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if (self.dragDelegate) {
-        NSLog(@"duhwhat");
         [self.dragDelegate pieceView:self didDragToPoint:self.center]; // self.center is the new point
     }
 }
