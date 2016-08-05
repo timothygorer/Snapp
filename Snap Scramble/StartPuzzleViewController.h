@@ -13,7 +13,7 @@
 #import "ChallengeViewController.h"
 
 @protocol StartVCDelegate <NSObject>
-- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent;
+- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent andRound:(PFObject *)roundObject;
 @end
 
 @interface StartPuzzleViewController : UIViewController <StartVCDelegate>
@@ -29,5 +29,6 @@
 @property (nonatomic, strong) PFUser* currentUser;
 @property (nonatomic, strong) UIImage* compressedUploadImage;
 @property (weak, nonatomic) IBOutlet SpringView *scoreView;
+@property (nonatomic, strong) PFObject* roundObject;
 
 @end

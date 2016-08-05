@@ -148,12 +148,13 @@
 
 #pragma mark - delegate methods
 
-- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent {
+- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent andRound:(PFObject *)roundObject {
     self.createdGame = selectedGame;
     self.opponent = opponent;
+    self.roundObject = roundObject;
     
     // delegate allows us to transfer user's data back to ChallengeViewController for creating puzzle game, which then sends data to CreatePuzzleVC
-    [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent];
+    [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent andRound:self.roundObject];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -339,6 +339,7 @@
         CreatePuzzleViewController *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
         createPuzzleViewController.opponent = self.opponent;
         createPuzzleViewController.createdGame = self.selectedGame;
+        createPuzzleViewController.roundObject = [self.selectedGame objectForKey:@"round"];
         NSLog(@"create puzzle screen opening... the current user has yet to start a new round by playing and sending back.");
         NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
     }
@@ -347,9 +348,11 @@
 
 #pragma mark - delegate methods
 
-- (void)receiveReplyGameData:(PFObject *)selectedGame andOpponent:(PFUser *)opponent {
+- (void)receiveReplyGameData:(PFObject *)selectedGame andOpponent:(PFUser *)opponent andRound:(PFObject *)roundObject {
     self.opponent = opponent;
     self.selectedGame = selectedGame;
+    self.roundObject = roundObject;
+    
     NSLog(@"delegate success. replying... opponent: %@    game: %@", self.opponent, self.selectedGame);
     [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it from CreatePuzzleVC
 }

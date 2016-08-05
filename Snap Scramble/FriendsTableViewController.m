@@ -52,6 +52,7 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:false];
     
+    self.friendsRelation = self.viewModel.friendsRelation;
     [self.viewModel retrieveFriends:^(NSArray *objects, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
@@ -62,7 +63,7 @@
             self.mutableFriendsList = [NSMutableArray arrayWithArray:self.friends]; // set mutable list
             [self.tableView reloadData];
             
-            [self.viewModel addFounder:^(PFObject* founderUser, NSError* error) {
+            [self.viewModel getFounder:^(PFObject* founderUser, NSError* error) {
                 if(!error) {
                     if (![self.viewModel isFriend:founderUser friendsList:self.mutableFriendsList]) {
                         [self.mutableFriendsList addObject:founderUser];

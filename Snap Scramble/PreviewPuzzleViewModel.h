@@ -15,12 +15,17 @@
 @property (nonatomic, strong) PFUser* opponent;
 @property (nonatomic, strong) PFFile* file;
 @property (nonatomic, strong) PFObject* createdGame;
+@property (nonatomic, strong) PFObject* roundObject;
+@property (nonatomic, strong) NSNumber *roundNumber;
 
 
 
 
--(id)initWithOpponent:(PFUser *)opponent andGame:(PFObject *)createdGame;
+-(id)init;
 - (PFObject *)setGameKeyParameters:(NSData *)fileData fileType:(NSString *)fileType fileName:(NSString *)fileName;
+- (NSNumber*)getRoundNumber;
+- (void)incrementRoundNumber;
+- (PFObject *)getRoundObject;
 - (void)saveFile:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)saveCurrentGame:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)sendNotificationToOpponent;

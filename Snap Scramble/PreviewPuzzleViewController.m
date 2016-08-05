@@ -36,6 +36,7 @@
     _viewModel.opponent = self.opponent;
     _viewModel.createdGame = self.createdGame;
     _viewModel.puzzleSize = self.puzzleSize;
+    _viewModel.roundObject = self.roundObject;
 }
 
 #pragma mark - view controller methods
@@ -175,11 +176,9 @@
                             [alertView show];
                         }
                        
-                        else { // sent game
+                        else {
                             NSLog(@"this was the uploaded game cloud object: %@", self.createdGame);
-                            // [self.navigationController popToRootViewControllerAnimated:NO]; // go back to first screen
                             self.sendButton.userInteractionEnabled = YES;
-                            [self.viewModel sendNotificationToOpponent]; // send the push notification
                             [NSThread sleepForTimeInterval:2];
                             [KVNProgress dismiss];
                             [self performSegueWithIdentifier:@"createGame" sender:self];
@@ -210,6 +209,7 @@
         gameViewController.opponent = self.opponent;
         NSLog(@"the opponent %@", gameViewController.opponent);
         gameViewController.createdGame = self.createdGame;
+        gameViewController.roundObject = [self.viewModel getRoundObject];
     }
 }
 

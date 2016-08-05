@@ -102,6 +102,7 @@
 		6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AD28CE21B5E092E00BCD802 /* Images.xcassets */; };
 		6AD633911B71EB4C0038A4EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD633901B71EB4C0038A4EB /* Reachability.m */; };
 		6AD6439F1D516C2300121E98 /* PauseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD6439E1D516C2300121E98 /* PauseViewModel.m */; };
+		6AD643A21D5407DB00121E98 /* GameOverViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD643A11D5407DB00121E98 /* GameOverViewModel.m */; };
 		8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 		E9C7226C1D63F1B2D85E8E23 /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 /* End PBXBuildFile section */
@@ -250,6 +251,8 @@
 		6AD633901B71EB4C0038A4EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Reachability.m; sourceTree = "<group>"; };
 		6AD6439D1D516C2300121E98 /* PauseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewModel.h; sourceTree = "<group>"; };
 		6AD6439E1D516C2300121E98 /* PauseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewModel.m; sourceTree = "<group>"; };
+		6AD643A01D5407DB00121E98 /* GameOverViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverViewModel.h; path = ../GameOverViewModel.h; sourceTree = "<group>"; };
+		6AD643A11D5407DB00121E98 /* GameOverViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOverViewModel.m; path = ../GameOverViewModel.m; sourceTree = "<group>"; };
 		DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
 		FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -510,6 +513,8 @@
 				6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */,
 				6AD6439D1D516C2300121E98 /* PauseViewModel.h */,
 				6AD6439E1D516C2300121E98 /* PauseViewModel.m */,
+				6AD643A01D5407DB00121E98 /* GameOverViewModel.h */,
+				6AD643A11D5407DB00121E98 /* GameOverViewModel.m */,
 			);
 			name = "View Models";
 			path = "Snap Scramble";
@@ -794,6 +799,7 @@
 				6AB4F4B11C6058190082EF42 /* DesignableTabBarController.swift in Sources */,
 				6AB4F4B41C6058190082EF42 /* DesignableView.swift in Sources */,
 				6AB4F4AC1C6058190082EF42 /* AutoTextView.swift in Sources */,
+				6AD643A21D5407DB00121E98 /* GameOverViewModel.m in Sources */,
 				6AB4F4B31C6058190082EF42 /* DesignableTextView.swift in Sources */,
 				6AB4F4AB1C6058190082EF42 /* AsyncImageView.swift in Sources */,
 				6AB4F4B21C6058190082EF42 /* DesignableTextField.swift in Sources */,

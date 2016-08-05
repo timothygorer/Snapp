@@ -10,12 +10,11 @@
 
 @implementation PreviewPuzzleViewModel
 
--(id)initWithOpponent:(PFUser *)opponent andGame:(PFObject *)createdGame {
+-(id)init {
     self = [super init];
     if (self) {
-        self.opponent = opponent;
-        self.createdGame = createdGame;
-        // puzzleSize property gets set later
+      
+        // properties get set later
     }
     
     return self;
@@ -26,7 +25,7 @@
     PFFile* file; // file
     
     // set all parameters we need for the cloud game object. this is for either a new game or an existing game when the current user has to reply.
-    if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true] &&   [[self.createdGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) { // if the receiver has played but the receiver has yet to send back, let him. this is code for the receiver.
+    if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true] &&   [[self.createdGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) { // if the RECEIVER has played but the receiver has yet to send back, let him. This code is executed when the current user is replying.
         file = [PFFile fileWithName:fileName data:fileData];
         [self.createdGame setObject:self.puzzleSize forKey:@"puzzleSize"];
         [self.createdGame setObject:file forKey:@"file"];
@@ -37,12 +36,19 @@
         [self.createdGame setObject:[[PFUser currentUser] objectId] forKey:@"senderID"];
         [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played
         
+        // increment the round
+        self.roundNumber = [self getRoundNumber];
+        [self incrementRoundNumber];
+        
+        // set the round object to the game
+        [self.createdGame setObject:self.roundObject forKey:@"round"];
+        
         // set later so that a glitch doesn't happen
         [self.createdGame setObject:@"" forKey:@"receiverID"];
         [self.createdGame setObject:@"" forKey:@"receiverName"];
     }
     
-    else if (self.createdGame == nil) { // if the game is a NEWLY created game
+    else if (self.createdGame == nil) { // if the game is a NEWLY created game, current user is the SENDER. This game is executed when the current user creates a new game.
         self.createdGame = [PFObject objectWithClassName:@"Messages"];
         [self.createdGame setObject:self.puzzleSize forKey:@"puzzleSize"];
         [self.createdGame setObject:[[PFUser currentUser] objectId] forKey:@"senderID"];
@@ -53,7 +59,13 @@
         [self.createdGame setObject:file forKey:@"file"];
         [self.createdGame setObject:fileType forKey:@"fileType"];
         [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played
-
+        
+        // create the round object for the initial game
+        self.roundObject = [PFObject objectWithClassName:@"Round"];
+        [self.roundObject setObject:[NSNumber numberWithInt:1] forKey:@"roundNumber"]; // set initial round for a brand new game
+        
+        // set the round object to the game
+        [self.createdGame setObject:self.roundObject forKey:@"round"];
         
         // set later so that a glitch doesn't happen
         [self.createdGame setObject:@"" forKey:@"receiverID"];
@@ -62,6 +74,24 @@
     
     self.file = file; // set the file property
     return self.createdGame;
+}
+
+// get the current round
+- (NSNumber*)getRoundNumber {
+    self.roundNumber = [self.roundObject objectForKey:@"roundNumber"];
+    return self.roundNumber;
+}
+
+// increment the round once the current round is over
+- (void)incrementRoundNumber {
+    // increment the round
+    int roundIntValue = [self.roundNumber intValue];
+    self.roundNumber = [NSNumber numberWithInt:roundIntValue + 1];
+    [self.createdGame setObject:self.roundNumber forKey:@"roundNumber"];
+}
+
+- (PFObject *)getRoundObject {
+    return self.roundObject;
 }
 
 // save the file (photo) before saving the game cloud object

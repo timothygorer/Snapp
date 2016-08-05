@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectPuzzleSizeButton;
 @property (nonatomic, strong) NSArray *puzzleSizes;
 @property (nonatomic, strong) NSString *puzzleSize;
+@property (nonatomic, strong) PFObject* roundObject;
 
 
 @end

@@ -16,7 +16,7 @@
 
 - (id)initWithFriendsRelation:(PFRelation *)friendsRelation;
 - (void)retrieveFriends:(void (^)(NSArray *objects, NSError *error))completion;
-- (void)addFounder:(void (^)(PFObject *founderUser, NSError *error))completion;
+- (void)getFounder:(void (^)(PFObject *founderUser, NSError *error))completion;
 - (BOOL)isFriend:(PFUser *)user friendsList:(NSMutableArray *)mutableFriendsList;
 - (void)saveCurrentUser:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)getFriend:(NSString *)username completion:(void (^)(PFObject* friend, NSError *error))completion;

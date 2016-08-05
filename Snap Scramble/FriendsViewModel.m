@@ -14,7 +14,6 @@
     self = [super init];
     if (self) {
         self.friendsRelation = friendsRelation;
-        
     }
     
     return self;
@@ -27,8 +26,8 @@
     [friendsQuery findObjectsInBackgroundWithBlock:completion];
 }
 
-// add the founder of Snap Scramble to the friends list
-- (void)addFounder:(void (^)(PFObject *founderUser, NSError *error))completion {
+// get the founder of Snap Scramble to add to the current user's friends list later
+- (void)getFounder:(void (^)(PFObject *founderUser, NSError *error))completion {
     PFQuery *query = [PFUser query];
     [query whereKey:@"username" equalTo:@"tim"];
     [query getFirstObjectInBackgroundWithBlock:completion];

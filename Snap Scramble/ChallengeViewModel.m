@@ -16,6 +16,7 @@
     [currentGamesQuery whereKey:@"receiverName" equalTo:[PFUser currentUser].username];
     [currentGamesQuery includeKey:@"sender"]; // delete?
     [currentGamesQuery includeKey:@"receiver"]; // delete?
+    [currentGamesQuery includeKey:@"round"];
     [currentGamesQuery findObjectsInBackgroundWithBlock:completion];
 }
 

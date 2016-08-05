@@ -167,6 +167,7 @@
         if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
             NSLog(@"Game already started: %@", self.createdGame);
             previewPuzzleViewController.createdGame = self.createdGame;
+            previewPuzzleViewController.roundObject = self.roundObject;
         }
         
         else if (self.createdGame == nil) { // entirely new game
@@ -185,6 +186,7 @@
         if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
             NSLog(@"Game already started: %@", self.createdGame);
             cameraViewController.createdGame = self.createdGame;
+            cameraViewController.roundObject = self.roundObject;
         }
         
         else if (self.createdGame == nil) { // entirely new game

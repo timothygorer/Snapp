@@ -20,17 +20,16 @@
     return self;
 }
 
-
 // change the turn - make the receiver the opponent
 - (void)switchTurns {
     [self.createdGame setObject:self.opponent.objectId forKey:@"receiverID"];
     [self.createdGame setObject:self.opponent.username forKey:@"receiverName"];
 }
 
-
 // save the game cloud object
 - (void)saveCurrentGame:(void (^)(BOOL succeeded, NSError *error))completion {
     [self.createdGame saveInBackgroundWithBlock:completion];
 }
+
 
 @end

@@ -13,7 +13,6 @@
 #import "PauseViewController.h"
 #import "PuzzleView.h"
 #import <MobileCoreServices/UTCoreTypes.h>
-#import "GameViewModel.h"
 
 
 @interface GameViewController () 
@@ -21,7 +20,6 @@
 @property (nonatomic) NSInteger pieceNum;
 @property (strong,nonatomic) NSMutableArray* targets;
 @property (strong,nonatomic) NSMutableArray* pieces;
-@property(nonatomic, strong) GameViewModel *viewModel;
 
 @end
 
@@ -33,7 +31,7 @@
     self = [super initWithCoder:aDecoder];
     if (self)
     {
-        _viewModel = [[GameViewModel alloc] init];
+        _viewModel = [[GameViewModel alloc] initWithOpponent:self.opponent andGame:self.createdGame];
     }
     
     return self;
@@ -45,12 +43,18 @@
     self.statsButton.hidden = YES;
     self.statsButton.userInteractionEnabled = NO;
     [self.view addSubview:self.statsButton];
+    self.mainMenuButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.mainMenuButton.hidden = YES;
+    self.mainMenuButton.userInteractionEnabled = NO;
+    [self.view addSubview:self.mainMenuButton];
     self.replyButton.hidden = YES;
-    self.replyLaterButton.hidden = YES;
     self.replyButton.userInteractionEnabled = NO;
+    self.replyLaterButton.hidden = YES;
     self.replyLaterButton.userInteractionEnabled = NO;
     [self.replyButton addTarget:self action:@selector(replyButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.replyLaterButton addTarget:self action:@selector(replyLaterButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.statsButton addTarget:self action:@selector(statsButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+   [self.mainMenuButton addTarget:self action:@selector(mainMenuButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     
     // GAME & PUZZLE INITIALIZATION code
     PuzzleObject *puzzle = [[PuzzleObject alloc] initWithImage:self.puzzleImage andPuzzleSize:[self.createdGame objectForKey:@"puzzleSize"]];
@@ -104,22 +108,11 @@
 
 # pragma mark - UI updates
 
-- (void)updateToGameOverUI {
-    // update the UI
-    NSLog(@"executing here to update the game over UI");
-    self.replyButton.showsTouchWhenHighlighted = YES;
-    self.replyLaterButton.showsTouchWhenHighlighted = YES;
-    self.replyButton.hidden = NO;
-    self.replyLaterButton.hidden = NO;
-    self.replyLaterButton.userInteractionEnabled = YES;
-    self.replyButton.userInteractionEnabled = YES;
-    [self.view bringSubviewToFront:self.replyButton];
-    [self.view bringSubviewToFront:self.replyLaterButton];
-}
 
-- (void)updateToShowStatsUI {
+
+- (void)updateToShowStatsButtonUI {
     // update the UI
-    NSLog(@"executing here to update the stats UI");
+    NSLog(@"executing here to show the stats button UI");
     self.statsButton.showsTouchWhenHighlighted = YES;
     self.statsButton.hidden = NO;
     self.statsButton.userInteractionEnabled = YES;
@@ -136,37 +129,100 @@
     [self.statsButton setTitle:@"Show Stats" forState:UIControlStateNormal];
     self.statsButton.backgroundColor = [self colorWithHexString:@"71C7F0"]; // blue
     [self.view bringSubviewToFront:self.statsButton];
-    [self.statsButton addTarget:self action:@selector(statsButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)hideShowStatsButtonUI {
+    // update the UI
+    NSLog(@"executing here to hide the stats button UI");
+    self.statsButton.hidden = YES;
+    self.statsButton.userInteractionEnabled = NO;
+}
+
+- (void)hideReplyButtonUI {
+    NSLog(@"executing here to hide the reply button UI");
+    self.replyButton.hidden = YES;
+    self.replyButton.userInteractionEnabled = NO;
+    self.replyLaterButton.hidden = YES;
+    self.replyLaterButton.userInteractionEnabled = NO;
+}
+
+- (void)hideMainMenuUI {
+    NSLog(@"executing here to hide the main menu button UI");
+    self.mainMenuButton.hidden = YES;
+    self.mainMenuButton.userInteractionEnabled = NO;
+}
+
+- (void)updateToReplyButtonUI {
+    // update the UI
+    [self hideShowStatsButtonUI];
+    [self hideMainMenuUI];
+    NSLog(@"executing here to show the reply / reply later button UI");
+    self.replyButton.showsTouchWhenHighlighted = YES;
+    self.replyLaterButton.showsTouchWhenHighlighted = YES;
+    self.replyButton.hidden = NO;
+    self.replyLaterButton.hidden = NO;
+    self.replyLaterButton.userInteractionEnabled = YES;
+    self.replyButton.userInteractionEnabled = YES;
+    [self.view bringSubviewToFront:self.replyButton];
+    [self.view bringSubviewToFront:self.replyLaterButton];
+}
+
+- (void)updateToMainMenuButtonUI {
+    [self hideShowStatsButtonUI];
+    [self hideReplyButtonUI];
+    NSLog(@"executing here to show the main menu button UI");
+    self.mainMenuButton.showsTouchWhenHighlighted = YES;
+    self.mainMenuButton.hidden = NO;
+    self.mainMenuButton.userInteractionEnabled = YES;
+    self.mainMenuButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Next-Medium" size:17];
+    self.mainMenuButton.layer.cornerRadius = 5.0;
+    
+    // set the button size
+    CGRect mainMenuButtonFrame = self.mainMenuButton.frame;
+    mainMenuButtonFrame.size = CGSizeMake(295.0, 40.0);
+    self.mainMenuButton.frame = mainMenuButtonFrame;
+    
+    [self.mainMenuButton setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height - 60)];
+    [self.mainMenuButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.mainMenuButton setTitle:@"Main Menu" forState:UIControlStateNormal];
+    self.mainMenuButton.backgroundColor = [self colorWithHexString:@"71C7F0"]; // blue
+    [self.view bringSubviewToFront:self.mainMenuButton];
 }
 
 #pragma mark - Navigation
+
+- (IBAction)statsButtonDidPress:(id)sender {
+    // in the GameOverVC, show stats menu and then change turns
+    [self performSegueWithIdentifier:@"showStats" sender:self];
+}
 
 - (IBAction)replyLaterButtonDidPress:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)replyButtonDidPress:(id)sender {
-    // delegate allows us to transfer user's data back to previous view controller for creating puzzle game
-    [self.delegate receiveReplyGameData2:self.createdGame andOpponent:self.opponent];
+    // delegate allows us to transfer user's data back to  StartPuzzleVC for creating puzzle game
+    [self.delegate receiveReplyGameData2:self.createdGame andOpponent:self.opponent andRound:self.roundObject];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)statsButtonDidPress:(id)sender {
-    // show stats menu and then change turns
-    
-    self.viewModel = [[GameViewModel alloc] initWithOpponent:self.opponent andGame:self.createdGame];
-    [self.viewModel switchTurns]; // switch turns, then update in the cloud
-    [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) { // update in the cloud
+// when the main menu button is pressed, switch turns at that point.
+- (IBAction)mainMenuButtonDidPress:(id)sender {
+    [self.viewModel switchTurns];
+    [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
         if (error) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             [alertView show];
         }
-        else {
-            NSLog(@"switched turns. game saved.");
-            [self performSegueWithIdentifier:@"showStats" sender:self];
+        
+        else { // sent game
+            NSLog(@"the turn was switched successfully.");
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            // [self.viewModel sendNotificationToOpponent]; // send the push notification
         }
     }];
 }
+
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -174,6 +230,9 @@
     if ([segue.identifier isEqualToString:@"showStats"]) {
          GameOverViewController *gameOverViewController = (GameOverViewController *)segue.destinationViewController;
         gameOverViewController.createdGame = self.createdGame;
+        gameOverViewController.currentUserTotalSeconds = self.game.totalSeconds; // current user's total seconds to solve puzzle
+        gameOverViewController.opponent = self.opponent;
+        gameOverViewController.roundObject = [self.createdGame objectForKey:@"round"];
     }
     
     if ([segue.identifier isEqualToString:@"pauseMenu"]) {

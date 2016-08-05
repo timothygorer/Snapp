@@ -22,12 +22,11 @@
 
 @protocol GameUIDelegate
 
--(void)updateToGameOverUI;
--(void)updateToShowStatsUI;
+-(void)updateToShowStatsButtonUI;
 
 @end
 
-@interface GameObject : NSObject
+@interface GameObject : NSObject <GameDelegate, GameUIDelegate>
 
 @property (nonatomic, weak) id<GameDelegate> gameDelegate;
 @property (nonatomic, weak) id<GameUIDelegate> gameUIDelegate;
@@ -39,13 +38,11 @@
 @property (nonatomic, strong) NSNumber *isPaused;
 
 
+
 - (id)initWithPuzzle:(PuzzleObject *)puzzle opponent:(PFUser *)opponent andPFObject:(PFObject *)createdGame; // start the game
-- (NSTimer*)getTimer;
 - (void)pause;
 - (void)resume;
 -(void)setTimer;
 -(void)gameOver; // check if user solved puzzle, or if time has run out.
-- (void)updateGame;
-- (NSInteger)getRound; // ?? delete?
 
 @end
