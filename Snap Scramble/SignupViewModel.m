@@ -15,10 +15,33 @@
     [[FIRAuth auth]
      createUserWithEmail:email
      password:password
-     completion:completion
-         // ...
-     ];
+     completion:^(FIRUser *user, NSError *error) {
+         FIRDatabaseReference *ref = [[FIRDatabase database] reference];
+         FIRDatabaseReference *userRef = [[ref child:@"users"] child:username];
+         [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+             NSDictionary *snapshotDict = snapshot.value;
+             if (![snapshotDict isEqual:[NSNull null]]) {
+                 NSLog(@"user already exists!");
+                 completion(nil, [NSError errorWithDomain:@"signup" code:500 userInfo:@{NSLocalizedDescriptionKey: @"User already exists"}]);
+             } else {
+                 [userRef setValue:@{@"uid": user.uid}];
+                 FIRUserProfileChangeRequest *changeRequest = [user profileChangeRequest];
+                 changeRequest.displayName = username;
+                 [changeRequest commitChangesWithCompletion:^(NSError * _Nullable error) {
+                     if (error) {
+                         completion(nil, error);
+                     } else {
+                         completion(user, nil);
+                     }
+                 }];
+             }
+         }
+       withCancelBlock:^(NSError * _Nonnull error) {
+           NSLog(@"%@", error.localizedDescription);
+       }];
+     }];
 }
+
 
 
 

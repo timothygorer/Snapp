@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+@import Firebase;
 
 @interface SettingsViewController ()
 
@@ -43,7 +44,7 @@
 }
 
 - (IBAction)logoutButtonDidPress:(id)sender {
-    [PFUser logOut]; // log out current user
+    [[FIRAuth auth] signOut:nil]; // log out current user
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

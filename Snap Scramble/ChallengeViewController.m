@@ -11,6 +11,7 @@
 #import "CreatePuzzleViewController.h"
 #import "Reachability.h"
 #import "ChallengeViewModel.h"
+@import Firebase;
 
 @interface ChallengeViewController ()
 
@@ -62,11 +63,11 @@
     }
     
     // this is for push notifications.
-    PFUser *currentUser = [PFUser currentUser];
+   /* PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
         [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"]; // questionable
         [[PFInstallation currentInstallation] saveInBackground];
-    }
+    } */
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,13 +75,13 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setHidden:false];
     
-    PFUser *currentUser = [PFUser currentUser];
-    if (currentUser) {
-        NSLog(@"Current user: %@", currentUser.username);
-        [self.currentGamesTable reloadData]; // reload the table view
-        [self retrieveUserMatches]; // retrieve all games, both pending and current
+    FIRUser *currentUser = [FIRAuth auth].currentUser;
+    if (currentUser && currentUser.displayName) {
+        NSLog(@"Current user: %@", currentUser.displayName);
+        // [self.currentGamesTable reloadData]; // reload the table view
+        // [self retrieveUserMatches]; // retrieve all games, both pending and current
         NSString* usernameText = @"Username: ";
-        usernameText = [usernameText stringByAppendingString:currentUser.username];
+        usernameText = [usernameText stringByAppendingString:currentUser.displayName];
         [self.usernameLabel setText:usernameText];
     }
     

@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "Parse/Parse.h"
+@import Firebase;
 
 @interface LoginViewModel : NSObject
 
-- (void)logInUser:(NSString *)username password:(NSString *)password completion:(void (^)(PFUser *user, NSError *error))completion;
-    
+- (void)logInUser:(NSString *)email password:(NSString *)password completion:(void (^)(FIRUser *user, NSError *error))completion;
 
 
 @end

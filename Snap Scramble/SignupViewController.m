@@ -152,6 +152,7 @@
         [KVNProgress showWithStatus:@"Signing up..."]; // UI
         [self.viewModel signUpUser:username password:password email:email completion:^(FIRUser *user, NSError *error) {
             if (error) {
+                NSLog(@"%@", error);
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:[error.userInfo objectForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]; // change this alert view
                 [alertView show];
                 [KVNProgress dismiss];
@@ -159,7 +160,8 @@
             
             else {
                 [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
-                NSLog(@"User %@ signed up.", [PFUser currentUser]);
+                NSLog(@"User %@ signed up.", user.email);
+;
                 [KVNProgress dismiss];
                 self.signupView.animation = @"fall";
                 self.signupView.delay = 1.0;
