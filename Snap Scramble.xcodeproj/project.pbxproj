@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		47D66E0D90E72256BCCC42C9 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		6A112AAD1B5DFB0D0035A75C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AAC1B5DFB0D0035A75C /* main.m */; };
 		6A112AB01B5DFB0D0035A75C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */; };
 		6A112AB61B5DFB0D0035A75C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A112AB41B5DFB0D0035A75C /* Main.storyboard */; };
@@ -104,7 +103,7 @@
 		6AD6439F1D516C2300121E98 /* PauseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD6439E1D516C2300121E98 /* PauseViewModel.m */; };
 		6AD643A21D5407DB00121E98 /* GameOverViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD643A11D5407DB00121E98 /* GameOverViewModel.m */; };
 		8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
-		E9C7226C1D63F1B2D85E8E23 /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
+		DE84C7710CB99F87E48A5CF0 /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,7 +117,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		65B52C5D9DED91F904F5677D /* Pods-Snap Scramble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.release.xcconfig"; sourceTree = "<group>"; };
+		1CDEA9AF7E13E8FD8DEC61D7 /* Pods-Snap Scramble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.release.xcconfig"; sourceTree = "<group>"; };
 		6A112AA71B5DFB0D0035A75C /* Snap Scramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snap Scramble.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A112AAB1B5DFB0D0035A75C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A112AAC1B5DFB0D0035A75C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -253,7 +252,7 @@
 		6AD6439E1D516C2300121E98 /* PauseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewModel.m; sourceTree = "<group>"; };
 		6AD643A01D5407DB00121E98 /* GameOverViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverViewModel.h; path = ../GameOverViewModel.h; sourceTree = "<group>"; };
 		6AD643A11D5407DB00121E98 /* GameOverViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOverViewModel.m; path = ../GameOverViewModel.m; sourceTree = "<group>"; };
-		DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
+		7354A1AD24F487464C975C31 /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
 		FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -277,6 +276,7 @@
 				6AD28CBE1B5E07BF00BCD802 /* SystemConfiguration.framework in Frameworks */,
 				6AD28CBC1B5E07B800BCD802 /* ExternalAccessory.framework in Frameworks */,
 				8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */,
+				DE84C7710CB99F87E48A5CF0 /* libPods-Snap Scramble.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,8 +284,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47D66E0D90E72256BCCC42C9 /* (null) in Frameworks */,
-				E9C7226C1D63F1B2D85E8E23 /* libPods-Snap Scramble.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,8 +293,8 @@
 		356A6A5311EA84A0A43B3312 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */,
-				65B52C5D9DED91F904F5677D /* Pods-Snap Scramble.release.xcconfig */,
+				7354A1AD24F487464C975C31 /* Pods-Snap Scramble.debug.xcconfig */,
+				1CDEA9AF7E13E8FD8DEC61D7 /* Pods-Snap Scramble.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -549,12 +547,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6A112ACA1B5DFB0D0035A75C /* Build configuration list for PBXNativeTarget "Snap Scramble" */;
 			buildPhases = (
-				453C901027DF41F11D6A7EBA /* Check Pods Manifest.lock */,
+				453C901027DF41F11D6A7EBA /* [CP] Check Pods Manifest.lock */,
 				6A112AA31B5DFB0D0035A75C /* Sources */,
 				6A112AA41B5DFB0D0035A75C /* Frameworks */,
 				6A112AA51B5DFB0D0035A75C /* Resources */,
-				19C5A2312F5DA7A785AD5212 /* Embed Pods Frameworks */,
-				A93EFBE4716EF23AC6BE2A3B /* Copy Pods Resources */,
+				19C5A2312F5DA7A785AD5212 /* [CP] Embed Pods Frameworks */,
+				A93EFBE4716EF23AC6BE2A3B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -569,12 +567,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6A112ACD1B5DFB0D0035A75C /* Build configuration list for PBXNativeTarget "Snap ScrambleTests" */;
 			buildPhases = (
-				0A852E0D2382C346379CA255 /* Check Pods Manifest.lock */,
 				6A112ABC1B5DFB0D0035A75C /* Sources */,
 				6A112ABD1B5DFB0D0035A75C /* Frameworks */,
 				6A112ABE1B5DFB0D0035A75C /* Resources */,
-				3688DE97FAB85BF246D2784B /* Embed Pods Frameworks */,
-				5879948285ABBA38495C6774 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -665,29 +660,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A852E0D2382C346379CA255 /* Check Pods Manifest.lock */ = {
+		19C5A2312F5DA7A785AD5212 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		19C5A2312F5DA7A785AD5212 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -695,29 +675,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3688DE97FAB85BF246D2784B /* Embed Pods Frameworks */ = {
+		453C901027DF41F11D6A7EBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		453C901027DF41F11D6A7EBA /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -725,29 +690,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		5879948285ABBA38495C6774 /* Copy Pods Resources */ = {
+		A93EFBE4716EF23AC6BE2A3B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A93EFBE4716EF23AC6BE2A3B /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -868,7 +818,6 @@
 /* Begin XCBuildConfiguration section */
 		6A112AC81B5DFB0D0035A75C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -914,7 +863,6 @@
 		};
 		6A112AC91B5DFB0D0035A75C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65B52C5D9DED91F904F5677D /* Pods-Snap Scramble.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -954,7 +902,7 @@
 		};
 		6A112ACB1B5DFB0D0035A75C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */;
+			baseConfigurationReference = 7354A1AD24F487464C975C31 /* Pods-Snap Scramble.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -978,7 +926,7 @@
 		};
 		6A112ACC1B5DFB0D0035A75C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65B52C5D9DED91F904F5677D /* Pods-Snap Scramble.release.xcconfig */;
+			baseConfigurationReference = 1CDEA9AF7E13E8FD8DEC61D7 /* Pods-Snap Scramble.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1002,7 +950,6 @@
 		};
 		6A112ACE1B5DFB0D0035A75C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC05C9A4E13B4DF3A9CC31ED /* Pods-Snap Scramble.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1020,7 +967,6 @@
 		};
 		6A112ACF1B5DFB0D0035A75C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65B52C5D9DED91F904F5677D /* Pods-Snap Scramble.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

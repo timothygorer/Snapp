@@ -9,7 +9,6 @@ target 'Snap Scramble' do
 	pod 'Firebase/Crash'
 	pod 'Firebase/Database'
 	pod 'Firebase/RemoteConfig'
-	link_with 'Snap Scramble', 'Snap ScrambleTests'
 
 end
 

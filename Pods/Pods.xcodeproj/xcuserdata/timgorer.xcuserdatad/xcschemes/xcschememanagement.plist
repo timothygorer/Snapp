@@ -4,12 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>KVNProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>LLSimpleCamera.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,7 +47,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>301BBE09B200E061EA61DEDC85E1B4B2</key>
+		<key>143B976FA3E8E19CC44ED5C892CEE540</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>146D4D3BEC39209E7FD55AD619B9712E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4B22B7D480958842F78F1E3A5DEFE1B4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,12 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69089BA8C025857558A7300C76D4E163</key>
+		<key>5F9CDF21330F4787AC04D56E0E745343</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D582A5D819473A9483D95F27160048CC</key>
+		<key>A2746ECE2A2BBA7A02EDAA303F99F380</key>
 		<dict>
 			<key>primary</key>
 			<true/>
