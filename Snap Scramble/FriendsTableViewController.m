@@ -51,7 +51,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:false];
-    
+    self.mutableFriendsList = [NSMutableArray arrayWithArray:@[]];
+
     self.friendsRelation = self.viewModel.friendsRelation;
     [self.viewModel retrieveFriends:^(NSArray *objects, NSError *error) {
         if (error) {
@@ -62,13 +63,11 @@
             self.friends = objects;
             self.mutableFriendsList = [NSMutableArray arrayWithArray:self.friends]; // set mutable list
             [self.tableView reloadData];
-            
-            [self.viewModel getFounder:^(PFObject* founderUser, NSError* error) {
+            [self.viewModel getFounder:^(NSString* founderUser, NSError* error) {
                 if(!error) {
                     if (![self.viewModel isFriend:founderUser friendsList:self.mutableFriendsList]) {
                         [self.mutableFriendsList addObject:founderUser];
-                        [self.friendsRelation addObject:founderUser];
-                        [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
+                        [self.viewModel setFriends:self.mutableFriendsList completion:^(BOOL succeeded, NSError *error) {
                             if (error) {
                                 NSLog(@"Error %@ %@", error, [error userInfo]);
                             }
@@ -102,7 +101,7 @@
         
         NSString *username = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSLog(@"text was %@", textField.text);
-        NSString *comparisonUsername = [[PFUser currentUser].username stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *comparisonUsername = [[[FIRAuth auth] currentUser].displayName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
         NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
@@ -128,16 +127,14 @@
         
         // if everything is ok, start searching for the friend
         else {
-            [self.viewModel getFriend:username completion:^(PFObject *searchedUser, NSError *error) {
+            [self.viewModel getFriend:username completion:^(NSString *friend, NSError *error) {
                 if (!error) {
-                    NSLog(@"trying to add friend: %@", searchedUser);
-                    if (searchedUser != nil) { // if the friend exists
-                        
+                    NSLog(@"trying to add friend: %@", friend);
+                    if (friend != nil) { // if the friend exists
                         // if the user isn't already a friend, add him
-                        if (![self.viewModel isFriend:searchedUser friendsList:self.mutableFriendsList]) {
-                            [self.mutableFriendsList addObject:searchedUser];
-                            [self.friendsRelation addObject:searchedUser];
-                            [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
+                        if (![self.viewModel isFriend:friend friendsList:self.mutableFriendsList]) {
+                            [self.mutableFriendsList addObject:friend];
+                            [self.viewModel setFriends:self.mutableFriendsList completion:^(BOOL succeeded, NSError *error) {
                                 if (!error) {
                                     [KVNProgress dismiss];
                                     NSLog(@"new friends list: %@", self.mutableFriendsList);
@@ -205,10 +202,10 @@
     cell.textLabel.font = myFont;
     cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
     cell.detailTextLabel.minimumScaleFactor = 0.5;
-    PFUser* friend = [self.mutableFriendsList objectAtIndex:indexPath.row];
-    cell.textLabel.text = friend.username;
+    NSString *username = [self.mutableFriendsList objectAtIndex:indexPath.row];
+    cell.textLabel.text = username;
     
-    if ([friend.username isEqualToString:@"tim"]) {
+    if ([username isEqualToString:@"timg101"]) {
         cell.detailTextLabel.text = @"Snap Scramble founder";
         cell.detailTextLabel.textColor = [UIColor colorWithRed:252.0/255.0 green:194.0/255.0 blue:0 alpha:1.0];
     }

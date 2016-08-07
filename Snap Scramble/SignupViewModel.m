@@ -21,7 +21,6 @@
          [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
              NSDictionary *snapshotDict = snapshot.value;
              if (![snapshotDict isEqual:[NSNull null]]) {
-                 NSLog(@"user already exists!");
                  completion(nil, [NSError errorWithDomain:@"signup" code:500 userInfo:@{NSLocalizedDescriptionKey: @"User already exists"}]);
              } else {
                  [userRef setValue:@{@"uid": user.uid}];
