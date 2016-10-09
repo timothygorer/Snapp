@@ -22,4 +22,6 @@ SPEC CHECKSUMS:
   RMActionController: b83653e7452ed51492094d65dc82151c36443c03
   RMPickerViewController: f774dbdfddfe819bbaf211d5719deebcbf1a55ed
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 60ceb466abdf95fa4bdabbd13f33ed75359cbbd6
+
+COCOAPODS: 1.0.1
