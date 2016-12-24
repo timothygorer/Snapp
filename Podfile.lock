@@ -7,12 +7,24 @@ PODS:
   - RMActionController (1.0.5)
   - RMPickerViewController (2.0.3):
     - RMActionController (~> 1.0.5)
+  - Spring (1.0.3)
 
 DEPENDENCIES:
   - KVNProgress
   - LLSimpleCamera (~> 4.1)
   - Parse
   - RMPickerViewController (~> 2.0.3)
+  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
+
+EXTERNAL SOURCES:
+  Spring:
+    :branch: swift3
+    :git: https://github.com/MengTo/Spring.git
+
+CHECKOUT OPTIONS:
+  Spring:
+    :commit: 3a9227c6e9157e7b47f5ac1ee5abab2a56b50002
+    :git: https://github.com/MengTo/Spring.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -21,7 +33,8 @@ SPEC CHECKSUMS:
   Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   RMActionController: b83653e7452ed51492094d65dc82151c36443c03
   RMPickerViewController: f774dbdfddfe819bbaf211d5719deebcbf1a55ed
+  Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
 
-PODFILE CHECKSUM: 60ceb466abdf95fa4bdabbd13f33ed75359cbbd6
+PODFILE CHECKSUM: 9d2be277d2e47d08a289d476b11bd07ca0980a15
 
 COCOAPODS: 1.0.1

@@ -39,40 +39,50 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Spring.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06B2232CE73059846F04E5C3DFEE0D38</key>
+		<key>0186EE20AB4D310515B8041966DB7AEB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>143B976FA3E8E19CC44ED5C892CEE540</key>
+		<key>21F978CC15403427BD304A2A4B47C5FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>146D4D3BEC39209E7FD55AD619B9712E</key>
+		<key>2C8AA1BAF35413BDB954A1DF93576ED1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4B22B7D480958842F78F1E3A5DEFE1B4</key>
+		<key>3A2E3BA3F89F2CCE0835056B5EBEB44A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4FA1354E93C8891299C5142B0A7D9A60</key>
+		<key>5C44A11C83F69DB438A10BF98F1C707B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5F9CDF21330F4787AC04D56E0E745343</key>
+		<key>7129FAB61478FA70223DADF4921468CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A2746ECE2A2BBA7A02EDAA303F99F380</key>
+		<key>B0DD7F8EB7E3788A0482B68B82E55DB2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CE0CC7E2B5B550BC4172F6FF9CC5D50A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

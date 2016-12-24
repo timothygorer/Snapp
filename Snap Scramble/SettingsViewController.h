@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
 #import "Snap_Scramble-Swift.h"
+#import <Parse/Parse.h>
+
 
 @interface SettingsViewController : UIViewController
 
