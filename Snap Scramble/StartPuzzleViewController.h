@@ -13,7 +13,7 @@
 #import "ChallengeViewController.h"
 
 @protocol StartVCDelegate <NSObject>
-- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent andRound:(PFObject *)roundObject;
+- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent;
 @end
 
 @interface StartPuzzleViewController : UIViewController <StartVCDelegate>

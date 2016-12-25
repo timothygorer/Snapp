@@ -10,7 +10,6 @@
 #import "Reachability.h"
 #import "ChallengeViewController.h"
 #import "Snap_Scramble-Swift.h"
-#import "RandomUserTableViewController.h"
 #import "CreatePuzzleViewController.h"
 #import "FriendsTableViewController.h"
 
@@ -24,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.friendsListButton addTarget:self action:@selector(openFriendsList:) forControlEvents:UIControlEventTouchUpInside];
-   [self.randomUserButton addTarget:self action:@selector(openRandomUserList:) forControlEvents:UIControlEventTouchUpInside];
+    [self.randomUserButton addTarget:self action:@selector(openRandomUserList:) forControlEvents:UIControlEventTouchUpInside];
     [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.cancelButton.adjustsImageWhenHighlighted = NO;
 }
@@ -72,12 +71,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"selectRandomUser"]) {
+   /*  if ([segue.identifier isEqualToString:@"selectRandomUser"]) {
         RandomUserTableViewController *randomUserTableViewController = (RandomUserTableViewController *)segue.destinationViewController;
         randomUserTableViewController.delegate = self;
-    }
+    } */
     
-    else if ([segue.identifier isEqualToString:@"selectFriend"]) {
+    if ([segue.identifier isEqualToString:@"selectFriend"]) {
         FriendsTableViewController *friendsTableViewController = (FriendsTableViewController *)segue.destinationViewController;
         friendsTableViewController.delegate = self;
     }

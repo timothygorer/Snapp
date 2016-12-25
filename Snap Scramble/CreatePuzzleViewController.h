@@ -28,7 +28,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *headerLabel;
 @property (nonatomic, strong) IBOutlet UILabel *createPuzzleLabel;
 @property (weak, nonatomic) IBOutlet SpringView *createPuzzleView;
-@property (nonatomic, strong) PFObject* roundObject;
 
 
 - (void)uploadGame;

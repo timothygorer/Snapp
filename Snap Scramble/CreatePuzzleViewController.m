@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -31,7 +31,7 @@
     self.imagePicker = [[UIImagePickerController alloc] init];
     self.imagePicker.delegate = self;
     self.imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
-
+    
     [self.takePhotoButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.choosePhotoButton addTarget:self action:@selector(choosePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -86,38 +86,32 @@
     }
 }
 
-// resize photo library image for game
+// this is for resizing an image that is selected from the photo library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {   // A photo was taken or selected
         UIImage* tempOriginalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         
+        // for photos from library you need to resize resize the photo
+        if (tempOriginalImage.size.height > tempOriginalImage.size.width) { // portrait; resizing photo so it fits the entire device screen
+            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+        }
         
-        self.previewImage = [self prepareImageForGame:tempOriginalImage]; // resize photo lib image for game
+        else if (tempOriginalImage.size.width > tempOriginalImage.size.height) { // landscape
+            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+        }
+        
+        else if (tempOriginalImage.size.width == tempOriginalImage.size.height) { // square
+            self.previewImage = [self resizeImage:tempOriginalImage withMaxDimension:self.view.frame.size.width - 20];
+        }
+        
         self.originalImage = tempOriginalImage;
         NSLog(@"preview (resized) image: %@    original image: %@", self.previewImage, self.originalImage);
         NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
         [self dismissViewControllerAnimated:YES completion:nil]; // dismiss photo picker
         [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self];
     }
-}
-
--(UIImage*)prepareImageForGame:(UIImage*)image {
-    if (image.size.height > image.size.width) { // portrait
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
-    }
-    
-    else if (image.size.width > image.size.height) { // landscape
-         image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; 
-    }
-    
-    else if (image.size.width == image.size.height) { // square
-        image = [self resizeImage:image withMaxDimension:self.view.frame.size.width - 20];
-    }
-    
-    NSLog(@"image after resizing: %@", image);
-    return image;
 }
 
 
@@ -167,7 +161,6 @@
         if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
             NSLog(@"Game already started: %@", self.createdGame);
             previewPuzzleViewController.createdGame = self.createdGame;
-            previewPuzzleViewController.roundObject = self.roundObject;
         }
         
         else if (self.createdGame == nil) { // entirely new game
@@ -186,7 +179,6 @@
         if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
             NSLog(@"Game already started: %@", self.createdGame);
             cameraViewController.createdGame = self.createdGame;
-            cameraViewController.roundObject = self.roundObject;
         }
         
         else if (self.createdGame == nil) { // entirely new game

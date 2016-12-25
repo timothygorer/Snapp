@@ -85,10 +85,10 @@
 
 
 - (IBAction)loginButtonDidPress:(id)sender {
-    NSString *email = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *username = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if ([email length] == 0 || [password length] == 0) {
+    if ([username length] == 0 || [password length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!"
                                                             message:@"Make sure you enter a username and password!"
                                                            delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -96,7 +96,7 @@
     }
     else {
         [KVNProgress showWithStatus:@"Logging in..."]; // UI
-        [self.viewModel logInUser:email password:password completion:^(FIRUser *user, NSError *error) {
+        [self.viewModel logInUser:username password:password completion:^(PFUser *user, NSError *error) {
             if (error) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                                     message:@"Your e-mail or password don't match an account we have in our database."
@@ -106,7 +106,7 @@
             }
             else {
                 [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
-                NSLog(@"User %@ logged in.", user.displayName);
+                NSLog(@"User %@ logged in.", user);
                 [KVNProgress dismiss];
                 self.loginView.animation = @"fall";
                 self.loginView.delay = 1.0;

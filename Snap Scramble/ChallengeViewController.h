@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 
 @protocol ChallengeVCDelegate <NSObject>
-- (void)receiveReplyGameData:(PFObject *)selectedGame andOpponent:(PFUser *)opponent andRound:(PFObject *)roundObject;
+- (void)receiveReplyGameData:(PFObject *)selectedGame andOpponent:(PFUser *)opponent;
 @end
 
 @interface ChallengeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ChallengeVCDelegate>
@@ -27,7 +27,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *emptyTableScreen;
 @property (nonatomic, strong) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *challengeButton;
-@property (nonatomic, strong) PFObject* roundObject;
 
 
 // background view properties

@@ -7,7 +7,6 @@
 //
 
 #import "FriendsTableViewController.h"
-#import "EditFriendsTableViewController.h"
 #import "Reachability.h"
 #import "CreatePuzzleViewController.h"
 #import "FriendsViewModel.h"
@@ -26,7 +25,7 @@
     self = [super initWithCoder:aDecoder];
     if (self)
     {
-        _viewModel = [[FriendsViewModel alloc] initWithFriendsRelation:[[PFUser currentUser] relationForKey:@"friends"]];
+        _viewModel = [[FriendsViewModel alloc] init];
     }
     
     return self;
@@ -51,9 +50,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:false];
-    self.mutableFriendsList = [NSMutableArray arrayWithArray:@[]];
-
-    self.friendsRelation = self.viewModel.friendsRelation;
+    
     [self.viewModel retrieveFriends:^(NSArray *objects, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
@@ -63,11 +60,13 @@
             self.friends = objects;
             self.mutableFriendsList = [NSMutableArray arrayWithArray:self.friends]; // set mutable list
             [self.tableView reloadData];
-            [self.viewModel getFounder:^(NSString* founderUser, NSError* error) {
+            
+            [self.viewModel addFounder:^(PFObject* founderUser, NSError* error) {
                 if(!error) {
                     if (![self.viewModel isFriend:founderUser friendsList:self.mutableFriendsList]) {
                         [self.mutableFriendsList addObject:founderUser];
-                        [self.viewModel setFriends:self.mutableFriendsList completion:^(BOOL succeeded, NSError *error) {
+                        [self.friendsRelation addObject:founderUser];
+                        [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
                             if (error) {
                                 NSLog(@"Error %@ %@", error, [error userInfo]);
                             }
@@ -101,7 +100,7 @@
         
         NSString *username = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSLog(@"text was %@", textField.text);
-        NSString *comparisonUsername = [[[FIRAuth auth] currentUser].displayName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *comparisonUsername = [[PFUser currentUser].username stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
         NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
@@ -114,7 +113,6 @@
         
         
         else if ([username isEqualToString:comparisonUsername]) {
-            [KVNProgress dismiss];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"You cannot play a game with yourself." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
@@ -127,14 +125,16 @@
         
         // if everything is ok, start searching for the friend
         else {
-            [self.viewModel getFriend:username completion:^(NSString *friend, NSError *error) {
+            [self.viewModel getFriend:username completion:^(PFObject *searchedUser, NSError *error) {
                 if (!error) {
-                    NSLog(@"trying to add friend: %@", friend);
-                    if (friend != nil) { // if the friend exists
+                    NSLog(@"trying to add friend: %@", searchedUser);
+                    if (searchedUser != nil) { // if the friend exists
+                        
                         // if the user isn't already a friend, add him
-                        if (![self.viewModel isFriend:friend friendsList:self.mutableFriendsList]) {
-                            [self.mutableFriendsList addObject:friend];
-                            [self.viewModel setFriends:self.mutableFriendsList completion:^(BOOL succeeded, NSError *error) {
+                        if (![self.viewModel isFriend:searchedUser friendsList:self.mutableFriendsList]) {
+                            [self.mutableFriendsList addObject:searchedUser];
+                            [self.friendsRelation addObject:searchedUser];
+                            [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
                                 if (!error) {
                                     [KVNProgress dismiss];
                                     NSLog(@"new friends list: %@", self.mutableFriendsList);
@@ -162,7 +162,7 @@
         }
     }]];
     
-            
+    
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         NSLog(@"Cancel pressed");
     }]];
@@ -192,7 +192,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
-
+    
     if(cell == nil)
     {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
@@ -202,10 +202,10 @@
     cell.textLabel.font = myFont;
     cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
     cell.detailTextLabel.minimumScaleFactor = 0.5;
-    NSString *username = [self.mutableFriendsList objectAtIndex:indexPath.row];
-    cell.textLabel.text = username;
+    PFUser* friend = [self.mutableFriendsList objectAtIndex:indexPath.row];
+    cell.textLabel.text = friend.username;
     
-    if ([username isEqualToString:@"timg101"]) {
+    if ([friend.username isEqualToString:@"tim"]) {
         cell.detailTextLabel.text = @"Snap Scramble founder";
         cell.detailTextLabel.textColor = [UIColor colorWithRed:252.0/255.0 green:194.0/255.0 blue:0 alpha:1.0];
     }

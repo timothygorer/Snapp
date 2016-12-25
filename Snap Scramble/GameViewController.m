@@ -202,7 +202,7 @@
 
 - (IBAction)replyButtonDidPress:(id)sender {
     // delegate allows us to transfer user's data back to  StartPuzzleVC for creating puzzle game
-    [self.delegate receiveReplyGameData2:self.createdGame andOpponent:self.opponent andRound:self.roundObject];
+    [self.delegate receiveReplyGameData2:self.createdGame andOpponent:self.opponent];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

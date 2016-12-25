@@ -85,13 +85,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
  */
 
 - (IBAction)loginScreenButtonDidPress:(id)sender {
@@ -116,7 +116,7 @@
     else if ([username isEqualToString:lowercaseString]) {
         containsUppercaseLetter = false;
     }
-
+    
     // checks for if the sign up information is valid start here
     if ([username length] == 0 || [password length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid username and password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -150,18 +150,16 @@
     
     else {
         [KVNProgress showWithStatus:@"Signing up..."]; // UI
-        [self.viewModel signUpUser:username password:password email:email completion:^(FIRUser *user, NSError *error) {
+        [self.viewModel signUpUser:username password:password email:email completion:^(BOOL succeeded, NSError *error) {
             if (error) {
-                NSLog(@"%@", error);
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:[error.userInfo objectForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]; // change this alert view
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:[error.userInfo objectForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alertView show];
                 [KVNProgress dismiss];
             }
             
             else {
                 [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
-                NSLog(@"User %@ signed up.", user.email);
-;
+                NSLog(@"User %@ signed up.", [PFUser currentUser]);
                 [KVNProgress dismiss];
                 self.signupView.animation = @"fall";
                 self.signupView.delay = 1.0;

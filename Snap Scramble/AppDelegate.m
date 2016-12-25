@@ -24,9 +24,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [FIRApp configure];
-    [Parse setApplicationId:@"2rlZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1"
-                  clientKey:@"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X"];
+    [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+        configuration.applicationId = @"2rlZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1";
+        configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
+        configuration.server = @"http://snapscramble.herokuapp.com/parse";
+    }]];
+    
 
     // Register for Push Notitications, if running iOS 8
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {

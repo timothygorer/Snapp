@@ -1,4 +1,3 @@
-//
 //  ChallengeViewController.m
 //  Snap Scramble
 //
@@ -11,7 +10,6 @@
 #import "CreatePuzzleViewController.h"
 #import "Reachability.h"
 #import "ChallengeViewModel.h"
-@import Firebase;
 
 @interface ChallengeViewController ()
 
@@ -28,7 +26,7 @@
     {
         _viewModel = [[ChallengeViewModel alloc] init];
     }
-
+    
     return self;
 }
 
@@ -48,7 +46,7 @@
     self.currentGamesTable.delaysContentTouches = NO;
     
     // initialize a view for displaying the empty table screen if a user has no games.
-     self.emptyTableScreen = [[UIImageView alloc] init];
+    self.emptyTableScreen = [[UIImageView alloc] init];
     [self.challengeButton addTarget:self action:@selector(selectUserFromOptions:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
     self.challengeButton.adjustsImageWhenHighlighted = NO;
     
@@ -63,11 +61,11 @@
     }
     
     // this is for push notifications.
-   /* PFUser *currentUser = [PFUser currentUser];
+    PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
         [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"]; // questionable
         [[PFInstallation currentInstallation] saveInBackground];
-    } */
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -75,13 +73,13 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setHidden:false];
     
-    FIRUser *currentUser = [FIRAuth auth].currentUser;
-    if (currentUser && currentUser.displayName) {
-        NSLog(@"Current user: %@", currentUser.displayName);
-        // [self.currentGamesTable reloadData]; // reload the table view
-        // [self retrieveUserMatches]; // retrieve all games, both pending and current
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser) {
+        NSLog(@"Current user: %@", currentUser.username);
+        [self.currentGamesTable reloadData]; // reload the table view
+        [self retrieveUserMatches]; // retrieve all games, both pending and current
         NSString* usernameText = @"Username: ";
-        usernameText = [usernameText stringByAppendingString:currentUser.displayName];
+        usernameText = [usernameText stringByAppendingString:currentUser.username];
         [self.usernameLabel setText:usernameText];
     }
     
@@ -159,6 +157,7 @@
     }
     
     if ([self.currentGames count] != 0 || [self.currentPendingGames count] != 0) {
+        //[self.emptyTableScreen removeFromSuperview];
         self.currentGamesTable.backgroundView.hidden = YES;
         self.currentGamesTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.currentGamesTable.scrollEnabled = true;
@@ -178,7 +177,7 @@
 // a method so that the user can delete games he doesn't want to play anymore
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return YES - we will be able to delete rows
+    // Return YES - we will be able to delet rows
     return YES;
 }
 
@@ -236,7 +235,7 @@
     {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
-
+    
     // styling the cell
     UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
     cell.textLabel.font = myFont;
@@ -283,8 +282,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     
     // all of the current user's current games (current user is receiver here)
     if (indexPath.section == 0) {
@@ -299,7 +298,7 @@
             // if current user is the receiver for the round (just a safety check if statement)
             if ([[self.selectedGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) {
                 self.opponent = [self.selectedGame objectForKey:@"sender"];
-
+                
                 if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { //  this is the condition if the game already exists but the receiver has yet to send back. he's already played.
                     [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let you create another puzzle, play it, and send it
                 }
@@ -328,19 +327,18 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"startPuzzleScreen"]) {
-         StartPuzzleViewController *startPuzzleViewController = (StartPuzzleViewController *)segue.destinationViewController;
-         startPuzzleViewController.delegate = self;
-         startPuzzleViewController.createdGame = self.selectedGame;
-         startPuzzleViewController.opponent = self.opponent;
-         NSLog(@"Start puzzle screen opening...");
-         NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
-     }
+        StartPuzzleViewController *startPuzzleViewController = (StartPuzzleViewController *)segue.destinationViewController;
+        startPuzzleViewController.delegate = self;
+        startPuzzleViewController.createdGame = self.selectedGame;
+        startPuzzleViewController.opponent = self.opponent;
+        NSLog(@"Start puzzle screen opening...");
+        NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
+    }
     
     else if ([segue.identifier isEqualToString:@"createPuzzle"]) {
         CreatePuzzleViewController *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
         createPuzzleViewController.opponent = self.opponent;
         createPuzzleViewController.createdGame = self.selectedGame;
-        createPuzzleViewController.roundObject = [self.selectedGame objectForKey:@"round"];
         NSLog(@"create puzzle screen opening... the current user has yet to start a new round by playing and sending back.");
         NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
     }
@@ -349,13 +347,11 @@
 
 #pragma mark - delegate methods
 
-- (void)receiveReplyGameData:(PFObject *)selectedGame andOpponent:(PFUser *)opponent andRound:(PFObject *)roundObject {
+- (void)receiveReplyGameData:(PFObject *)selectedGame andOpponent:(PFUser *)opponent {
     self.opponent = opponent;
     self.selectedGame = selectedGame;
-    self.roundObject = roundObject;
-    
     NSLog(@"delegate success. replying... opponent: %@    game: %@", self.opponent, self.selectedGame);
-    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it from CreatePuzzleVC
+    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it
 }
 
 - (void)showLoginScreen {

@@ -36,7 +36,6 @@
     _viewModel.opponent = self.opponent;
     _viewModel.createdGame = self.createdGame;
     _viewModel.puzzleSize = self.puzzleSize;
-    _viewModel.roundObject = self.roundObject;
 }
 
 #pragma mark - view controller methods
@@ -52,14 +51,14 @@
     self.imageView = [UIImageView new];
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.cornerRadius = 5.0f;
-
+    
     self.backButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.backButton.titleLabel.minimumScaleFactor = 0.5;
     self.selectPuzzleSizeButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.selectPuzzleSizeButton.titleLabel.minimumScaleFactor = 0.5;
     self.sendButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.sendButton.titleLabel.minimumScaleFactor = 0.5;
-
+    
     self.currentUser = [PFUser currentUser];
     
     if (self.previewImage) { // if the image was just created by the player (sender) and is saved in memory, display it
@@ -108,12 +107,12 @@
         NSString *puzzleSizeText;
         for(NSInteger i=0 ; i<[picker numberOfComponents] ; i++) {
             self.puzzleSize = [self.puzzleSizes objectAtIndex:[picker selectedRowInComponent:i]];
-           // NSLog(@"index of puzzle size picker %ld", (long)[picker selectedRowInComponent:i]);
+            // NSLog(@"index of puzzle size picker %ld", (long)[picker selectedRowInComponent:i]);
             puzzleSizeText = [NSString stringWithFormat:@"%@%@", @"          ", self.puzzleSize];
         }
         
         NSLog(@"puzzle size selected: %@", self.puzzleSize);
-    
+        
         self.selectPuzzleSizeButton.titleLabel.text = puzzleSizeText;
     }];
     
@@ -121,7 +120,7 @@
     RMAction *cancelAction = [RMAction actionWithTitle:@"Cancel" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
         NSLog(@"Row selection was canceled");
     }];
-
+    
     //Create picker view controller
     RMPickerViewController *pickerController = [RMPickerViewController actionControllerWithStyle:RMActionControllerStyleWhite selectAction:selectAction andCancelAction:cancelAction];
     pickerController.picker.delegate = self;
@@ -155,7 +154,7 @@
             fileType = @"image";
             self.sendButton.userInteractionEnabled = NO;
             NSLog(@"image before upload: %@", self.originalImage);
-   
+            
             // Adds a status below the circle
             [KVNProgress showWithStatus:@"Starting game... Get ready to solve the puzzle as fast as possible."];
             
@@ -168,14 +167,14 @@
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                     [alertView show];
                 }
-               
+                
                 else {
                     [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
                         if (error) {
                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                             [alertView show];
                         }
-                       
+                        
                         else {
                             NSLog(@"this was the uploaded game cloud object: %@", self.createdGame);
                             self.sendButton.userInteractionEnabled = YES;
@@ -209,7 +208,6 @@
         gameViewController.opponent = self.opponent;
         NSLog(@"the opponent %@", gameViewController.opponent);
         gameViewController.createdGame = self.createdGame;
-        gameViewController.roundObject = [self.viewModel getRoundObject];
     }
 }
 
