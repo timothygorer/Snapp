@@ -73,6 +73,7 @@
 		6A8B18EF1E0FD034009CD77D /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8B18CE1E0FD034009CD77D /* TransitionZoom.swift */; };
 		6A8B18F01E0FD034009CD77D /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8B18CF1E0FD034009CD77D /* UnwindSegue.swift */; };
 		6A8B18F11E0FD034009CD77D /* Spring.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6A8B18D01E0FD034009CD77D /* Spring.podspec */; };
+		6A8B193A1E109FC2009CD77D /* GameOverViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8B19391E109FC2009CD77D /* GameOverViewModel.m */; };
 		6A8F2FEF1D45E1020031A8A0 /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F2FEA1D45E1020031A8A0 /* UIImage+Crop.m */; };
 		6A8F2FF01D45E1020031A8A0 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F2FEC1D45E1020031A8A0 /* UIImage+Resize.m */; };
 		6A8F2FF11D45E1020031A8A0 /* ViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F2FEE1D45E1020031A8A0 /* ViewUtils.m */; };
@@ -99,7 +100,6 @@
 		6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AD28CE21B5E092E00BCD802 /* Images.xcassets */; };
 		6AD633911B71EB4C0038A4EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD633901B71EB4C0038A4EB /* Reachability.m */; };
 		6AD6439F1D516C2300121E98 /* PauseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD6439E1D516C2300121E98 /* PauseViewModel.m */; };
-		6AD643A21D5407DB00121E98 /* GameOverViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD643A11D5407DB00121E98 /* GameOverViewModel.m */; };
 		8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 		DE84C7710CB99F87E48A5CF0 /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 /* End PBXBuildFile section */
@@ -207,6 +207,8 @@
 		6A8B18CE1E0FD034009CD77D /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionZoom.swift; sourceTree = "<group>"; };
 		6A8B18CF1E0FD034009CD77D /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
 		6A8B18D01E0FD034009CD77D /* Spring.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Spring.podspec; sourceTree = "<group>"; };
+		6A8B19381E109FC2009CD77D /* GameOverViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewModel.h; sourceTree = "<group>"; };
+		6A8B19391E109FC2009CD77D /* GameOverViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewModel.m; sourceTree = "<group>"; };
 		6A8F2FE91D45E1020031A8A0 /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Crop.h"; sourceTree = "<group>"; };
 		6A8F2FEA1D45E1020031A8A0 /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Crop.m"; sourceTree = "<group>"; };
 		6A8F2FEB1D45E1020031A8A0 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -244,8 +246,6 @@
 		6AD633901B71EB4C0038A4EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Reachability.m; sourceTree = "<group>"; };
 		6AD6439D1D516C2300121E98 /* PauseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewModel.h; sourceTree = "<group>"; };
 		6AD6439E1D516C2300121E98 /* PauseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewModel.m; sourceTree = "<group>"; };
-		6AD643A01D5407DB00121E98 /* GameOverViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverViewModel.h; path = ../GameOverViewModel.h; sourceTree = "<group>"; };
-		6AD643A11D5407DB00121E98 /* GameOverViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOverViewModel.m; path = ../GameOverViewModel.m; sourceTree = "<group>"; };
 		7354A1AD24F487464C975C31 /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
 		FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -297,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				6A508CE31CC3621C0011B317 /* Models */,
+				6A8B19371E0FDBDD009CD77D /* Views */,
 				6AC7129A1D18DF2700D21066 /* View Models */,
 				6A112AA91B5DFB0D0035A75C /* Controllers */,
 				6A112AC31B5DFB0D0035A75C /* Snap ScrambleTests */,
@@ -464,6 +465,20 @@
 			path = Spring;
 			sourceTree = "<group>";
 		};
+		6A8B19371E0FDBDD009CD77D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6AD28CB51B5E06F900BCD802 /* TargetView.h */,
+				6AD28CB61B5E06F900BCD802 /* TargetView.m */,
+				6AD28CB81B5E071D00BCD802 /* PieceView.h */,
+				6AD28CB91B5E071D00BCD802 /* PieceView.m */,
+				6A4AC5031D2E2E2200FA7797 /* PuzzleView.h */,
+				6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */,
+			);
+			name = Views;
+			path = "Snap Scramble";
+			sourceTree = "<group>";
+		};
 		6A8F2FE81D45E0F90031A8A0 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,12 +495,6 @@
 		6AC7129A1D18DF2700D21066 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				6AD28CB51B5E06F900BCD802 /* TargetView.h */,
-				6AD28CB61B5E06F900BCD802 /* TargetView.m */,
-				6AD28CB81B5E071D00BCD802 /* PieceView.h */,
-				6AD28CB91B5E071D00BCD802 /* PieceView.m */,
-				6A4AC5031D2E2E2200FA7797 /* PuzzleView.h */,
-				6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */,
 				6A7C81651D49EC3F00F36C43 /* SignupViewModel.h */,
 				6A7C81661D49EC3F00F36C43 /* SignupViewModel.m */,
 				6A7C81681D49EC5A00F36C43 /* LoginViewModel.h */,
@@ -500,8 +509,8 @@
 				6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */,
 				6AD6439D1D516C2300121E98 /* PauseViewModel.h */,
 				6AD6439E1D516C2300121E98 /* PauseViewModel.m */,
-				6AD643A01D5407DB00121E98 /* GameOverViewModel.h */,
-				6AD643A11D5407DB00121E98 /* GameOverViewModel.m */,
+				6A8B19381E109FC2009CD77D /* GameOverViewModel.h */,
+				6A8B19391E109FC2009CD77D /* GameOverViewModel.m */,
 			);
 			name = "View Models";
 			path = "Snap Scramble";
@@ -740,7 +749,7 @@
 				6A8B18EE1E0FD034009CD77D /* TransitionManager.swift in Sources */,
 				6A8B18DB1E0FD034009CD77D /* DesignableTabBarController.swift in Sources */,
 				6A8B18D41E0FD034009CD77D /* AsyncButton.swift in Sources */,
-				6AD643A21D5407DB00121E98 /* GameOverViewModel.m in Sources */,
+				6A8B193A1E109FC2009CD77D /* GameOverViewModel.m in Sources */,
 				6A4ED85F1D42EB60006213A7 /* FriendsViewModel.m in Sources */,
 				6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */,
 				6A8F2FF11D45E1020031A8A0 /* ViewUtils.m in Sources */,

@@ -16,7 +16,6 @@
 @end
 
 @import UIKit;
-@import Firebase;
 
 @implementation AppDelegate
 
